@@ -3,11 +3,12 @@ package tn.esprit.spring.service.implementations;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Post;
 import tn.esprit.spring.repository.IPostRepository;
 import tn.esprit.spring.service.interfaces.IPostService;
-
+@Service
 public class PostServiceImpl implements IPostService {
 
 	@Autowired
@@ -26,8 +27,8 @@ public class PostServiceImpl implements IPostService {
 	}
 
 	@Override
-	public void deletePost(Post p) {
-		postrep.delete(p);
+	public void deletePost(int id) {
+		postrep.deleteById(id);
 
 	}
 

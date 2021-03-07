@@ -3,11 +3,13 @@ package tn.esprit.spring.service.implementations;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.repository.ICommentRepository;
 import tn.esprit.spring.service.interfaces.ICommentService;
 
+@Service
 public class CommentServiceImpl implements ICommentService {
 
 	@Autowired
@@ -26,8 +28,8 @@ public class CommentServiceImpl implements ICommentService {
 	}
 
 	@Override
-	public void deleteComment(Comment c) {
-		commentrep.delete(c);
+	public void deleteComment(int id) {
+		commentrep.deleteById(id);
 
 	}
 

@@ -10,7 +10,7 @@ public interface ICommentService {
 
 	public void updateComment(Comment c);
 
-	public void deleteComment(Comment c);
+	public void deleteComment(int id);
 
 	public List<Comment> getAllComment();
 

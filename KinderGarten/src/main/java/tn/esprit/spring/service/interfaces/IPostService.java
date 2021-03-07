@@ -10,7 +10,7 @@ public interface IPostService {
 
 	public void updatePost(Post p);
 
-	public void deletePost(Post p);
+	public void deletePost(int id);
 
 	public List<Post> getAllPost();
 

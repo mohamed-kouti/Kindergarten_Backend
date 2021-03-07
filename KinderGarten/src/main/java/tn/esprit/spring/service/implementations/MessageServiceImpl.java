@@ -3,11 +3,13 @@ package tn.esprit.spring.service.implementations;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Message;
 import tn.esprit.spring.repository.IMessageRepository;
 import tn.esprit.spring.service.interfaces.IMessageService;
 
+@Service
 public class MessageServiceImpl implements IMessageService {
 
 	@Autowired
@@ -26,8 +28,8 @@ public class MessageServiceImpl implements IMessageService {
 	}
 
 	@Override
-	public void deleteMessage(Message m) {
-		messagerep.delete(m);
+	public void deleteMessage(int id) {
+		messagerep.deleteById(id);
 
 	}
 
