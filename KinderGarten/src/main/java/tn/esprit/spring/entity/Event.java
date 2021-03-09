@@ -3,9 +3,10 @@ package tn.esprit.spring.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,6 +35,8 @@ public class Event implements Serializable {
 	private String photo;
 	private int nbr_participants;
 	private String place;
+	// enumeration
+	@Enumerated(EnumType.STRING)
 	private Type type;
 	@ManyToOne
 	private KinderGarten kindergarten;
