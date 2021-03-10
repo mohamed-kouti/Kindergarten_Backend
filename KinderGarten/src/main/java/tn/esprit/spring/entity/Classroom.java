@@ -23,10 +23,16 @@ public class Classroom implements Serializable {
 	private int id;
 	private String name;
 	private int nbr_max;
+	private int nbInscrit;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "classroom")
 	private List<Child> childs;
 	@ManyToOne
 	private KinderGarten kindergarten;
+	
+
+	public Classroom() {
+		super();
+	}
 
 	public int getId() {
 		return id;
@@ -34,6 +40,15 @@ public class Classroom implements Serializable {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+
+	public int getNbInscrit() {
+		return nbInscrit;
+	}
+
+	public void setNbInscrit(int nbInscrit) {
+		this.nbInscrit = nbInscrit;
 	}
 
 	public String getName() {
@@ -66,6 +81,12 @@ public class Classroom implements Serializable {
 
 	public void setKindergarten(KinderGarten kindergarten) {
 		this.kindergarten = kindergarten;
+	}
+
+	@Override
+	public String toString() {
+		return "Classroom [id=" + id + ", name=" + name + ", nbr_max=" + nbr_max + ", nbInscrit=" + nbInscrit
+				+ ", childs=" + childs + ", kindergarten=" + kindergarten + "]";
 	}
 
 }

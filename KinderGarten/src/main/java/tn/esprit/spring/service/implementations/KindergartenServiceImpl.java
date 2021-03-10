@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import tn.esprit.spring.entity.KinderGarten;
-import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.IKindergartenRepository;
 import tn.esprit.spring.service.interfaces.IKindergartenService;
 
@@ -22,7 +20,7 @@ public class KindergartenServiceImpl implements IKindergartenService {
 	@Override
 	public List<KinderGarten> getAllkindergarten() {
 		
-		return (List<KinderGarten>)  kindergartenRepo.findAll() ;	
+		return (List<KinderGarten>)  kindergartenRepo.findAll();
 		}
 
 
@@ -47,8 +45,45 @@ public class KindergartenServiceImpl implements IKindergartenService {
 	}
 
 
+	@Override
+	public List<KinderGarten> getKinderGartenByName(String k) {
+		return kindergartenRepo.getKindergartenByName(k);
+	}
+
+
+	@Override
+	public List<KinderGarten> getKinderGartenByPlace(String p) {
+		// TODO Auto-generated method stub
+		return kindergartenRepo.getKindergartenByPlace(p);
+	}
+	
+
+/*	@Override
+	public List<Claim> getClaimByKindergarden(String k) {
+		// TODO Auto-generated method stub
+		return cr.getClaimByKindergarden(k);
+	}
+	*/
 	
 	
+	//public List<KinderGarten> findByNameLike(String name){
+		//return kindergartenRepo.findByNameLike("%"+name+"%");
+		//}
 	
+	/*public List<Product> listAll(String keyword) {
+        if (keyword != null) {
+            return repo.search(keyword);
+        }
+        return repo.findAll();
+    }
+  */
+	/*public List<KinderGarten> listAll(String keyword) {
+		if (keyword != null) {
+			return kindergartenRepo.search(keyword);
+		}
+		return kindergartenRepo.findAll();
+	}
+	*/
+
 	
 }

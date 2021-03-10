@@ -17,6 +17,7 @@ public class KinderGarten_owner extends User implements Serializable {
 	
 	@OneToOne(mappedBy = "kinder")
 	private KinderGarten kindergarten;
+	
 	@OneToMany(mappedBy = "garten_owner")
 	private List<Appointment> appointments;
 
