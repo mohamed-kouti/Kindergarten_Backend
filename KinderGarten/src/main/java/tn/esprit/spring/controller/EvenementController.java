@@ -1,6 +1,7 @@
 package tn.esprit.spring.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,41 +15,84 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import tn.esprit.spring.entity.Event;
-import tn.esprit.spring.service.interfaces.IEventService;
+import tn.esprit.spring.entity.Type;
+import tn.esprit.spring.service.implementations.EventServiceImpl;
 
 @RestController
 @RequestMapping(path = "/event")
 public class EvenementController {
  
 	@Autowired
-	IEventService eventService;
+	EventServiceImpl eventServiceImpl;
 	
+	//retourner tous les events
 	@GetMapping(value="/retrieves-all-event")
 	@ResponseBody
 	public List<Event> getEvent()
 	{
-		List<Event> list= eventService.retreiveAllEvent();
+		List<Event> list= eventServiceImpl.retreiveAllEvent();
 		return list;
 	}
 	
+	//retourner evenement par id
+	@GetMapping(value="/get-event/{id}")
+	@ResponseBody
+	public Event getEvent(@PathVariable("id") int id)
+	{
+		return eventServiceImpl.getEventById(id);
+	}
+	
+	//ajouter un événement
 	@PostMapping(value="/save-event")
 	public Event saveEvent(@RequestBody Event ev){
-		eventService.AddEvent(ev);
+		eventServiceImpl.AddEvent(ev);
 		return ev;
 	}
 	
+	//mettre à jour un evenement
 	@PutMapping("/update-event")
 	@ResponseBody
 	public ResponseEntity<String> UpdateEvent(@RequestBody Event ev){
-		eventService.UpdateEvent(ev);
+		eventServiceImpl.UpdateEvent(ev);
 		return new ResponseEntity<String>("Event Updated Successfully",HttpStatus.OK);
 	}
 	
+	//supprimer un event par id
 	@DeleteMapping(value="/delete/{id}")
 	public ResponseEntity<String> DeleteEvent(@PathVariable int id){
-		eventService.DeleteEvent(id);
+		eventServiceImpl.DeleteEvent(id);
 		return new ResponseEntity<String>("Event Deleted succssefully",HttpStatus.OK );
 	}
+	
+	//afficher event par nom
+	@GetMapping(value="/Display-Name/{name}")
+	public Event findEventByName(@PathVariable String name){
+		Event e=eventServiceImpl.findEventByName(name);
+		return e;
+	}
+	
+	//afficher event par type
+	@GetMapping(value="/Display-Type/{type}")
+	public List<Event> filterEvent(@PathVariable Type type){
+		List<Event> e= eventServiceImpl.filterEvent(type);
+		return e; 
+	}
+	
+	//retourner les evenet 
+	@GetMapping("/event/Events-By-Views")
+	public Map<Integer, Integer> bestEventsByViews(){
+		return eventServiceImpl.getEventsByViews();
+		}
+	
+	//retourner les evnets les plus visités
+	@GetMapping("/event/MostVisitedEvents")
+	public List<String> MostVisitedEvents(){
+		return eventServiceImpl.MostVisitedEvents();
+		}
+	
+	
+	
+	
+	
 }
