@@ -58,25 +58,12 @@ public class KindergartenServiceImpl implements IKindergartenService {
 	}
 	
 
-/*	@Override
-	public List<Claim> getClaimByKindergarden(String k) {
-		// TODO Auto-generated method stub
-		return cr.getClaimByKindergarden(k);
-	}
-	*/
 	
 	
 	//public List<KinderGarten> findByNameLike(String name){
 		//return kindergartenRepo.findByNameLike("%"+name+"%");
 		//}
 	
-	/*public List<Product> listAll(String keyword) {
-        if (keyword != null) {
-            return repo.search(keyword);
-        }
-        return repo.findAll();
-    }
-  */
 	/*public List<KinderGarten> listAll(String keyword) {
 		if (keyword != null) {
 			return kindergartenRepo.search(keyword);

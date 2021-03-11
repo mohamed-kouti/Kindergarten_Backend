@@ -38,7 +38,6 @@ public class Child implements Serializable {
 	private Classroom classroom;
 	
 	
-	
 	public Child() {
 		super();
 	}

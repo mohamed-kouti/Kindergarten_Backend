@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,8 +25,10 @@ public class Classroom implements Serializable {
 	private String name;
 	private int nbr_max;
 	private int nbInscrit;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "classroom")
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "classroom",fetch= FetchType.EAGER)
 	private List<Child> childs;
+	
 	@ManyToOne
 	private KinderGarten kindergarten;
 	

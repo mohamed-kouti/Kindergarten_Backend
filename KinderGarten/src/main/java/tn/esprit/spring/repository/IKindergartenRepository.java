@@ -25,25 +25,11 @@ public interface IKindergartenRepository extends CrudRepository<KinderGarten, In
 	
 	//List<KinderGarten> findByNameLike(String name);
 	
-	 /*@Query("SELECT p FROM Product p WHERE p.name LIKE %?1%"
-	            + " OR p.brand LIKE %?1%"
-	            + " OR p.madein LIKE %?1%"
-	            + " OR CONCAT(p.price, '') LIKE %?1%")
-	    public List<Product> search(String keyword);
-	*/
-	
-	/*@Query("SELECT p FROM Product p WHERE CONCAT(p.name, ' ', p.brand, ' ', p.madein, ' ', p.price) LIKE %?1%")*/
-
-	
-	/*@Query("SELECT k FROM KinderGarten k WHERE k.name LIKE %?1%"
+	 /*@Query("SELECT k FROM KinderGarten k WHERE k.name LIKE %?1%"
 			+ " OR k.place LIKE %?1%")
 	public List<KinderGarten> search(String keyword);*/
 	
 
-	/*@Query("SELECT c FROM Claim c WHERE c.kindergarden.name =:name")
-	public List<Claim> getClaimByKindergarden(@Param("name")String k);*/
-	
-	
 	
 	
 

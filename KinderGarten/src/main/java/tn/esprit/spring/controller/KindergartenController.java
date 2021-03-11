@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Classroom;
 import tn.esprit.spring.entity.KinderGarten;
+import tn.esprit.spring.service.implementations.ChildServiceImpl;
 import tn.esprit.spring.service.implementations.ClassroomServiceImpl;
 import tn.esprit.spring.service.implementations.KindergartenServiceImpl;
 
@@ -26,6 +29,8 @@ public class KindergartenController {
 	
 	@Autowired
 	ClassroomServiceImpl  classeService;
+	@Autowired
+	ChildServiceImpl childService;
 	
 	
 	//http://localhost:8081/kindergarten/servlet/kindergarten/retrieve-all-kindergarten
@@ -63,7 +68,24 @@ public class KindergartenController {
 		public void removeKindergarten(@PathVariable("kinder-id") int id) 
 		{
 			kindergartenService.deleteKindergartenById(id);
+			
 		}
+		
+		//Search kindergarten with name and place
+		
+   //http://localhost:8081/kindergarten/servlet/kindergarten/retrieve-kindergardenBy/{name}
+    @GetMapping("/retrieve-kindergardenBy/{name}")			
+    public List<KinderGarten> getKinderGartenByName(@PathVariable String name){
+	  List<KinderGarten> k = kindergartenService.getKinderGartenByName(name);
+	  return k;
+  }
+  
+  //http://localhost:8081/kindergarten/servlet/kindergarten/retrieve-kindergardenByPlace/{place}
+    @GetMapping("/retrieve-kindergardenByPlace/{place}")			
+    public List<KinderGarten> getKinderGartenByPlace(@PathVariable String place){
+	  List<KinderGarten> p = kindergartenService.getKinderGartenByPlace(place);
+	  return p;
+  }
 	
 		//crud entite Classroom
 		
@@ -101,20 +123,7 @@ public class KindergartenController {
 					classeService.deleteClassById(id);
 				}
 				
-				
-	  //http://localhost:8081/kindergarten/servlet/kindergarten/retrieve-kindergardenBy/{name}
-	  @GetMapping("/retrieve-kindergardenBy/{name}")			
-	  public List<KinderGarten> getKinderGartenByName(@PathVariable String name){
-		  List<KinderGarten> k = kindergartenService.getKinderGartenByName(name);
-		  return k;
-	  }
-	  
-	//http://localhost:8081/kindergarten/servlet/kindergarten/retrieve-kindergardenByPlace/{place}
-	  @GetMapping("/retrieve-kindergardenByPlace/{place}")			
-	  public List<KinderGarten> getKinderGartenByPlace(@PathVariable String place){
-		  List<KinderGarten> p = kindergartenService.getKinderGartenByPlace(place);
-		  return p;
-	  }
+	
 	  
 	  // method for entity classroom
 	  
@@ -130,4 +139,52 @@ public class KindergartenController {
 		public List<Classroom> displayDaycareNonSaturated() {
 			return classeService.displayClassroomNonSaturated();
 		}
-	}
+		
+		  // crud entity Child
+		
+		//http://localhost:8081/kindergarten/servlet/kindergarten/child/add-child
+		@PostMapping("/child/add-child")
+		public Child addChild(@RequestBody Child c){
+			return childService.addChild(c);
+		}
+		
+		//http://localhost:8081/kindergarten/servlet/kindergarten/child/update-child
+		@PutMapping("/child/update-child")
+		@ResponseBody
+		public Child updateChild(@RequestBody Child c)
+		{
+			return childService.updateChild(c);
+		}
+		
+
+		//http://localhost:8081/kindergarten/servlet/kindergarten/child/getAll
+		@GetMapping("/child/getAll")
+		public List<Child> getAllChild(){
+			return childService.getAllChildren();
+		}
+		
+		//http://localhost:8081/kindergarten/servlet/kindergarten/child/getBy/{idChild}
+		@GetMapping("/child/getBy/{idChild}")
+		public Child getChildById(@PathVariable("idChild") int id){
+			return childService.getChild(id);
+		}
+		//http://localhost:8081/kindergarten/servlet/kindergarten/child/del/{idChild}
+		@DeleteMapping("/child/del/{idChild}")
+		public void deleteChild(@PathVariable("idChild") int id) {
+			childService.deleteChild(id);
+		}
+	
+		//http://localhost:8081/kindergarten/servlet/kindergarten/child/classroom/aff/{idChild}/{idClasse}
+		@PutMapping("/child/classroom/aff/{idChild}/{idClasse}")
+		public Child affectChildToClass(@PathVariable("idChild") int idChild, @PathVariable("idClasse") int idClasse){
+			return childService.affectChildtoClass(idChild, idClasse);
+		}
+		
+		//http://localhost:8081/kindergarten/servlet/kindergarten/child/classroom/delete/{idChild}/{idClasse}
+		@PutMapping("/child/classroom/delete/{idChild}/{idClasse}")
+		public Child deleteChildFromClasse(@PathVariable("idChild") int idChild,@PathVariable("idClasse") int idClasse){
+			return childService.deleteChildFromClasse(idChild, idClasse);
+		}
+		
+		
+}
