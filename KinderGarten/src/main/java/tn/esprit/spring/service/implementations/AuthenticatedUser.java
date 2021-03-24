@@ -16,12 +16,15 @@ public class AuthenticatedUser extends org.springframework.security.core.userdet
 	private static final long serialVersionUID = 1L;
 	private User user;
 	@Autowired
-	static IUserRepository userRepository;
+	IUserRepository userrep;
+	static String role;
+	
 
 
 	public AuthenticatedUser(User user) {
 		super(user.getEmail(), user.getPassword(), getAuthorities(user));
 		this.user = user;
+		role=userrep.getRole(user.getEmail());
 	}
 
 	public User getUser() {
@@ -29,12 +32,10 @@ public class AuthenticatedUser extends org.springframework.security.core.userdet
 	}
 
 	private static Collection<? extends GrantedAuthority> getAuthorities(User user) {
-		String r=userRepository.getRole(user.getEmail());
-		r=r.toUpperCase();
-		System.out.println(r);
+	
 				
 				Collection<GrantedAuthority> authorities = AuthorityUtils
-						.createAuthorityList("ROLE_"+r);
+						.createAuthorityList("ROLE_"+role.toUpperCase());
 				return authorities;
 	}
 }

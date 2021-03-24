@@ -39,8 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.httpBasic().and().authorizeRequests()
-		.antMatchers("/**").authenticated()
-		.anyRequest().authenticated()
+		.antMatchers("/").authenticated()
+		.anyRequest().hasAnyRole("PARENT","ADMIN","KINDERGARTEN_OWNER")
 				.and()
 				.csrf().disable().headers().frameOptions().disable()
 				.and()

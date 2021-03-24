@@ -1,5 +1,6 @@
 package tn.esprit.spring.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
@@ -13,5 +14,11 @@ public interface IUserRepository extends CrudRepository<User, Integer> {
 
 	@Query(value ="select dtype from user u where u.email= :mail ",nativeQuery = true )
 	String getRole(@Param("mail")String mail);
+	
+	@Query(value ="select * from user u where u.dtype='Parent' ",nativeQuery = true )
+	List<User> getAllParent();
+	
+	@Query(value ="select * from user u where u.dtype='Admin' ",nativeQuery = true )
+	List<User> getAllAdmin();
 
 }

@@ -1,5 +1,7 @@
 package tn.esprit.spring.service.implementations;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,47 @@ public class UserServiceImpl implements IUserService {
 		a.setPassword(ep);
 		userrep.save(a);
 	}
+
+	@Override
+	public void deleteUser(int id) {
+		userrep.deleteById(id);
+		
+	}
+
+	
+	@Override
+	public void updateParent(Parent p) {
+		userrep.save(p);
+	}
+
+	@Override
+	public void updateKgowner(KinderGarten_owner k) {
+		userrep.save(k);
+	}
+
+	@Override
+	public List<User> getAllParents() {
+		return (List<User>) userrep.getAllParent();
+		
+	}
+
+	@Override
+	public List<User> getAllAdmins() {
+		return (List<User>) userrep.getAllAdmin();
+	}
+
+	@Override
+	public void updateAdmin(Admin a) {
+		userrep.save(a);
+		
+	}
+
+	
+	
+	
+	
 	
 
+	
+	
 }
