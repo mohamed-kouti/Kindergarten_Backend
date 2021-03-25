@@ -3,6 +3,9 @@ package tn.esprit.spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Message;
 import tn.esprit.spring.entity.Post;
+import tn.esprit.spring.entity.User;
+import tn.esprit.spring.repository.IUserRepository;
 import tn.esprit.spring.service.interfaces.ICommentService;
 import tn.esprit.spring.service.interfaces.IMessageService;
 import tn.esprit.spring.service.interfaces.IPostService;
@@ -30,6 +35,10 @@ public class ChatController {
 	ICommentService commentser;
 	@Autowired
 	IMessageService messageser;
+	@Autowired
+	IUserRepository userServiceInterface;
+	@Autowired
+	SimpMessagingTemplate simpMessagingTemplate;
 
 	@PostMapping("/add-post")
 	@ResponseBody
@@ -102,4 +111,28 @@ public class ChatController {
 	public List<Comment> getAllComment() {
 		return commentser.getAllComment();
 	}
+
+	@MessageMapping("/chat/{to}")
+	public void sendMessage(@DestinationVariable String to, Message message) {
+		User destination = userServiceInterface.findByFname(to);
+		User sender = userServiceInterface.findByFname(message.getFromLogin());
+
+		messageser.addMessage(message);
+
+		simpMessagingTemplate.convertAndSend("/topic/messages/" + to, message);
+
+	}
+
+	@GetMapping("/send/{msg}/{from}/{to}")
+	public void send(@PathVariable("msg") String msg, @PathVariable("from") String from,
+			@PathVariable("to") String to) {
+		Message ms = new Message();
+		ms.setFromLogin(from);
+
+		ms.setMessage(msg);
+		messageser.addMessage(ms);
+
+		simpMessagingTemplate.convertAndSend("/topic/messages/" + to, ms);
+	}
+
 }

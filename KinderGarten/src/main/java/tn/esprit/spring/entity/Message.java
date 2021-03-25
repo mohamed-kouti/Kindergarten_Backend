@@ -21,7 +21,9 @@ public class Message implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String msg;
+	private String message;
+
+	private String fromLogin;
 	@Temporal(TemporalType.DATE)
 	private Date date_msg;
 	@ManyToOne
@@ -35,20 +37,12 @@ public class Message implements Serializable {
 		this.id = id;
 	}
 
-	public String getMsg() {
-		return msg;
-	}
-
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
-
 	public Date getDate_msg() {
 		return date_msg;
 	}
 
-	public void setDate_msg(Date date_msg) {
-		this.date_msg = date_msg;
+	public void setDate_msg(Date l) {
+		this.date_msg = l;
 	}
 
 	public User getUser() {
@@ -57,6 +51,22 @@ public class Message implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getFromLogin() {
+		return fromLogin;
+	}
+
+	public void setFromLogin(String fromLogin) {
+		this.fromLogin = fromLogin;
 	}
 
 }
