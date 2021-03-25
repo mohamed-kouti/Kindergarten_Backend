@@ -22,6 +22,8 @@ public interface IUserService {
 	public void addAdmin(Admin a);
 	public List<User> getAllAdmins();
 	public void updateAdmin(Admin a);
+	void BlockUser(int id);
+	void ActifUser(int id);
 	
 	
 }

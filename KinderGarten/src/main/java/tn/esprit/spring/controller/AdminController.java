@@ -80,5 +80,17 @@ public class AdminController {
 		userser.updateAdmin(a);
 	}
 	
+	@PutMapping("/blockuser/{id}")
+	@ResponseBody
+	public void blockUser(@PathVariable("id") int id) {
+		userser.BlockUser(id);
+	}
+	
+	@PutMapping("/actifuser/{id}")
+	@ResponseBody
+	public void actifUser(@PathVariable("id") int id) {
+		userser.ActifUser(id);
+	}
+	
 	
 }

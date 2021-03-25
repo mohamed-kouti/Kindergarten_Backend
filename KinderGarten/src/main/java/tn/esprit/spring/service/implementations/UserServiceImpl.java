@@ -78,6 +78,19 @@ public class UserServiceImpl implements IUserService {
 		userrep.save(a);
 		
 	}
+	
+	@Override
+	public void BlockUser(int id) {
+		userrep.blockUser(id);
+		
+	}
+	
+	
+	@Override
+	public void ActifUser(int id) {
+		userrep.actifUser(id);
+		
+	}
 
 	
 	
