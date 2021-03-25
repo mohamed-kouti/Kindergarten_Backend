@@ -17,4 +17,5 @@ public interface IClassroomService {
 	   public List<Classroom> dispalyClassroomSaturated();
 		
        public List<Classroom> displayClassroomNonSaturated();
+       public String affecterClassesToKinderG(int idclasse, int idkinderG);
 }

@@ -1,9 +1,14 @@
 package tn.esprit.spring.service.implementations;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.repository.IKindergartenRepository;
 import tn.esprit.spring.service.interfaces.IKindergartenService;
@@ -59,7 +64,59 @@ public class KindergartenServiceImpl implements IKindergartenService {
 	
 
 	
-	
+
+		@Override
+		public KinderGarten getKinderGById(int id) {
+			int countView;
+			KinderGarten e = kindergartenRepo.findById(id).get();
+			if(e == null) return null;
+			
+			e.setViews(e.getViews()+1);
+		    countView = kindergartenRepo.updateViewCountKinderG(e.getViews()-1,e.getId());
+				countView++;
+				
+			return e ;  
+
+		}
+
+
+		
+		// affiche les 4 les plus visités
+				@Override
+				public List<String> displayBestKinderGartensByViews() {
+					
+					List<String>list = new ArrayList<>();
+					String s ="";
+					List<Integer>listId = new ArrayList<>();
+					List<Integer>listViews = new ArrayList<>();
+					
+					List<KinderGarten> listG = (List<KinderGarten>)kindergartenRepo.findAll();
+					
+					for(KinderGarten k : listG) {
+						listId.add(k.getId());
+						listViews.add(k.getViews());
+						}
+					
+					List<Integer> sortedList = new ArrayList<>(listViews);
+					
+					Collections.sort(sortedList);
+					
+					for(int i = 0 ; i<3 ; i++) {
+						int max = sortedList.get(sortedList.size()-1);
+						int ind = listId.get(listViews.indexOf(max));
+						s = (i+1)+"--kindergarten: "+kindergartenRepo.findById(ind).get().getName()+"=with"+max+" views";
+						list.add(s);
+						sortedList.remove(sortedList.size()-1);
+						listViews.set(listViews.indexOf(max), -1);
+						}
+					return list;
+				}
+
+
+		
+		
+		
+		
 	//public List<KinderGarten> findByNameLike(String name){
 		//return kindergartenRepo.findByNameLike("%"+name+"%");
 		//}

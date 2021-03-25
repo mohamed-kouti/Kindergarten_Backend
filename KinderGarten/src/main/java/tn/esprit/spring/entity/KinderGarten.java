@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -29,30 +30,46 @@ public class KinderGarten implements Serializable {
 	private int phone;
 	private float price;
 	private String description;
-	private String logo;
 	private String place;
+	@Lob
+	private byte[] logo;
+	
+
 	private int nbr_emp;
 	@Temporal(TemporalType.DATE)
 	private Date date_creation;
+	
+	private int views;
+	
+	@Temporal(TemporalType.DATE)
+	private Date datefinInscrit; 
+	
 	@OneToOne
 	private KinderGarten_owner kinder;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kindergarten")
 	private List<Event> events;
 	@OneToMany(mappedBy = "garten")
 	private List<Satisfaction> satisfactions;
 	@OneToMany(mappedBy = "garten")
 	private List<Complaint_kinder> complaint_kinders;
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kindergarten")
 	private List<Classroom> classrooms;
 
 	public int getId() {
 		return id;
 	}
-
-	public void setId(int id) {
+    public void setId(int id) {
 		this.id = id;
 	}
-
+	
+	public Date getDatefinInscrit() {
+		return datefinInscrit;
+	}
+	public void setDatefinInscrit(Date datefinInscrit) {
+		this.datefinInscrit = datefinInscrit;
+	}
 	public String getName() {
 		return name;
 	}
@@ -85,11 +102,13 @@ public class KinderGarten implements Serializable {
 		this.description = description;
 	}
 
-	public String getLogo() {
+	
+
+	public byte[] getLogo() {
 		return logo;
 	}
 
-	public void setLogo(String logo) {
+	public void setLogo(byte[] logo) {
 		this.logo = logo;
 	}
 
@@ -116,7 +135,14 @@ public class KinderGarten implements Serializable {
 	public void setDate_creation(Date date_creation) {
 		this.date_creation = date_creation;
 	}
+	
 
+	public int getViews() {
+		return views;
+	}
+	public void setViews(int views) {
+		this.views = views;
+	}
 	public KinderGarten_owner getKinder() {
 		return kinder;
 	}

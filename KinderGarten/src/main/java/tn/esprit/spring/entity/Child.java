@@ -31,6 +31,9 @@ public class Child implements Serializable {
 	private String gender;
 	private String address;
 	
+	@Temporal(TemporalType.DATE)
+	private Date dateInscrit;
+	
 
 	@ManyToOne
 	private Parent parent;
@@ -80,6 +83,14 @@ public class Child implements Serializable {
 	}
 
 
+	public Date getDateInscrit() {
+		return dateInscrit;
+	}
+
+	public void setDateInscrit(Date dateInscrit) {
+		this.dateInscrit = dateInscrit;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -124,7 +135,10 @@ public class Child implements Serializable {
 	@Override
 	public String toString() {
 		return "Child [id=" + id + ", fname=" + fname + ", lname=" + lname + ", birthDate=" + birthDate + ", gender="
-				+ gender + ", address=" + address + ", parent=" + parent + ", classroom=" + classroom + "]";
+				+ gender + ", address=" + address + ", dateInscrit=" + dateInscrit + ", parent=" + parent
+				+ ", classroom=" + classroom + "]";
 	}
+
+	
 
 }

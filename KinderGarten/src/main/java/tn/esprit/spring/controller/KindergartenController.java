@@ -1,6 +1,10 @@
+
+
+
 package tn.esprit.spring.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Classroom;
@@ -185,6 +190,23 @@ public class KindergartenController {
 		public Child deleteChildFromClasse(@PathVariable("idChild") int idChild,@PathVariable("idClasse") int idClasse){
 			return childService.deleteChildFromClasse(idChild, idClasse);
 		}
-		
+	    //http://localhost:8081/kindergarten/servlet/kindergarten/kinderG/retrieve-kinderG-ById/{id}
+		@GetMapping("/kinderG/retrieve-kinderG-ById/{id}")
+		public KinderGarten getKinderGById(@PathVariable("id") int id) {
+			KinderGarten k = kindergartenService.getKinderGById(id);
+			 return k;
+		}
+		//http://localhost:8081/kindergarten/servlet/kindergarten/kinderG/displaybestKinderGByViews
+		@GetMapping("/kinderG/displaybestKinderGByViews")
+		public List<String> displaybestEventsByViews(){
+			return kindergartenService.displayBestKinderGartensByViews();
+			}
+		//http://localhost:8081/kindergarten/servlet/kindergarten/classroom/affectToKinderG/{idclasse}/{idkinder}
+		@PutMapping("/classroom/affectToKinderG/{idclasse}/{idkinder}")  
+		 private String affectClassTokKinderG(@PathVariable("idclasse")int idclasse,@PathVariable("idkinder")int idkinder)   
+		  {  
+			return classeService.affecterClassesToKinderG(idclasse, idkinder);
+		  }
+			
 		
 }

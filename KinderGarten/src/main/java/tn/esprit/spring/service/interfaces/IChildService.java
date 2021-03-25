@@ -15,5 +15,6 @@ public interface IChildService {
 	public Child affectChildtoClass(int idChild, int idClasse);
 	public Child deleteChildFromClasse(int idChild,int idClasse);
 	
+	
 
 }

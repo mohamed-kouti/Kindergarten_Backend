@@ -25,8 +25,9 @@ public class Classroom implements Serializable {
 	private String name;
 	private int nbr_max;
 	private int nbInscrit;
+	//,fetch= FetchType.EAGER
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "classroom",fetch= FetchType.EAGER)
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "classroom" ,fetch= FetchType.EAGER)
 	private List<Child> childs;
 	
 	@ManyToOne
