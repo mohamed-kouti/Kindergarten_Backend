@@ -36,8 +36,6 @@ public class KinderGarten implements Serializable {
 	private Date date_creation;
 	@OneToOne
 	private KinderGarten_owner kinder;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kindergarten")
-	private List<Event> events;
 	@OneToMany(mappedBy = "garten")
 	private List<Satisfaction> satisfactions;
 	@OneToMany(mappedBy = "garten")
@@ -123,14 +121,6 @@ public class KinderGarten implements Serializable {
 
 	public void setKinder(KinderGarten_owner kinder) {
 		this.kinder = kinder;
-	}
-
-	public List<Event> getEvents() {
-		return events;
-	}
-
-	public void setEvents(List<Event> events) {
-		this.events = events;
 	}
 
 	public List<Satisfaction> getSatisfactions() {

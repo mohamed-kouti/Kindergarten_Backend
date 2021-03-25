@@ -1,8 +1,10 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,12 +15,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -33,95 +38,109 @@ public class Event implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	@Column(name = "tite")
+	@Column(name = "title")
 	private String title;
 	@Temporal(TemporalType.DATE)
 	private Date date_begin;
+	@Temporal(TemporalType.TIME)
+	@DateTimeFormat(style = "hh:mm")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm")
+	private Date hour;
 	@Temporal(TemporalType.DATE)
 	private Date date_end;
 	@Column(name = "description")
 	private String description;
-	// nombre des participants
-	@Column(name = "nbr_participants")
-	private int nbr_participants;
 	// adresse ou se deroulera l'evenement
 	@Column(name = "place")
 	private String place;
 	@Column(name = "photo")
-	private String photo;
+	@Lob
+	private byte[] photo;
 	// prix du ticket
 	@Column(name = "Price")
 	private float Price;
+	@Column(name = "collAmount")
+	private float collAmount;
+	// nombre des participants
+	@Column(name = "nbr_participants")
+	private int nbr_participants;
 	// nombre des places disponibles
 	@Column(name = "Nbr_places")
 	private int Nbr_places;
+	private boolean earlyParticipants;
+	private int nbrTicketEarlyParticipants;
 	// liste des types d'évenements organisés par JE
 	@Enumerated(EnumType.STRING)
 	private Type type;
 	private int views;
-
-	@ManyToOne
-	private KinderGarten kindergarten;
-	/*
-	 * @OneToMany(cascade = CascadeType.ALL, mappedBy = "event") private
-	 * List<Jackpot> jackpots;
-	 */
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+	private Set<Participation> participations;
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Jackpot jackpot;
-	/*
-	 * @JsonIgnore
-	 * 
-	 * @OneToMany(cascade= CascadeType.ALL, mappedBy="event", fetch=
-	 * FetchType.EAGER) private Set<Notification> notifications;
-	 */
+	private float discountPercentage;
 	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "event",fetch= FetchType.EAGER)
-	private List<Donnation> donnations;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "event", fetch = FetchType.EAGER)
+	private List<Donnation> donnation;
 	
-	public Event(int id, String title, Date date_begin, Date date_end, String description,
-			int nbr_participants, String place, String photo, float price, int nbr_places, Type type, int views,
-			KinderGarten kindergarten, Jackpot jackpot, List<Donnation> donnations) {
+	public Event() {
+		super();
+	}
+
+	
+	public Event(int id, String title, Date date_begin, Date hour, Date date_end, String description, String place,
+			byte[] photo, float price, float collAmount, int nbr_participants, int nbr_places,
+			boolean earlyParticipants, int nbrTicketEarlyParticipants, Type type, int views,
+			Set<Participation> participations, Jackpot jackpot,float discountPercentage, List<Donnation> donnation) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.date_begin = date_begin;
+		this.hour = hour;
 		this.date_end = date_end;
 		this.description = description;
-		this.nbr_participants = nbr_participants;
 		this.place = place;
 		this.photo = photo;
-		this.Price = price;
-		this.Nbr_places = nbr_places;
+		Price = price;
+		this.collAmount = collAmount;
+		this.nbr_participants = nbr_participants;
+		Nbr_places = nbr_places;
+		this.earlyParticipants = earlyParticipants;
+		this.nbrTicketEarlyParticipants = nbrTicketEarlyParticipants;
 		this.type = type;
 		this.views = views;
-		this.kindergarten = kindergarten;
+		this.participations = participations;
 		this.jackpot = jackpot;
-		this.donnations = donnations;
+		this.discountPercentage = discountPercentage;
+		this.donnation = donnation;
 	}
 
-	public Event(String title, Date date_begin, Date date_end, String description, int nbr_participants,
-			String place, String photo, float price, int nbr_places, Type type, int views, KinderGarten kindergarten,
-			Jackpot jackpot, List<Donnation> donnations) {
+
+	public Event(String title, Date date_begin, Date hour, Date date_end, String description, String place,
+			byte[] photo, float price, float collAmount, int nbr_participants, int nbr_places,
+			boolean earlyParticipants, int nbrTicketEarlyParticipants, Type type, int views,
+			Set<Participation> participations, Jackpot jackpot, float discountPercentage, List<Donnation> donnation) {
 		super();
 		this.title = title;
 		this.date_begin = date_begin;
+		this.hour = hour;
 		this.date_end = date_end;
 		this.description = description;
-		this.nbr_participants = nbr_participants;
 		this.place = place;
 		this.photo = photo;
-		this.Price = price;
-		this.Nbr_places = nbr_places;
+		Price = price;
+		this.collAmount = collAmount;
+		this.nbr_participants = nbr_participants;
+		Nbr_places = nbr_places;
+		this.earlyParticipants = earlyParticipants;
+		this.nbrTicketEarlyParticipants = nbrTicketEarlyParticipants;
 		this.type = type;
 		this.views = views;
-		this.kindergarten = kindergarten;
+		this.participations = participations;
 		this.jackpot = jackpot;
-		this.donnations = donnations;
+		this.discountPercentage = discountPercentage;
+		this.donnation = donnation;
 	}
 
-	public Event() {
-		super();
-	}
 
 	public int getId() {
 		return id;
@@ -147,6 +166,14 @@ public class Event implements Serializable {
 		this.date_begin = date_begin;
 	}
 
+	public Date getHour() {
+		return hour;
+	}
+
+	public void setHour(Date hour) {
+		this.hour = hour;
+	}
+
 	public Date getDate_end() {
 		return date_end;
 	}
@@ -163,14 +190,6 @@ public class Event implements Serializable {
 		this.description = description;
 	}
 
-	public int getNbr_participants() {
-		return nbr_participants;
-	}
-
-	public void setNbr_participants(int nbr_participants) {
-		this.nbr_participants = nbr_participants;
-	}
-
 	public String getPlace() {
 		return place;
 	}
@@ -179,11 +198,11 @@ public class Event implements Serializable {
 		this.place = place;
 	}
 
-	public String getPhoto() {
+	public byte[] getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(String photo) {
+	public void setPhoto(byte[] photo) {
 		this.photo = photo;
 	}
 
@@ -195,12 +214,44 @@ public class Event implements Serializable {
 		Price = price;
 	}
 
+	public float getCollAmount() {
+		return collAmount;
+	}
+
+	public void setCollAmount(float collAmount) {
+		this.collAmount = collAmount;
+	}
+
+	public int getNbr_participants() {
+		return nbr_participants;
+	}
+
+	public void setNbr_participants(int nbr_participants) {
+		this.nbr_participants = nbr_participants;
+	}
+
 	public int getNbr_places() {
 		return Nbr_places;
 	}
 
 	public void setNbr_places(int nbr_places) {
 		Nbr_places = nbr_places;
+	}
+
+	public boolean isEarlyParticipants() {
+		return earlyParticipants;
+	}
+
+	public void setEarlyParticipants(boolean earlyParticipants) {
+		this.earlyParticipants = earlyParticipants;
+	}
+
+	public int getNbrTicketEarlyParticipants() {
+		return nbrTicketEarlyParticipants;
+	}
+
+	public void setNbrTicketEarlyParticipants(int nbrTicketEarlyParticipants) {
+		this.nbrTicketEarlyParticipants = nbrTicketEarlyParticipants;
 	}
 
 	public Type getType() {
@@ -219,12 +270,12 @@ public class Event implements Serializable {
 		this.views = views;
 	}
 
-	public KinderGarten getKindergarten() {
-		return kindergarten;
+	public Set<Participation> getParticipations() {
+		return participations;
 	}
 
-	public void setKindergarten(KinderGarten kindergarten) {
-		this.kindergarten = kindergarten;
+	public void setParticipations(Set<Participation> participations) {
+		this.participations = participations;
 	}
 
 	public Jackpot getJackpot() {
@@ -235,21 +286,33 @@ public class Event implements Serializable {
 		this.jackpot = jackpot;
 	}
 
-	public List<Donnation> getDonnations() {
-		return donnations;
+	public float getDiscountPercentage() {
+		return discountPercentage;
 	}
 
-	public void setDonnations(List<Donnation> donnations) {
-		this.donnations = donnations;
+	public void setDiscountPercentage(float discountPercentage) {
+		this.discountPercentage = discountPercentage;
 	}
+
+	public List<Donnation> getDonnation() {
+		return donnation;
+	}
+
+	public void setDonnation(List<Donnation> donnation) {
+		this.donnation = donnation;
+	}
+
 
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", title=" + title + ", date_begin=" + date_begin +  ", date_end="
-				+ date_end + ", description=" + description + ", nbr_participants=" + nbr_participants + ", place="
-				+ place + ", photo=" + photo + ", Price=" + Price + ", Nbr_places=" + Nbr_places + ", type=" + type
-				+ ", views=" + views + ", kindergarten=" + kindergarten + ", jackpot=" + jackpot + ", donnations="
-				+ donnations + "]";
+		return "Event [id=" + id + ", title=" + title + ", date_begin=" + date_begin + ", hour=" + hour + ", date_end="
+				+ date_end + ", description=" + description + ", place=" + place + ", photo=" + Arrays.toString(photo)
+				+ ", Price=" + Price + ", collAmount=" + collAmount + ", nbr_participants=" + nbr_participants
+				+ ", Nbr_places=" + Nbr_places + ", earlyParticipants=" + earlyParticipants
+				+ ", nbrTicketEarlyParticipants=" + nbrTicketEarlyParticipants + ", type=" + type + ", views=" + views
+				+ ", participations=" + participations + ", jackpot=" + jackpot +", discountPercentage=" + discountPercentage + ", donnation=" + donnation + "]";
 	}
+
+	
 	
 }

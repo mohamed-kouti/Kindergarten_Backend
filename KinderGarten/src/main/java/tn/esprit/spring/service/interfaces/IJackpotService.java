@@ -5,8 +5,8 @@ import tn.esprit.spring.entity.Jackpot;
 
 public interface IJackpotService {
 
-	public Jackpot AddJackpot(Jackpot jackpot);
-	public  Jackpot findJackpot(Event event);
-	
+	public Jackpot addJackpot(Jackpot jackpot);
+
+	public Jackpot findJackpot(Event event);
 	
 }

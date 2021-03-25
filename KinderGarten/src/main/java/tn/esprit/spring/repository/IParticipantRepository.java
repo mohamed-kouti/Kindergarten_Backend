@@ -7,11 +7,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import tn.esprit.spring.entity.Donnation;
 import tn.esprit.spring.entity.Event;
-@Repository
-public interface IDonnationRepository extends CrudRepository<Donnation, Integer> {
+import tn.esprit.spring.entity.Participation;
 
-	@Query("SELECT d FROM Donnation d WHERE d.event=:event ")
-	List<Donnation> DonationOfEvent(@Param("event") Event event);
+@Repository
+public interface IParticipantRepository extends CrudRepository<Participation, Integer>{
+
+	@Query("SELECT p FROM Participation p WHERE p.event= :event")
+	List<Participation> Particiapations(@Param("event") Event event);
 }

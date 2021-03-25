@@ -3,7 +3,10 @@ package tn.esprit.spring.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,11 +39,22 @@ public class User implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date datebirth;
 	private boolean actif;
+	//added by sonia
+	@Column(name="acc_balance")
+	private float accBalance;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Message> messages;
+	
 	@OneToMany(mappedBy = "user")
 	private List<Complaint_post> complaint_posts;
+
+	//j'ai besoin de cette relation avec la table participation
+	@OneToMany(cascade= CascadeType.ALL, mappedBy= "user")
+	private Set<Participation> participations;
+	
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+	private List<Donnation> donnations;
 
 	public int getId() {
 		return id;
@@ -113,6 +127,15 @@ public class User implements Serializable {
 	public void setMessages(List<Message> messages) {
 		this.messages = messages;
 	}
+	
+
+	public float getAccBalance() {
+		return accBalance;
+	}
+
+	public void setAccBalance(float accBalance) {
+		this.accBalance = accBalance;
+	}
 
 	public List<Complaint_post> getComplaint_posts() {
 		return complaint_posts;
@@ -122,4 +145,22 @@ public class User implements Serializable {
 		this.complaint_posts = complaint_posts;
 	}
 
+	
+	//getter setter notification et participation
+	public Set<Participation> getParticipations() {
+		return participations;
+	}
+
+	public void setParticipations(Set<Participation> participations) {
+		this.participations = participations;
+	}
+
+	public List<Donnation> getDonnations() {
+		return donnations;
+	}
+
+	public void setDonnations(List<Donnation> donnations) {
+		this.donnations = donnations;
+	}
+	
 }
