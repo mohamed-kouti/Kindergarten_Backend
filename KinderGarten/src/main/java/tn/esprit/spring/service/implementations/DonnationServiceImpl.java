@@ -63,17 +63,17 @@ public class DonnationServiceImpl implements IDonnationService {
 				donnationrepository.save(donnation);
 				jackpotrepository.save(j);
 				eventrepository.save(ev);
-				/*totale = user.getAccBalance() - amount;
+				totale = user.getAccBalance() - amount;
 				jackpot = eventrepository.findJackpot(ev.getJackpot());
-				System.out.println("sum="+jackpot.getTotal());
+				System.out.println("sum="+jackpot.getSomme());
 				donnation.setAmount(amount);
-				donnation.setDate(date);
+				donnation.setContributionDate(dateFormat.format(date));
 				donnation.setEvent(ev);
 				donnation.setUser(user);
-				jackpot.setTotal(jackpot.getTotal()+amount);
+				jackpot.setSomme(jackpot.getSomme()+amount);
 				jackpotrepository.save(jackpot);
 				eventrepository.save(ev);
-	            donnationrepository.save(donation);*/
+	            donnationrepository.save(donnation);
 				
 				
 				return "Donation saved successfully!!";
@@ -90,7 +90,7 @@ public class DonnationServiceImpl implements IDonnationService {
 		@Override
 		public List<Donnation> getHistoryDonation() {
 			return null;
-			/*List<Donation> list = iDonationRepository.DonationOfUser(UserController.USERCONNECTED);
+			/*List<Donnation> list = donnationrepository.DonnationOfUser(AdminController.USERCONNECTED);
 			return list;*/
 		}
 

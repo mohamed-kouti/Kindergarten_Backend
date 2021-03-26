@@ -95,8 +95,8 @@ public class EvenementController {
 		return ev;
 	}
 
-	// 4-creating put mapping that updates the event detail
-	@PutMapping("/update-event/{id}")
+	// 4-creating put mapping that updates the event detail grace à ikram lokza zedet haja teeefha id :)
+	@PutMapping("/update-event/{id}") 
 	public ResponseEntity<String> updateEvent(@RequestBody Event events, @PathVariable("id") int id) {
 
 		eventServiceImpl.updateEvent(events, id);
@@ -199,16 +199,6 @@ public class EvenementController {
 	@GetMapping("/retrieve-all-Participations")
 	public List<Participation> getParticipations() {
 		return participationServiceImpl.participationsList();
-	}
-
-	// 17-DISPLAY EVENTS BTW 2 DATES
-	@GetMapping("/getEventsBetweenTwoDates/{date1}/{date2}")
-	public List<String> getEventBetweenTwoDates(@PathVariable("date1") String date1,@PathVariable("date2") String date2) throws java.text.ParseException {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		Date date1Converted = dateFormat.parse(date1);
-		Date date2Converted = dateFormat.parse(date2);
-		return eventServiceImpl.getEventTwoDatesBeetween(date1Converted, date2Converted);
 	}
 
 	/*

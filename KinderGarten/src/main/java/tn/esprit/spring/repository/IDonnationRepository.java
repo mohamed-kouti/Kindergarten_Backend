@@ -13,5 +13,5 @@ import tn.esprit.spring.entity.Event;
 public interface IDonnationRepository extends CrudRepository<Donnation, Integer> {
 
 	@Query("SELECT d FROM Donnation d WHERE d.event=:event ")
-	List<Donnation> DonationOfEvent(@Param("event") Event event);
+	List<Donnation> DonationOfEvent(@Param("event")Event event);
 }

@@ -423,33 +423,6 @@ public class EventServiceImpl implements IEventService {
 			return eventrepository.findById(id).get();
 		}
 		
-		@Override
-		public List<String> getEventTwoDatesBeetween(Date date1, Date date2) {
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			Date date = new Date();
-			List<Event>events = (List<Event>) eventrepository.findAll();
-			List<String>results = new ArrayList<>();
-			
-			if(date1.after(date2)) {
-				return null;
-			}
-			
-			for(int i = 0 ; i<events.size();i++) {
-				if((events.get(i).getDate_begin().after(date1) &&( events.get(i).getDate_begin().before(date2)))) {
-					//results.add(ResultEvent(events,i));
-				// mte3i ena return	results.addAll(events);
-				}
-				
-			}
-			if(results.isEmpty()) {
-				 results.add("Event Not Found between two dates we are sorry :( :( ");
-				 return results;
-			}
-			return results;
-		}
-			
-		
-		
 	/*	
 	// 13-Ajouter particiaption à un event et user
 	@Override

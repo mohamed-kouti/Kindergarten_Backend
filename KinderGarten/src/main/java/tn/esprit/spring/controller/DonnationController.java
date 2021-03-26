@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.entity.Donnation;
+import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.service.interfaces.IDonnationService;
 import tn.esprit.spring.service.interfaces.IEventService;
 

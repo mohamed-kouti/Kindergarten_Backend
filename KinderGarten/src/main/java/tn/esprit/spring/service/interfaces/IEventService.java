@@ -27,7 +27,6 @@ public interface IEventService {
 	public List<String> displayEventsByParticipants() ;
 	public List<String> displayEventsByCollAmount() ;
 	public Event findbyId(int id);
-	public List<String> getEventTwoDatesBeetween(Date date1, Date date2) ;
 	
 	
 	/*// 1-ajouter event
