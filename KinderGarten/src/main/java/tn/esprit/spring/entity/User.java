@@ -15,9 +15,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+
+import javax.persistence.DiscriminatorType;
+
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "DTYPE")
+@DiscriminatorColumn(name = "DTYPE", discriminatorType = DiscriminatorType.INTEGER)
 public class User implements Serializable {
 
 	/**
@@ -36,6 +39,7 @@ public class User implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date datebirth;
 	private boolean actif;
+	private boolean banned;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Message> messages;
@@ -122,4 +126,12 @@ public class User implements Serializable {
 		this.complaint_posts = complaint_posts;
 	}
 
+	public boolean isBanned() {
+		return banned;
+	}
+
+	public void setBanned(boolean banned) {
+		this.banned = banned;
+	}
+	
 }
