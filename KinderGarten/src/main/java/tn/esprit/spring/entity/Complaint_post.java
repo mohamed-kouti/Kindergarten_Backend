@@ -3,12 +3,15 @@ package tn.esprit.spring.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 @Entity
 public class Complaint_post implements Serializable {
@@ -18,13 +21,14 @@ public class Complaint_post implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@EmbeddedId
-	private PK_POST pk_post;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	@ManyToOne
-	@JoinColumn(name = "id_user", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "id_user", referencedColumnName = "id")
 	private User user;
 	@ManyToOne
-	@JoinColumn(name = "id_post", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "id_post", referencedColumnName = "id")
 	private Post post;
 
 	private String msg;
@@ -32,12 +36,14 @@ public class Complaint_post implements Serializable {
 	private Date date_comp;
 	private boolean stat;
 
-	public PK_POST getPk_post() {
-		return pk_post;
+	
+
+	public int getId() {
+		return id;
 	}
 
-	public void setPk_post(PK_POST pk_post) {
-		this.pk_post = pk_post;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public User getUser() {
