@@ -4,10 +4,15 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@DiscriminatorValue("2")
+@JsonIgnoreProperties(value = {"complaint_kinders","complaint_posts","appointments"})
 public class Parent extends User implements Serializable {
 
 	/**
@@ -20,6 +25,7 @@ public class Parent extends User implements Serializable {
 	@OneToMany(mappedBy = "parent")
 	private List<Satisfaction> satisfactions;
 	@OneToMany(mappedBy = "parent")
+	
 	private List<Complaint_kinder> complaint_kinders;
 	@OneToMany(mappedBy = "parent")
 	private List<Appointment> appointments;
