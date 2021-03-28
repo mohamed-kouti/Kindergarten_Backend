@@ -31,5 +31,12 @@ public class PK_APP implements Serializable {
 	public void setId_kindergarten_owner(int id_kindergarten_owner) {
 		this.id_kindergarten_owner = id_kindergarten_owner;
 	}
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
 
 }
