@@ -1,11 +1,13 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class KinderGarten implements Serializable {
@@ -33,7 +37,30 @@ public class KinderGarten implements Serializable {
 	private String place;
 	@Lob
 	private byte[] logo;
+	private Double revenue;
+	private Double longi;
+	private Double latitude;
+
 	
+
+	public Double getLongi() {
+		return longi;
+	}
+	public void setLongi(Double longi) {
+		this.longi = longi;
+	}
+	public Double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+	public Double getRevenue() {
+		return revenue;
+	}
+	public void setRevenue(Double revenue) {
+		this.revenue = revenue;
+	}
 
 	private int nbr_emp;
 	@Temporal(TemporalType.DATE)
@@ -46,14 +73,16 @@ public class KinderGarten implements Serializable {
 	
 	@OneToOne
 	private KinderGarten_owner kinder;
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kindergarten")
 	private List<Event> events;
+	@JsonIgnore
 	@OneToMany(mappedBy = "garten")
 	private List<Satisfaction> satisfactions;
+	@JsonIgnore
 	@OneToMany(mappedBy = "garten")
 	private List<Complaint_kinder> complaint_kinders;
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kindergarten")
 	private List<Classroom> classrooms;
 
@@ -181,6 +210,15 @@ public class KinderGarten implements Serializable {
 
 	public void setClassrooms(List<Classroom> classrooms) {
 		this.classrooms = classrooms;
+	}
+
+	@Override
+	public String toString() {
+		return "KinderGarten [id=" + id + ", name=" + name + ", phone=" + phone + ", price=" + price + ", description="
+				+ description + ", place=" + place + ", logo=" + Arrays.toString(logo) + ", revenue=" + revenue
+				+ ", nbr_emp=" + nbr_emp + ", date_creation=" + date_creation + ", views=" + views + ", datefinInscrit="
+				+ datefinInscrit + ", kinder=" + kinder + ", events=" + events + ", satisfactions=" + satisfactions
+				+ ", complaint_kinders=" + complaint_kinders + ", classrooms=" + classrooms + "]";
 	}
 
 }

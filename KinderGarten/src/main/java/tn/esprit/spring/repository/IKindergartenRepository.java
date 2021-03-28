@@ -27,6 +27,9 @@ public interface IKindergartenRepository extends CrudRepository<KinderGarten, In
 	@Transactional
 	@Query("UPDATE KinderGarten k   SET k.views = :view+1 WHERE k.id =:id ")
 	public int updateViewCountKinderG(@Param("view")int view,@Param("id")int id);
+	
+	/*@Query("SELECT c FROM kinderGarten c WHERE c.revenue=:c.revenue")
+	public List<KinderGarten> getRevenue(@Param("year") String year);*/
 
 
 

@@ -4,7 +4,7 @@
 package tn.esprit.spring.controller;
 
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -108,7 +108,7 @@ public class KindergartenController {
 		@ResponseBody
 		public Classroom addClasse(@RequestBody Classroom classe)
 		{
-			Classroom c = classeService.addClass(classe);
+			Classroom c = classeService.addClassroom(classe);
 			return c ;
 		}
 		//http://localhost:8081/kindergarten/servlet/kindergarten/update-classe
@@ -207,6 +207,21 @@ public class KindergartenController {
 		  {  
 			return classeService.affecterClassesToKinderG(idclasse, idkinder);
 		  }
-			
 		
+		//http://localhost:8081/kindergarten/servlet/kindergarten/classroom/static/revenue/{year}
+		@GetMapping("classroom/static/revenue/{year}")
+		public Double classesRevenuePerYear(@PathVariable("year") String year){
+			return classeService.RevenuePerYear(year);
+		}
+		//http://localhost:8081/kindergarten/servlet/kindergarten/kinderG/getListClasses/{id}
+		@GetMapping("/kinderG/getListClasses/{id}")
+		public List<Classroom> getListClasses(@PathVariable("id") int id){
+			return kindergartenService.getClassesByKinderg(id);
+		}
+		//http://localhost:8081/kindergarten/servlet/kindergarten/kinderG/{long}/{lati}/{rayon}
+		@GetMapping("/kinderG/{long}/{lati}/{rayon}")
+		public List<KinderGarten> chercherParzone(@PathVariable("long")Double longi,@PathVariable("lati") Double lat,@PathVariable("rayon")Double rayon){
+			return kindergartenService.chercherParZone(longi, lat, rayon);
+		}
+			
 }

@@ -18,4 +18,8 @@ public interface IClassroomService {
 		
        public List<Classroom> displayClassroomNonSaturated();
        public String affecterClassesToKinderG(int idclasse, int idkinderG);
+       
+       public Classroom addClassroom(Classroom classes);
+       
+       public Double RevenuePerYear(String year);
 }
