@@ -14,7 +14,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties(value = {"complaint_kinders","kinderGartenOpeningDays"})
 public class KinderGarten implements Serializable {
 
 	/**
@@ -44,6 +47,11 @@ public class KinderGarten implements Serializable {
 	private List<Complaint_kinder> complaint_kinders;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kindergarten")
 	private List<Classroom> classrooms;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kinderGarten")
+	private List<KinderGartenOpeningDay> KinderGartenOpeningDays;
+	
+	boolean banned;
 
 	public int getId() {
 		return id;
@@ -157,4 +165,20 @@ public class KinderGarten implements Serializable {
 		this.classrooms = classrooms;
 	}
 
+	public List<KinderGartenOpeningDay> getKinderGartenOpeningDays() {
+		return KinderGartenOpeningDays;
+	}
+
+	public void setKinderGartenOpeningDays(List<KinderGartenOpeningDay> kinderGartenOpeningDays) {
+		KinderGartenOpeningDays = kinderGartenOpeningDays;
+	}
+
+	public boolean isBanned() {
+		return banned;
+	}
+
+	public void setBanned(boolean banned) {
+		this.banned = banned;
+	}
+	
 }
