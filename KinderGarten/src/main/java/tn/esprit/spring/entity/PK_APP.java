@@ -1,5 +1,6 @@
 package tn.esprit.spring.entity;
 import java.io.Serializable;
+import java.util.UUID;
 
 import javax.persistence.Embeddable;
 
@@ -13,6 +14,7 @@ public class PK_APP implements Serializable {
 
 	private int id_parent;
 	private int id_kindergarten_owner;
+	private String uuid = UUID.randomUUID().toString();
 
 	public int getId_parent() {
 		return id_parent;
