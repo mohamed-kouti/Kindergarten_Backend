@@ -41,8 +41,7 @@ public class ParticipationServiceImpl implements IParticipationService{
 		ParticipationPK participationPK = new ParticipationPK();
 		List<Participation>participations = (List<Participation>) ParticipationRepository.findAll();
 		for(int i=0 ; i<participations.size();i++) {
-			if(participations.get(i).getEvent().getId() == idevent && 
-					participations.get(i).getUser().getId() == iduser)
+			if(participations.get(i).getEvent().getId() == idevent && participations.get(i).getUser().getId() == iduser)
 		
 				return "You are already participate !!";
 			

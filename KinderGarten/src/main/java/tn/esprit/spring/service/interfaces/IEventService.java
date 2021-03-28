@@ -10,71 +10,42 @@ import tn.esprit.spring.entity.Type;
 
 public interface IEventService {
 
-	public void addEvent(Event e);
-	public void deleteEvent(int id);
-	public int updateEvent(Event e , int id);
+	// 1-GET ALL EVENTS
 	public List<Event> getAllEvents();
+	// 2-GET EVENT BY ID
 	public Event getEventById(int id);
-	public Event findEventByName(String name);
-	public List<Event> filterEvent(Type category);
-	//public String addParticipation(int iduser,int idevent);
-	public Map<Integer,Integer>getEventsByViews();
-	public List<String> displayBestEventsByViews() ;
-	public String affecterTypeEvent(String type,int idevent);
-	public List<Event> upcomeEvents();
-	public void refundUsers(int eid) ;
-	public void findEventById(int id) ;
-	public List<String> displayEventsByParticipants() ;
-	public List<String> displayEventsByCollAmount() ;
-	public Event findbyId(int id);
-	
-	
-	/*// 1-ajouter event
-	public void AddEvent(Event event);
-	
-	// 2-supprimer event
-	public void DeleteEvent(int id);
-	
-	// 3-retourner par id
-	public Event findEventById(int id);
-	
-	// 4-update wahda okhra simple barcha
-	public void UpdateEvent(Event event);
-	
-	//5-update2Event
-	public Event Update2Event(Event e, int id);
-	
-	//6-retreive all user
-	public List<Event> retreiveAllEvent();
-	
-	//7-getEventById
-	public Event getEventById(int id);
-	
-	//8-retourner par nom
-	public Event findEventByName(String name);
-	
-	//9-retourner event par type filter event
-	public List<Event> filterEvent(Type type);
-	
-	// 10- les 5 les plus visitées par rapport au nombre des vues
-	public Map<Integer,Integer>getEventsByViews();
-	
-	//11-evenement qui vont venir
-	public List<Event> upcomingEvents();
-	
-	//12-les evenements qui ont depassé la date systeme
-	public List<Event> passedEvents();
-	
-	// 13-Ajouter particiaption à un event et user
+	// 3-creating post mapping that post the event detail in the database
+	public void addEvent(Event e);
+	// 4-SAVE EVENT SIMPLE
+	public Event AddEvent(Event event);
+	// 5-creating put mapping that updates the event detail grace à ikram lokza zedet haja teeefha id :)
+	public int updateEvent(Event e , int id);
+	// 6- affecter event à un user
 	public String addParticipation(int iduser,int idevent);
+	// 7-Returner event by id
 	
-	//14-events plus visitées
-	public List<String> MostVisitedEvents();
-	
-	//15-affecter type à un event 	
+	// 8-retourner evenement par nom
+	public Event findEventByName(String name);
+	// 9-retourner evenement par type
+	public List<Event> filterEvent(Type type);
+	// 10-retourner un Map des evenments les plus visités
+	public Map<Integer,Integer>getEventsByViews();
+	// 11-les evenements les plus visités
+	public List<String> displayBestEventsByViews() ;
+	// 12-AFFECT TYPE TO EVENT
 	public String affecterTypeEvent(String type,int idevent);
-	
-	//16-remboursser en cas d'annulation 
+	// 13-UP COMING EVENTS
+	public List<Event> upcomeEvents();
+	// 14-PASSED EVENTS
+	public List<Event> passedEvents();
+	// 15-DELETE EVENT && REFUND CONSUMER
+	public void deleteEvent(int id);
 	public void refundUsers(int eid) ;
-	*/
+	// 16-DISPLAY EVENTS BY PARTICIPARTIONS
+	public List<String> displayEventsByParticipants() ;
+	// 17-DISPLAY EVENTS BY COLLABORATION AMOUNT
+	public List<String> displayEventsByCollAmount() ;
+	public void findEventById(int id) ;
+	public Event findbyId(int id);
+
 }

@@ -95,22 +95,30 @@ public class EvenementController {
 		return ev;
 	}
 
-	// 4-creating put mapping that updates the event detail grace à ikram lokza zedet haja teeefha id :)
-	@PutMapping("/update-event/{id}") 
+	// 4-SAVE EVENT SIMPLE
+	@PostMapping(value = "/save-event")
+	public Event saveEvent(@RequestBody Event ev) {
+		eventServiceImpl.AddEvent(ev);
+		return ev;
+	}
+
+	// 5-creating put mapping that updates the event detail grace à ikram lokza
+	// zedet haja teeefha id :)
+	@PutMapping("/update-event/{id}")
 	public ResponseEntity<String> updateEvent(@RequestBody Event events, @PathVariable("id") int id) {
 
 		eventServiceImpl.updateEvent(events, id);
 		return new ResponseEntity<String>("Event updated successfully", HttpStatus.OK);
 	}
 
-	// 5- affecter event à un user
+	// 6- affecter event à un user
 	@PutMapping("/affecter-event/{iduser}/{idevent}")
 	public String participateToEvent(@PathVariable("iduser") int iduser, @PathVariable("idevent") int idevent) {
-		String result = participationServiceImpl.addParticipation(iduser, idevent);
+		String result = eventServiceImpl.addParticipation(iduser, idevent);
 		return result;
 	}
 
-	// 6-Returner event by id
+	// 7-Returner event by id
 	@GetMapping("/retrieve-Event-ById/{id}")
 	public Event getEventById(@PathVariable("id") int id) {
 		Event ev = eventServiceImpl.getEventById(id);
@@ -119,7 +127,7 @@ public class EvenementController {
 
 	/********************* ADMIN/PARENT/KINDERGARTEN-OWNER **************************/
 
-	// 7-retourner evenement par nom
+	// 8-retourner evenement par nom
 	@GetMapping("/retrieve-Event-ByName/{name}")
 	public Event getEventByName(@PathVariable String name) {
 		Event ev = eventServiceImpl.findEventByName(name);
@@ -127,20 +135,20 @@ public class EvenementController {
 		return ev;
 	}
 
-	// 8-retourner evenement par type
+	// 9-retourner evenement par type
 	@GetMapping("/retrieve-Event-ByType/{type}")
 	public List<Event> getEventByType(@PathVariable Type type) {
 		List<Event> ev = eventServiceImpl.filterEvent(type);
 		return ev;
 	}
 
-	// 9-retourner un Map des evenments les plus visités
+	// 10-retourner un Map des evenments les plus visités
 	@GetMapping("/bestEventsByViews")
 	public Map<Integer, Integer> bestEventsByViews() {
 		return eventServiceImpl.getEventsByViews();
 	}
 
-	// 10-les evenements les plus visités
+	// 11-les evenements les plus visités
 	@GetMapping("/displaybestEventsByViews")
 	public List<String> displaybestEventsByViews() {
 		return eventServiceImpl.displayBestEventsByViews();
@@ -148,7 +156,7 @@ public class EvenementController {
 
 	/********************* ADMIN **************************/
 
-	// 11-AFFECT TYPE TO EVENT
+	// 12-AFFECT TYPE TO EVENT
 	@PutMapping("/affecter-type-event/{type}/{idevent}")
 	public String affecterCategoryEvent(@PathVariable("type") String type, @PathVariable("idevent") int idevent) {
 
@@ -158,7 +166,7 @@ public class EvenementController {
 
 	/********************* ADMIN/PARENT/KINDERGARTEN-OWNER **************************/
 
-	// 12-UP COMING EVENTS
+	// 13-UP COMING EVENTS
 	@GetMapping("/upcomingEvent")
 	public List<Event> upcomingEvents() {
 		List<Event> upevents = eventServiceImpl.upcomeEvents();
@@ -167,12 +175,21 @@ public class EvenementController {
 	}
 
 	/********************* ADMIN **************************/
-	// 13-DELETE EVENT && REFUND CONSUMER
+	// 14-PASSED EVENTS
+	@GetMapping(value = "/passedEvents")
+	public List<Event> passedEvents() {
+		List<Event> e = eventServiceImpl.passedEvents();
+		return e;
+	}
+
+	// 15-DELETE EVENT && REFUND CONSUMER
 	@DeleteMapping("/delete-event/{event-id}")
 	@ResponseBody
 	public ResponseEntity<String> deleteEvent(@PathVariable("event-id") int eventID) {
 
-		eventServiceImpl.refundUsers(eventID);// refund contributions participations prices to its users
+		eventServiceImpl.refundUsers(eventID);// refund contributions
+												// participations prices to its
+												// users
 
 		eventServiceImpl.deleteEvent(eventID);
 
@@ -182,58 +199,23 @@ public class EvenementController {
 
 	/********************* ADMIN/PARENT/KINDERGARTEN-OWNER **************************/
 
-	// 14-DISPLAY EVENTS BY PARTICIPARTIONS
+	// 16-DISPLAY EVENTS BY PARTICIPARTIONS
 	@GetMapping("/displayBestEventsByParticipations")
 	public List<String> displayBestEventsByParticipations() {
 		return eventServiceImpl.displayEventsByParticipants();
 	}
 
-	// 15-DISPLAY EVENTS BY COLLABORATION AMOUNT
+	// 17-DISPLAY EVENTS BY COLLABORATION AMOUNT
 	@GetMapping("/displayEventsByCollAmount")
 	public List<String> displayEventsByCollAmount() {
 		return eventServiceImpl.displayEventsByCollAmount();
 
 	}
 
-	// 16-DISPLAY ALL PARTICIPATIONS
+	// 18-DISPLAY ALL PARTICIPATIONS
 	@GetMapping("/retrieve-all-Participations")
 	public List<Participation> getParticipations() {
 		return participationServiceImpl.participationsList();
 	}
 
-	/*
-	 * des services momken nzidhom men ba3d oumouri ma3netha // 6-retreive all
-	 * events
-	 * 
-	 * @GetMapping(value = "/retrieves-all-event")
-	 * 
-	 * @ResponseBody public List<Event> retreiveAllEvent() { List<Event> list =
-	 * eventServiceImpl.retreiveAllEvent(); return list; } // 4-update wahda
-	 * okhra simple barcha
-	 * 
-	 * @PutMapping("/update-event")
-	 * 
-	 * @ResponseBody public ResponseEntity<String> UpdateEvent(@RequestBody
-	 * Event ev) { eventServiceImpl.UpdateEvent(ev); return new
-	 * ResponseEntity<String>("Event Updated Successfully simple barcha",
-	 * HttpStatus.OK); } // 1-ajouter event simple
-	 * 
-	 * @PostMapping(value = "/save-event") public Event saveEvent(@RequestBody
-	 * Event ev) { eventServiceImpl.AddEvent(ev); return ev; } // 12-les
-	 * evenements qui ont depassé la date systeme
-	 * 
-	 * @GetMapping(value = "/passedEvents") public List<Event> passedEvents() {
-	 * List<Event> e = eventServiceImpl.passedEvents(); return e; } // affecter
-	 * evenement a un JE
-	 * 
-	 * @PutMapping(value="/affecter-event/{iduser}/{idevent}") public String
-	 * affecterEventUser(@PathVariable ("iduser") int
-	 * iduser,@PathVariable("idevent") int idevent) { return
-	 * eventServiceImpl.affecterEventUser(iduser,idevent); } // retourner le
-	 * jackpot liée à un event /*
-	 * 
-	 * @GetMapping("/findJackpot") public List<Jackpot> findJackpot(Event event)
-	 * { List<Jackpot> jackpot = (List<Jackpot>)
-	 * jackpotServiceImpl.findJackpot(event); return jackpot; }
-	 */
 }
