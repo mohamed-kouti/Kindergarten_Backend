@@ -3,12 +3,15 @@ package tn.esprit.spring.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 @Entity
 public class Appointment implements Serializable {
@@ -17,25 +20,35 @@ public class Appointment implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@EmbeddedId
-	private PK_APP pk_app;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	@ManyToOne
-	@JoinColumn(name = "id_parent", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "id_parent", referencedColumnName = "id")
 	private Parent parent;
 	@ManyToOne
-	@JoinColumn(name = "id_kindergarten_owner", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "id_kindergarten_owner", referencedColumnName = "id")
 	private KinderGarten_owner garten_owner;
 
 	private String description;
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date_app;
+	
+	@Temporal(TemporalType.TIME)
+	private Date startTime;
 
-	public PK_APP getPk_app() {
-		return pk_app;
+	@Temporal(TemporalType.TIME)
+	private Date endTime;
+	
+
+
+	
+	public int getId() {
+		return id;
 	}
 
-	public void setPk_app(PK_APP pk_app) {
-		this.pk_app = pk_app;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Parent getParent() {
@@ -70,4 +83,22 @@ public class Appointment implements Serializable {
 		this.date_app = date_app;
 	}
 
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+
+	
 }
