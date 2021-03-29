@@ -22,7 +22,7 @@ import tn.esprit.spring.repository.IComplaint_postRepository;
 import tn.esprit.spring.repository.IUserRepository;
 
 @RestController
-@RequestMapping(path = "/admin")
+@RequestMapping(path = "/admins")
 public class UserController {
 	
 	@Autowired

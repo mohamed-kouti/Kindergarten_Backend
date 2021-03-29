@@ -145,3 +145,50 @@
 2021-03-28 21:37:28.904  INFO 11504 --- [http-nio-8081-exec-1] o.a.c.c.C.[.[localhost].[/kindergarten]  : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-03-28 21:37:28.905  INFO 11504 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2021-03-28 21:37:28.906  INFO 11504 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2021-03-28 21:41:10.085  WARN 11504 --- [http-nio-8081-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+2021-03-28 21:42:22.114  INFO 11504 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2021-03-28 21:42:22.376  INFO 11504 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-03-28 21:42:22.376  INFO 11504 --- [RMI TCP Connection(2)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-03-28 21:42:22.376  INFO 11504 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-03-28 21:42:22.407  INFO 11504 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-03-28 21:42:27.352  INFO 10812 --- [restartedMain] t.esprit.spring.KinderGartenApplication  : Starting KinderGartenApplication using Java 1.8.0_60 on DESKTOP-I0KEIU6 with PID 10812 (C:\Users\User\Desktop\Kindergarten_Backend\KinderGarten\target\classes started by User in C:\Users\User\Desktop\Kindergarten_Backend\KinderGarten)
+2021-03-28 21:42:27.352  INFO 10812 --- [restartedMain] t.esprit.spring.KinderGartenApplication  : No active profile set, falling back to default profiles: default
+2021-03-28 21:42:27.430  INFO 10812 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-03-28 21:42:27.430  INFO 10812 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-03-28 21:42:29.232  INFO 10812 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-03-28 21:42:29.608  INFO 10812 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 345 ms. Found 16 JPA repository interfaces.
+2021-03-28 21:42:30.871  INFO 10812 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2021-03-28 21:42:30.886  INFO 10812 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-03-28 21:42:30.886  INFO 10812 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.43]
+2021-03-28 21:42:30.902  INFO 10812 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : Loaded Apache Tomcat Native library [1.2.25] using APR version [1.7.0].
+2021-03-28 21:42:30.902  INFO 10812 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-03-28 21:42:30.902  INFO 10812 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-03-28 21:42:30.902  INFO 10812 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : OpenSSL successfully initialized [OpenSSL 1.1.1g  21 Apr 2020]
+2021-03-28 21:42:31.058  INFO 10812 --- [restartedMain] o.a.c.c.C.[.[localhost].[/kindergarten]  : Initializing Spring embedded WebApplicationContext
+2021-03-28 21:42:31.058  INFO 10812 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3628 ms
+2021-03-28 21:42:31.652  INFO 10812 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-03-28 21:42:31.730  INFO 10812 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.28.Final
+2021-03-28 21:42:31.980  INFO 10812 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-03-28 21:42:32.147  INFO 10812 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-03-28 21:42:32.459  INFO 10812 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-03-28 21:42:32.491  INFO 10812 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2021-03-28 21:42:33.069  WARN 10812 --- [restartedMain] org.hibernate.mapping.RootClass          : HHH000038: Composite-id class does not override equals(): tn.esprit.spring.entity.PK_SAT
+2021-03-28 21:42:33.074  WARN 10812 --- [restartedMain] org.hibernate.mapping.RootClass          : HHH000039: Composite-id class does not override hashCode(): tn.esprit.spring.entity.PK_SAT
+2021-03-28 21:42:35.016  INFO 10812 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-03-28 21:42:35.032  INFO 10812 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-03-28 21:42:35.048  INFO 10812 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2021-03-28 21:42:36.266  WARN 10812 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-03-28 21:42:36.499  INFO 10812 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-03-28 21:42:37.140  INFO 10812 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 15 endpoint(s) beneath base path '/actuator'
+2021-03-28 21:42:37.202  INFO 10812 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path '/kindergarten'
+2021-03-28 21:42:37.233  INFO 10812 --- [restartedMain] t.esprit.spring.KinderGartenApplication  : Started KinderGartenApplication in 10.47 seconds (JVM running for 11.734)
+2021-03-28 21:42:49.792  INFO 10812 --- [http-nio-8081-exec-1] o.a.c.c.C.[.[localhost].[/kindergarten]  : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-03-28 21:42:49.792  INFO 10812 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-03-28 21:42:49.797  INFO 10812 --- [http-nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2021-03-28 21:43:16.228  WARN 10812 --- [http-nio-8081-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+2021-03-28 21:43:55.393  INFO 10812 --- [http-nio-8081-exec-5] t.e.s.s.i.AppointmentServiceImpl         : Start processing
+2021-03-28 21:48:56.449  INFO 10812 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2021-03-28 21:48:56.704  INFO 10812 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-03-28 21:48:56.704  INFO 10812 --- [RMI TCP Connection(2)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-03-28 21:48:56.720  INFO 10812 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-03-28 21:48:56.736  INFO 10812 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
