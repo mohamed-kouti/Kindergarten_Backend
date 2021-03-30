@@ -22,22 +22,22 @@ public class DonnationController {
 
 	@Autowired
 	IDonnationService donnationService;
-	
+
 	@Autowired
 	IEventService eventservice;
-	
-	
-	//creating put mapping that updates the event detail   
-		@PostMapping("/donation-event/{eventid}/{uid}/{amount}")  
-		private ResponseEntity<String> DonnationOfEvent(@PathVariable("eventid")int eventid, @PathVariable("uid")int uid, @PathVariable("amount")float amount )   
-		{  
-		
-			String result = donnationService.Donnation(eventid, uid, amount);  
-		    return new ResponseEntity<String>(result,HttpStatus.OK);
-		}
-		
-		@GetMapping("/displayDonationsEvent/{idevent}")
-		public List<Donnation>getDonationEvention(@PathVariable("idevent")int idevent) {
-			return donnationService.getDonationEvention(eventservice.findbyId(idevent));
-		}
+
+	// 1-creating put mapping that updates the event detail
+	@PostMapping("/donation-event/{eventid}/{uid}/{amount}")
+	private ResponseEntity<String> DonnationOfEvent(@PathVariable("eventid") int eventid, @PathVariable("uid") int uid,
+			@PathVariable("amount") float amount) {
+		String result = donnationService.Donnation(eventid, uid, amount);
+		return new ResponseEntity<String>(result, HttpStatus.OK);
+	}
+
+	// 2-retourner la listes des donnation d'un event
+	@GetMapping("/displayDonationsEvent/{idevent}")
+	public List<Donnation> getDonationEvention(@PathVariable("idevent") int idevent) {
+		return donnationService.getDonationEvention(eventservice.findbyId(idevent));
+	}
+
 }

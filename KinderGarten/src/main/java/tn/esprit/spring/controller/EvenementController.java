@@ -1,13 +1,6 @@
 package tn.esprit.spring.controller;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.sun.el.parser.ParseException;
-
 import tn.esprit.spring.config.FileUploadUtil;
 import tn.esprit.spring.entity.Event;
-import tn.esprit.spring.entity.Jackpot;
+
 import tn.esprit.spring.entity.Participation;
 import tn.esprit.spring.entity.Type;
 import tn.esprit.spring.service.implementations.EventServiceImpl;
-import tn.esprit.spring.service.implementations.JackpotServiceImpl;
 import tn.esprit.spring.service.implementations.ParticipationServiceImpl;
 
 @RestController
@@ -170,7 +158,7 @@ public class EvenementController {
 	@GetMapping("/upcomingEvent")
 	public List<Event> upcomingEvents() {
 		List<Event> upevents = eventServiceImpl.upcomeEvents();
-		System.out.println("hi=" + upevents);
+		// System.out.println("hi=" + upevents);
 		return upevents;
 	}
 
@@ -187,9 +175,7 @@ public class EvenementController {
 	@ResponseBody
 	public ResponseEntity<String> deleteEvent(@PathVariable("event-id") int eventID) {
 
-		eventServiceImpl.refundUsers(eventID);// refund contributions
-												// participations prices to its
-												// users
+		eventServiceImpl.refundUsers(eventID);
 
 		eventServiceImpl.deleteEvent(eventID);
 

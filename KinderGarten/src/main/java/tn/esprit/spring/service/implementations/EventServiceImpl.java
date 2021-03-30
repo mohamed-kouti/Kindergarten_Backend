@@ -1,9 +1,7 @@
 package tn.esprit.spring.service.implementations;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -87,8 +85,7 @@ public class EventServiceImpl implements IEventService {
 		return eventrepository.save(event);
 	}
 
-	// 5-creating put mapping that updates the event detail grace à ikram lokza
-	// zedet haja teeefha id :)
+	// 5-creating put mapping that updates the event detail
 	@Override
 	public int updateEvent(Event e, int id) {
 
@@ -105,76 +102,74 @@ public class EventServiceImpl implements IEventService {
 		Jackpot j = jackpotRepository.findJackpotEvent(event.getId());
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
-		//int number = 0;
+		// int number = 0;
 		Participation p = new Participation();
 		ParticipationPK participationPK = new ParticipationPK();
-		List<Participation>participations = (List<Participation>) participantRepository.findAll();
-		int number=(int) ((event.getNbr_participants()+event.getNbr_places())*0.3f);
-		//ken amal deja participation
-		for(int i=0 ; i<participations.size();i++) {
-			if(participations.get(i).getEvent().getId() == idevent && participations.get(i).getUser().getId() == iduser)
+		List<Participation> participations = (List<Participation>) participantRepository.findAll();
+		int number = (int) ((event.getNbr_participants() + event.getNbr_places()) * 0.3f);
+		// ken amal deja participation
+		for (int i = 0; i < participations.size(); i++) {
+			if (participations.get(i).getEvent().getId() == idevent
+					&& participations.get(i).getUser().getId() == iduser)
 				return "You are already participate !!";
 		}
-		
-		
-		if((event.getNbr_places() > 0)&&(event.getNbr_participants()< number)){
-				//&&(event.isEarlyParticipants() == true )){
-		  //  System.out.println("CONGRATULATIONS YOUR TICKET WIL GET A DISCOUNT");
-		  //calcul du pourcentage de la reduction
-		  float discPercent =(100f-event.getDiscountPercentage())/100f;
-	     float newPrice =event.getPrice() * discPercent;// pourcentage de réduction ticket		}
-		participationPK.setIdEvent(event.getId());	
-		participationPK.setIdUser(iduser);
-		p.setParticipationDate(dateFormat.format(date));	
-		event.setNbr_places((event.getNbr_places()) - 1);
-		event.setNbr_participants((event.getNbr_participants()) + 1);
-		//System.out.println("coll amount =="+event.getCollAmount()+", newPrice="+newPrice);
-		event.setCollAmount(event.getCollAmount()+ newPrice);
-		u.setAccBalance(u.getAccBalance()-newPrice);
-		p.setPrice(newPrice);
-		p.setParticipationPK(participationPK);
-		j.setSomme(j.getSomme()+newPrice);
-		p.setParticipationDate(new Date().toString());
-		//participationPK.setNumber(number);
-		participantRepository.save(p);
-		userRepository.save(u);
-		jackpotRepository.save(j);
-		return ("CONGRATULATIONS YOUR TICKET WIL GET A DISCOUNT !! THE NEW PRICE IS "+newPrice+"nombre des participants avec reduction"+number);
-		    }
-		else 
-			 if(event.getNbr_places() == 0){
-				 return"Event places is full bouuuuuuuuuuuuuul";
-				 }
-			 else 
-		{    
-		if((event.getNbr_places() > 0)){
+		if ((event.getNbr_places() > 0) && (event.getNbr_participants() < number)
+				&& (event.isEarlyParticipants() == true)) {
+			// calcul du pourcentage de la reduction
+			float discPercent = (100f - event.getDiscountPercentage()) / 100f;
+			float newPrice = event.getPrice() * discPercent;
 			participationPK.setIdEvent(event.getId());
 			participationPK.setIdUser(iduser);
-			p.setParticipationDate(dateFormat.format(date));	
-			event.setNbr_places(event.getNbr_places() - 1);
-		    event.setNbr_participants(event.getNbr_participants() + 1);
-		   // System.out.println("coll amount =="+event.getCollAmount()+", newPrice="+event.getPrice());
-			event.setCollAmount(event.getCollAmount()+ event.getPrice());
-			u.setAccBalance(u.getAccBalance()-event.getPrice());
-			p.setPrice(event.getPrice());
+			p.setParticipationDate(dateFormat.format(date));
+			event.setNbr_places((event.getNbr_places()) - 1);
+			event.setNbr_participants((event.getNbr_participants()) + 1);
+			// System.out.println("coll amount =="+event.getCollAmount()+",
+			// newPrice="+newPrice);
+			event.setCollAmount(event.getCollAmount() + newPrice);
+			u.setAccBalance(u.getAccBalance() - newPrice);
+			p.setPrice(newPrice);
 			p.setParticipationPK(participationPK);
-			//participationPK.setNumber(number);
+			j.setSomme(j.getSomme() + newPrice);
 			p.setParticipationDate(new Date().toString());
-			j.setSomme(j.getSomme()+event.getPrice());
+			// participationPK.setNumber(number);
 			participantRepository.save(p);
-		    userRepository.save(u);
-		    return ("Affected successfully with discount percentage yaaaaaaaaaaaaaaaaaaaaaaa"+event.getPrice());
-		   
+			userRepository.save(u);
+			jackpotRepository.save(j);
+			return ("CONGRATULATIONS YOUR GET A DISCOUNT  :o !! THE NEW PRICE IS  " + newPrice + " INSTEAD OF"
+					+ event.getPrice() + " nombre des participants avec reduction" + number);
+		} else if (event.getNbr_places() == 0) {
+			return "THERE NO AVAILABLE PLACES TO THIS EVENT :( !!";
+		} else {
+			if ((event.getNbr_places() > 0)) {
+				participationPK.setIdEvent(event.getId());
+				participationPK.setIdUser(iduser);
+				p.setParticipationDate(dateFormat.format(date));
+				event.setNbr_places(event.getNbr_places() - 1);
+				event.setNbr_participants(event.getNbr_participants() + 1);
+				// System.out.println("coll amount =="+event.getCollAmount()+",
+				// newPrice="+event.getPrice());
+				event.setCollAmount(event.getCollAmount() + event.getPrice());
+				u.setAccBalance(u.getAccBalance() - event.getPrice());
+				p.setPrice(event.getPrice());
+				p.setParticipationPK(participationPK);
+				// participationPK.setNumber(number);
+				p.setParticipationDate(new Date().toString());
+				j.setSomme(j.getSomme() + event.getPrice());
+				participantRepository.save(p);
+				userRepository.save(u);
+				return ("AFFECTED SUCCUSSFULLY WITHOUT DISCOUNT :( " + event.getPrice()
+						+ "PLZ TRY TO PARTICIPATE EARLY TO HAVE A DISCOUNT !!");
+
+			}
 		}
-	}
-		return ("this event does not exit maybe!!");
+		return ("THIS EVENT IS OVER!!");
 	}
 
 	// 7-Returner event by id
 
 	/********************* ADMIN/PARENT/KINDERGARTEN-OWNER **************************/
-	
-	//8-retourner evenement par nom
+
+	// 8-retourner evenement par nom
 	@Override
 	public Event findEventByName(String name) {
 		return eventrepository.findEventByName(name);
@@ -201,12 +196,12 @@ public class EventServiceImpl implements IEventService {
 		Collections.sort(sortedList);
 
 		for (int i = 0; i < 5; i++) {
-			int max = sortedList.get(sortedList.size()-1);
+			int max = sortedList.get(sortedList.size() - 1);
 			int indice = listId.get(listViews.indexOf(max));
 			m.put(indice, max);
 
 			System.out.println(indice + " " + max);
-			sortedList.remove(sortedList.size()-1);
+			sortedList.remove(sortedList.size() - 1);
 			listViews.set(listViews.indexOf(max), -1);
 		}
 		return m;
@@ -277,7 +272,7 @@ public class EventServiceImpl implements IEventService {
 		return list;
 	}
 
-	/********************* ADMIN **************************/
+	/********************* ADMIN/KINDERGARTEN-OWNER **************************/
 	// 14-PASSED EVENTS
 	@Override
 	public List<Event> passedEvents() {
@@ -290,38 +285,23 @@ public class EventServiceImpl implements IEventService {
 	public void refundUsers(int eid) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		java.util.Date date = new java.util.Date();
-
 		Event ev = eventrepository.findById(eid).get();
 		User u = new User();
-
 		List<Participation> participationsOfEvent = participantRepository.Particiapations(ev);
 		System.out.println("hiii==");
 		// Notification n = new Notification();
-
 		if (!ev.getParticipations().isEmpty()) {
 			for (Participation p : participationsOfEvent) {
 				// int u = new User();//user id
 				u = userRepository.findById(p.getUser().getId()).get();
 				float refundedAmount = p.getPrice();
+				// remboursement du monatant du don
 				ev.setCollAmount(ev.getCollAmount() - refundedAmount);
-				// userRepository.save(u);
+				u.setAccBalance(u.getAccBalance() + refundedAmount);
+				userRepository.save(u);
 				System.out.println("hiiiiii==");
 				participantRepository.delete(p);
 				eventrepository.save(ev);
-				// n.setEvent(ev);
-				// partie teb3a notification
-				/*
-				 * n.setUser(u); LocalTime localTime = LocalTime.now();
-				 * 
-				 * n.setTime(Time.valueOf(localTime));
-				 * n.setSubject("Canceled Event");
-				 * n.setDescription("Dear "+u.getLname()+" "+u.getFname()+"" +
-				 * ",we regret to announce that the event "+ev.getTitle()
-				 * +" you want to attend has been canceled for some reason." +
-				 * " That's why, we have refunded your ticket price. If there is a problem, do not hesitate to contact us."
-				 * + " Thank you."); n.setDate(date);
-				 * n.setStatus("Not Seen Yet"); notificationRepository.save(n);
-				 */
 			}
 
 		} else {
@@ -333,33 +313,17 @@ public class EventServiceImpl implements IEventService {
 			float refundedAmount = d.getAmount();// flous ta3 donation
 			System.out.println("donation=" + refundedAmount);
 			System.out.println("jackpot before==" + ev.getJackpot());
-			ev.getJackpot().setSomme(ev.getJackpot().getSomme() - refundedAmount);// fhmtha??
-																					// brbi
-																					// haw
-																					// jit
-																					// njib
-																					// 9ahwa
+			ev.getJackpot().setSomme(ev.getJackpot().getSomme() - refundedAmount);
 			System.out.println("jackpot after retrieve money==" + ev.getJackpot().getSomme());
 			System.out.println("collAmount before==" + ev.getCollAmount());
 			ev.setCollAmount(ev.getCollAmount() - refundedAmount);
 			System.out.println("jackpot==" + ev.getCollAmount());
-			// System.out.println("Accurance balance
-			// before="+u.getAccBalance());
-			// u.setAccBalance(u.getAccBalance()+refundedAmount);
-			// System.out.println("accuranceBalance="+u.getAccBalance());
-			// ************Notification*******************//
-			/*
-			 * Notification notification = new Notification();
-			 * notification.setSubject("Remoboursement");
-			 * notification.setUser(user);
-			 * notification.setDescription("Dear "+user.getFname()
-			 * +" We annonce that the event"+ev.getTitle()+
-			 * "was canceled for some reasons that's why we refunded your donation . for more informations do not hesitate to contact us"
-			 * + "thank you"); notification.setDate(new Date());
-			 * notification.setStatus("not seen Yet");
-			 * donnationRepository.deleteById(d.getId());
-			 * eventrepository.save(ev); userRepository.save(u);
-			 */
+			System.out.println("Accurance balancebefore=" + u.getAccBalance());
+			u.setAccBalance(u.getAccBalance() + refundedAmount);
+			System.out.println("accuranceBalance=" + u.getAccBalance());
+			donnationRepository.deleteById(d.getId());
+			eventrepository.save(ev);
+			userRepository.save(u);
 		}
 	}
 
@@ -389,12 +353,11 @@ public class EventServiceImpl implements IEventService {
 
 		List<Integer> sortListed = new ArrayList<>(listNbrParticipantEvent);
 		Collections.sort(sortListed);
-
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < 10; i++) {
 			int max = sortListed.get(sortListed.size() - 1);
 			int idEventByPart = listIdEvent.get(listNbrParticipantEvent.indexOf(max));
-			message = "Event " + eventrepository.findById(idEventByPart).get().getTitle() + "with " + max
-					+ " Participations";
+			message = "Event " + eventrepository.findById(idEventByPart).get().getTitle() + "     with " + max
+					+ " Participations  :)";
 			results.add(message);
 			sortListed.remove(sortListed.size() - 1);
 			listNbrParticipantEvent.set(listNbrParticipantEvent.indexOf(max), -1);
@@ -406,7 +369,6 @@ public class EventServiceImpl implements IEventService {
 	// 17-DISPLAY EVENTS BY COLLABORATION AMOUNT
 	@Override
 	public List<String> displayEventsByCollAmount() {
-		// TODO Auto-generated method stub
 		List<Event> events = (List<Event>) eventrepository.findAll();
 		List<Integer> listIdEvent = new ArrayList<>();
 		List<Float> listCollAmountEvent = new ArrayList<>();
@@ -415,63 +377,23 @@ public class EventServiceImpl implements IEventService {
 		for (Event event : events) {
 			listIdEvent.add(event.getId());
 			listCollAmountEvent.add(event.getCollAmount());
-
 		}
-
 		List<Float> sortListed = new ArrayList<>(listCollAmountEvent);
 		Collections.sort(sortListed);
-
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 10; i++) {
 			float max = sortListed.get(sortListed.size() - 1);// derniere valeur
-			int idEventByPart = listIdEvent.get(listCollAmountEvent.indexOf(max));// retourner
-																					// event
-																					// qui
-																					// a
-																					// plus
-																					// de
-																					// participants
-			message = "Event " + eventrepository.findById(idEventByPart).get().getTitle() + "  with  " + max
-					+ " dinars   ,  Collectd Amount  ";
+			int idEventByPart = listIdEvent.get(listCollAmountEvent.indexOf(max));
+			message = "Event " + eventrepository.findById(idEventByPart).get().getTitle() + "    with    " + max
+					+ "   dinars  ,  Collectd Amount  ";
 			results.add(message);
 			sortListed.remove(sortListed.size() - 1);
 			listCollAmountEvent.set(listCollAmountEvent.indexOf(max), (float) -1);
 		}
-
 		return results;
-
 	}
 
 	// 18-DISPLAY ALL PARTICIPATIONS
-	/*
-	 * // 13-Ajouter particiaption à un event et user
-	 * 
-	 * @Override public String addParticipation(int iduser, int idevent) { Event
-	 * event = eventrepository.findById(idevent).get(); User u=
-	 * userRepository.findById(iduser).get(); DateFormat dateFormat = new
-	 * SimpleDateFormat("yyyy/MM/dd HH:mm:ss"); Date date=new Date(); int number
-	 * = 0; Participation p = new Participation(); ParticipationPK
-	 * participationPK = new ParticipationPK();
-	 * List<Participation>participations = (List<Participation>)
-	 * participantRepository.findAll(); for(int i=0 ;
-	 * i<participations.size();i++) {
-	 * if(participations.get(i).getEvent().getId() == idevent &&
-	 * participations.get(i).getUser().getId() == iduser) return
-	 * "You have already participated in this event :)";
-	 * 
-	 * } if(event.getNbr_places()>0) { float discPercent
-	 * =(100f-event.getDiscountPercentage())/100f; float newPrice
-	 * =event.getPrice() * discPercent;// pourcentage de réduction ticket }
-	 * participationPK.setIdEvent(event.getId());
-	 * participationPK.setIdUser(iduser);
-	 * p.setParticipationDate(dateFormat.format(date));
-	 * event.setNbr_places(event.getNbr_places()-1);
-	 * event.setNbr_participants(event.getNbr_participants()+1);
-	 * event.setCollAmount(event.getCollAmount()+newPrice);
-	 * p.setPrice(newPrice); p.setParticipationPK(participationPK);
-	 * p.setParticipationDate(new Date().toString());
-	 * participantRepository.save(p); eventrepository.save(event); } return
-	 * "Affected successfully with discount !!"; }
-	 */
+
 	@Override
 	public void findEventById(int id) {
 		eventrepository.findById(id).get();
