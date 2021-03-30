@@ -221,6 +221,15 @@ public class KindergartenController {
 		public List<KinderGarten> chercherParzone(@PathVariable("long")Double longi,@PathVariable("lati") Double lat,@PathVariable("rayon")Double rayon){
 			return kindergartenService.chercherParZone(longi, lat, rayon);
 		}
-		
+		//http://localhost:8081/kindergarten/servlet/kindergarten/Classrrom/displayByDate
+		@GetMapping("/Classrrom/displayByDate")
+		public List<Classroom> displayClassroomByDate(){
+			return classeService.displayClassroomByDate();
+		}
+		/*//http://localhost:8081/kindergarten/servlet/kindergarten/Classroom/displayClassroomByKinder
+		@GetMapping("/Classroom/displayClassroomByKinder/{k}")
+		public List<Classroom> displayClassroomByKinder(KinderGarten k){
+			return classeService.findClassroomByKinderG(k);
+		}*/
+		}
 
-}

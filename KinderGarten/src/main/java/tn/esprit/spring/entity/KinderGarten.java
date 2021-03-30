@@ -39,9 +39,9 @@ public class KinderGarten implements Serializable {
 	private Double revenue;
 	private Double longi;
 	private Double latitude;
-
 	
 
+	
 	public Double getLongi() {
 		return longi;
 	}
@@ -87,12 +87,16 @@ public class KinderGarten implements Serializable {
 	
 	
 
-	public KinderGarten(int id, String name, int phone, float price, String description, String place, byte[] logo,
+	public KinderGarten() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public KinderGarten(String name, int phone, float price, String description, String place, byte[] logo,
 			Double revenue, Double longi, Double latitude, int nbr_emp, Date date_creation, int views,
 			Date datefinInscrit, KinderGarten_owner kinder, List<Event> events, List<Satisfaction> satisfactions,
 			List<Complaint_kinder> complaint_kinders, List<Classroom> classrooms) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.phone = phone;
 		this.price = price;
@@ -112,12 +116,12 @@ public class KinderGarten implements Serializable {
 		this.complaint_kinders = complaint_kinders;
 		this.classrooms = classrooms;
 	}
-	
-	public KinderGarten(String name, int phone, float price, String description, String place, byte[] logo,
-			Double revenue, Double longi, Double latitude, int nbr_emp, Date date_creation, int views,
+	public KinderGarten(int id, String name, int phone, float price, String description, String place, byte[] logo,
+			Double revenue, Double longi, Double latitude,int nbr_emp, Date date_creation, int views,
 			Date datefinInscrit, KinderGarten_owner kinder, List<Event> events, List<Satisfaction> satisfactions,
 			List<Complaint_kinder> complaint_kinders, List<Classroom> classrooms) {
 		super();
+		this.id = id;
 		this.name = name;
 		this.phone = phone;
 		this.price = price;

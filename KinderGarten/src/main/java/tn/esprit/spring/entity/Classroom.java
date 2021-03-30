@@ -15,6 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Classroom implements Serializable {
 
@@ -39,7 +41,7 @@ public class Classroom implements Serializable {
 	private Double price_T;
 	private Double price_M;
 	
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "classroom" ,fetch= FetchType.EAGER)
 	private List<Child> childs;
 	

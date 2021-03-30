@@ -81,6 +81,8 @@ public class ClassroomServiceImpl implements IClassroomService {
 	@Override
 	public Classroom addClassroom(Classroom classes) {
 	  Double assurance=50.0;
+		//KinderGarten k = new KinderGarten();
+		//Double i=k.getAssurance();
 		if(classes.getDateEnd().before(classes.getDatebegin())) {
 			System.out.println("can't add classroom because datebegin is after the date end");
 		} 
@@ -90,7 +92,7 @@ public class ClassroomServiceImpl implements IClassroomService {
 			if(p <= 31) 
 			{ classes.setPrice_T(classes.getPrice_M()+assurance);}
 			else if( p>31 && p<=63)
-			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.1)+assurance);} 
+			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.1)+assurance);} //600-600*0.1
 			else if( p>63 && p<=94) 
 			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.2)+assurance);}
 			else if( p>94 && p<120)
@@ -110,6 +112,19 @@ public class ClassroomServiceImpl implements IClassroomService {
 		}
 		return total;
 	}
+
+
+	@Override
+	public List<Classroom> displayClassroomByDate() {
+		// TODO Auto-generated method stub
+		return classeRepo.displayClassroomByDate();
+		
+	}
+/*	@Override
+	public List<Classroom> findClassroomByKinderG(KinderGarten k) {
+		return classeRepo.findClassroomByKinder(k);
+	}*/
+	
 
 
 }

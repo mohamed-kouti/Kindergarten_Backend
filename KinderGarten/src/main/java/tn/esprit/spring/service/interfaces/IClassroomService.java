@@ -25,6 +25,9 @@ public interface IClassroomService {
        
        public Double RevenuePerYear(String year);
        
+       public List<Classroom> displayClassroomByDate();
+    	//public List<Classroom> findClassroomByKinderG(KinderGarten k);
+       
        //public Classroom getClasseByChildAge(Child c);
 
 	//public Classroom getClasseByChildAge(List<Child> kids);
