@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import tn.esprit.spring.entity.Classroom;
-
 @Repository
 public interface IClassroomRepository extends CrudRepository<Classroom, Integer> {
 	
@@ -19,5 +18,8 @@ public interface IClassroomRepository extends CrudRepository<Classroom, Integer>
 	
 	@Query(value="SELECT * FROM Classroom WHERE date_end  Like %?1%", nativeQuery = true)
 	List<Classroom> classroomRevenueYear(@Param("year") String year);
+	
+	
+	
 	
 }

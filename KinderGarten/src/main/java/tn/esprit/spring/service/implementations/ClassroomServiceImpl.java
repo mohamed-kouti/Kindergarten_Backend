@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.entity.Classroom;
 import tn.esprit.spring.entity.KinderGarten;
+import tn.esprit.spring.repository.IChildRepository;
 import tn.esprit.spring.repository.IClassroomRepository;
 import tn.esprit.spring.repository.IKindergartenRepository;
 import tn.esprit.spring.service.interfaces.IClassroomService;
@@ -18,6 +19,8 @@ public class ClassroomServiceImpl implements IClassroomService {
 	
 	@Autowired
 	IKindergartenRepository kinderRepo;
+	@Autowired
+	IChildRepository childRepo;
 	
 	
 	
@@ -77,20 +80,21 @@ public class ClassroomServiceImpl implements IClassroomService {
 
 	@Override
 	public Classroom addClassroom(Classroom classes) {
+	  Double assurance=50.0;
 		if(classes.getDateEnd().before(classes.getDatebegin())) {
 			System.out.println("can't add classroom because datebegin is after the date end");
 		} 
 		else {
 			long p = Math.round((classes.getDateEnd().getTime() - classes.getDatebegin().getTime()) / (double) 86400000);
 			classes.setPeriode(p);
-			if(p < 30) 
-			{ classes.setPrice_T(classes.getPrice_M());}
-			else if( p>30 && p<60)
-			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.1));} 
-			else if( p>60 && p<90) 
-			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.2));}
-			else if( p>90 && p<120)
-			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.3));}
+			if(p <= 31) 
+			{ classes.setPrice_T(classes.getPrice_M()+assurance);}
+			else if( p>31 && p<=63)
+			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.1)+assurance);} 
+			else if( p>63 && p<=94) 
+			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.2)+assurance);}
+			else if( p>94 && p<120)
+			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.3)+assurance);}
 			classeRepo.save(classes);
 			}
 			return classes;
@@ -107,7 +111,12 @@ public class ClassroomServiceImpl implements IClassroomService {
 		return total;
 	}
 
-	}
+
+}
+		
+	
+
+	
 	
 	
 

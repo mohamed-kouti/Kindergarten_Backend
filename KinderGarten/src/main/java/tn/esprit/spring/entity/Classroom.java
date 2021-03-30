@@ -40,7 +40,6 @@ public class Classroom implements Serializable {
 	private Double price_M;
 	
 	
-	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "classroom" ,fetch= FetchType.EAGER)
 	private List<Child> childs;
 	
@@ -52,6 +51,37 @@ public class Classroom implements Serializable {
 		super();
 	}
 
+	public Classroom(String name, int nbr_max, int nbInscrit, Date datebegin, Date dateEnd, long periode,
+			Double price_T, Double price_M, List<Child> childs, KinderGarten kindergarten) {
+		super();
+		this.name = name;
+		this.nbr_max = nbr_max;
+		this.nbInscrit = nbInscrit;
+		this.datebegin = datebegin;
+		this.dateEnd = dateEnd;
+		this.periode = periode;
+		this.price_T = price_T;
+		this.price_M = price_M;
+		this.childs = childs;
+		this.kindergarten = kindergarten;
+	}
+
+	public Classroom(int id, String name, int nbr_max, int nbInscrit, Date datebegin, Date dateEnd, long periode,
+			Double price_T, Double price_M, List<Child> childs, KinderGarten kindergarten) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.nbr_max = nbr_max;
+		this.nbInscrit = nbInscrit;
+		this.datebegin = datebegin;
+		this.dateEnd = dateEnd;
+		this.periode = periode;
+		this.price_T = price_T;
+		this.price_M = price_M;
+		this.childs = childs;
+		this.kindergarten = kindergarten;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -59,6 +89,7 @@ public class Classroom implements Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
+
 
 
 	public int getNbInscrit() {

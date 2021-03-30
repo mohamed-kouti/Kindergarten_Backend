@@ -2,7 +2,9 @@ package tn.esprit.spring.service.interfaces;
 
 import java.util.List;
 
+import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Classroom;
+import tn.esprit.spring.entity.KinderGarten;
 
 public interface IClassroomService {
 
@@ -22,4 +24,11 @@ public interface IClassroomService {
        public Classroom addClassroom(Classroom classes);
        
        public Double RevenuePerYear(String year);
+       
+       //public Classroom getClasseByChildAge(Child c);
+
+	//public Classroom getClasseByChildAge(List<Child> kids);
+       
+
+//public Classe getClasseByKidAge(Child c,KinderGarten kinder)
 }

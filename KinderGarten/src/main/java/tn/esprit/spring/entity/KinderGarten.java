@@ -7,7 +7,6 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -85,7 +84,59 @@ public class KinderGarten implements Serializable {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kindergarten")
 	private List<Classroom> classrooms;
+	
+	
 
+	public KinderGarten(int id, String name, int phone, float price, String description, String place, byte[] logo,
+			Double revenue, Double longi, Double latitude, int nbr_emp, Date date_creation, int views,
+			Date datefinInscrit, KinderGarten_owner kinder, List<Event> events, List<Satisfaction> satisfactions,
+			List<Complaint_kinder> complaint_kinders, List<Classroom> classrooms) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+		this.price = price;
+		this.description = description;
+		this.place = place;
+		this.logo = logo;
+		this.revenue = revenue;
+		this.longi = longi;
+		this.latitude = latitude;
+		this.nbr_emp = nbr_emp;
+		this.date_creation = date_creation;
+		this.views = views;
+		this.datefinInscrit = datefinInscrit;
+		this.kinder = kinder;
+		this.events = events;
+		this.satisfactions = satisfactions;
+		this.complaint_kinders = complaint_kinders;
+		this.classrooms = classrooms;
+	}
+	
+	public KinderGarten(String name, int phone, float price, String description, String place, byte[] logo,
+			Double revenue, Double longi, Double latitude, int nbr_emp, Date date_creation, int views,
+			Date datefinInscrit, KinderGarten_owner kinder, List<Event> events, List<Satisfaction> satisfactions,
+			List<Complaint_kinder> complaint_kinders, List<Classroom> classrooms) {
+		super();
+		this.name = name;
+		this.phone = phone;
+		this.price = price;
+		this.description = description;
+		this.place = place;
+		this.logo = logo;
+		this.revenue = revenue;
+		this.longi = longi;
+		this.latitude = latitude;
+		this.nbr_emp = nbr_emp;
+		this.date_creation = date_creation;
+		this.views = views;
+		this.datefinInscrit = datefinInscrit;
+		this.kinder = kinder;
+		this.events = events;
+		this.satisfactions = satisfactions;
+		this.complaint_kinders = complaint_kinders;
+		this.classrooms = classrooms;
+	}
 	public int getId() {
 		return id;
 	}
