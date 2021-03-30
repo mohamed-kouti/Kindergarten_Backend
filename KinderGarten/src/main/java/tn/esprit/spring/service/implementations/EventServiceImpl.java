@@ -138,7 +138,7 @@ public class EventServiceImpl implements IEventService {
 			return ("CONGRATULATIONS YOUR GET A DISCOUNT  :o !! THE NEW PRICE IS  " + newPrice + " INSTEAD OF"
 					+ event.getPrice() + " nombre des participants avec reduction" + number);
 		} else if (event.getNbr_places() == 0) {
-			return "THERE NO AVAILABLE PLACES TO THIS EVENT :( !!";
+			return "THERE IS NO AVAILABLE PLACES TO THIS EVENT :( !!";
 		} else {
 			if ((event.getNbr_places() > 0)) {
 				participationPK.setIdEvent(event.getId());

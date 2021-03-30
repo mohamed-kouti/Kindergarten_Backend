@@ -25,7 +25,7 @@ public class PayementServiceImpl implements IPaymentService{
 	
 	@Override
 	public void createStripeCustomer(int idUser) {
-		Stripe.apiKey = "xxxxxxxxxxxx";
+		Stripe.apiKey = "sk_test_51IaZFIDddnfoSRDOZ2pmALeis2oogucPxJ5qhS1VcIkcviMrAG98RGO7vMaLn8a7gXd6U8qodOpf3V4WTFTJprx200AbIXjxrX";
 		User user = userRepository.findById(idUser).get();
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("description", "My First Test Customer (created for API docs)");
@@ -48,7 +48,7 @@ public class PayementServiceImpl implements IPaymentService{
 	@Override
 	public String createCardForCustumorStripe(String customerId, String card, String expMonth, String expYear,
 			String cvc) throws StripeException {
-		Stripe.apiKey = "xxxxxxxxxxxxx";
+		Stripe.apiKey = "sk_test_51IaZFIDddnfoSRDOZ2pmALeis2oogucPxJ5qhS1VcIkcviMrAG98RGO7vMaLn8a7gXd6U8qodOpf3V4WTFTJprx200AbIXjxrX";
 		Customer customer = Customer.retrieve(customerId);
 		Map<String, Object> cardParam = new HashMap<String, Object>();
 		cardParam.put("number", card);
@@ -68,14 +68,15 @@ public class PayementServiceImpl implements IPaymentService{
 
 	@Override
 	public void chargeCustomer(int amount) {
-		Stripe.apiKey = "xxxxxxxxxxx ";
+		Stripe.apiKey = "sk_test_51IaZFIDddnfoSRDOZ2pmALeis2oogucPxJ5qhS1VcIkcviMrAG98RGO7vMaLn8a7gXd6U8qodOpf3V4WTFTJprx200AbIXjxrX";
 		Map<String, Object> params = new HashMap<>();
 		params.put("amount", amount);
-		params.put("currency", "usd");
-		params.put("customer", "cus_J5wc4xMDvIyCfe");
-
+		params.put("currency", "DT");
+		params.put("customer", "cus_JD95EmnYIs8izV");
+      
 		try {
 			Charge charge = Charge.create(params);
+			 System.out.println ("yah bini ");
 		} catch (StripeException e) {
 			throw new RuntimeException(e);
 		}
