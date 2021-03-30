@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Satisfaction implements Serializable {
 
@@ -17,9 +19,11 @@ public class Satisfaction implements Serializable {
 
 	@EmbeddedId
 	private PK_SAT pk_sat;
+
 	@ManyToOne
 	@JoinColumn(name = "id_parent", referencedColumnName = "id", insertable = false, updatable = false)
 	private Parent parent;
+
 	@ManyToOne
 	@JoinColumn(name = "id_kindergarten", referencedColumnName = "id", insertable = false, updatable = false)
 	private KinderGarten garten;
@@ -74,5 +78,5 @@ public class Satisfaction implements Serializable {
 	public void setCes(int ces) {
 		this.ces = ces;
 	}
-
+	
 }

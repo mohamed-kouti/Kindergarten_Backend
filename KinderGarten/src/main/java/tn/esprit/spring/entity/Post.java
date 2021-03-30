@@ -25,6 +25,7 @@ public class Post implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String photo;
+	private String content;
 	@Temporal(TemporalType.DATE)
 	private Date date_post;
 	private int nbr_like;
@@ -89,6 +90,14 @@ public class Post implements Serializable {
 
 	public void setComplaint_posts(List<Complaint_post> complaint_posts) {
 		this.complaint_posts = complaint_posts;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 
 }

@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class KinderGarten implements Serializable {
 
@@ -38,6 +40,7 @@ public class KinderGarten implements Serializable {
 	private KinderGarten_owner kinder;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kindergarten")
 	private List<Event> events;
+	@JsonIgnore
 	@OneToMany(mappedBy = "garten")
 	private List<Satisfaction> satisfactions;
 	@OneToMany(mappedBy = "garten")

@@ -7,6 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Parent extends User implements Serializable {
 
@@ -17,6 +19,7 @@ public class Parent extends User implements Serializable {
 	private boolean delegate;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
 	private List<Child> childs;
+	@JsonIgnore
 	@OneToMany(mappedBy = "parent")
 	private List<Satisfaction> satisfactions;
 	@OneToMany(mappedBy = "parent")

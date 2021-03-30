@@ -13,7 +13,7 @@ import tn.esprit.spring.entity.User;
 public interface IUserRepository extends CrudRepository<User, Integer> {
 	Optional<User> findByEmail(String email);
 
-	@Query(value = "select dtype from user u where u.email= :mail ", nativeQuery = true)
+	@Query(value = "select dtype from user u where u.email= :mail and actif='1' ", nativeQuery = true)
 	String getRole(@Param("mail") String mail);
 
 	User findByFname(String name);

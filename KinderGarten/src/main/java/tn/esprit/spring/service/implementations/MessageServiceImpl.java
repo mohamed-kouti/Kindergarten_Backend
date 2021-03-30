@@ -1,6 +1,7 @@
 package tn.esprit.spring.service.implementations;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +57,18 @@ public class MessageServiceImpl implements IMessageService {
 	@Override
 	public List<String> getAllword() {
 		return messagerep.getAllWord();
+	}
+
+	@Override
+	public List<Message> getAllMessageById(int id) {
+		List<Message>msgs=(List<Message>)messagerep.findAll();
+		List<Message>rslt=new ArrayList<Message>();
+		
+		for(int i=0;i<msgs.size();i++) {
+			if(msgs.get(i).getUser().getId()==id)
+				rslt.add(msgs.get(i));
+		}
+		return rslt;
 	}
 
 }

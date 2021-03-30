@@ -13,5 +13,6 @@ public interface IMessageService {
 	public void deleteMessage(int id);
 
 	public List<Message> getAllMessage();
+	public List<Message> getAllMessageById(int id);
 	public List<String>getAllword();
 }

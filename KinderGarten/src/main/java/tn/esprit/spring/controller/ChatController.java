@@ -3,9 +3,11 @@ package tn.esprit.spring.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,12 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Message;
+import tn.esprit.spring.entity.PK_SAT;
 import tn.esprit.spring.entity.Post;
+import tn.esprit.spring.entity.Satisfaction;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.IUserRepository;
 import tn.esprit.spring.service.interfaces.ICommentService;
 import tn.esprit.spring.service.interfaces.IMessageService;
 import tn.esprit.spring.service.interfaces.IPostService;
+import tn.esprit.spring.service.interfaces.ISatisfactionService;
 
 @RestController
 @RequestMapping(path = "/chat")
@@ -39,6 +44,8 @@ public class ChatController {
 	IUserRepository userServiceInterface;
 	@Autowired
 	SimpMessagingTemplate simpMessagingTemplate;
+	@Autowired
+	ISatisfactionService satser;
 
 	@PostMapping("/add-post")
 	@ResponseBody
@@ -117,22 +124,47 @@ public class ChatController {
 		User destination = userServiceInterface.findByFname(to);
 		User sender = userServiceInterface.findByFname(message.getFromLogin());
 
-		messageser.addMessage(message);
-
 		simpMessagingTemplate.convertAndSend("/topic/messages/" + to, message);
-
+		message.setUser(sender);
+		message.setTo_user(destination.getId());
+		messageser.addMessage(message);
 	}
 
 	@GetMapping("/send/{msg}/{from}/{to}")
 	public void send(@PathVariable("msg") String msg, @PathVariable("from") String from,
 			@PathVariable("to") String to) {
 		Message ms = new Message();
+		User destination = userServiceInterface.findByFname(to);
+		User sender = userServiceInterface.findByFname(from);
 		ms.setFromLogin(from);
-
+		ms.setTo_user(destination.getId());
 		ms.setMessage(msg);
+		ms.setUser(sender);
 		messageser.addMessage(ms);
-
 		simpMessagingTemplate.convertAndSend("/topic/messages/" + to, ms);
 	}
 
+	@GetMapping("/getmsgbyid/{id}")
+	public List<Message> getAllMsgById(@PathVariable("id") int id) {
+		return messageser.getAllMessageById(id);
+	}
+
+	@PostMapping("/addsat/{id_pa}/{id_ki}")
+	@ResponseBody
+	public void add_Sat(@PathVariable("id_pa") int idp, @PathVariable("id_ki") int idk, @RequestBody Satisfaction s) {
+		PK_SAT pk = new PK_SAT();
+		pk.setId_kindergarten(idk);
+		pk.setId_parent(idp);
+		s.setPk_sat(pk);
+		satser.add_Satisfaction(s);
+
+	}
+	@GetMapping("/allsat")
+	@ResponseBody
+	public List<Satisfaction> getAllSat(){
+		return satser.getAllSatisfaction();
+	}
+	
+	
+	
 }

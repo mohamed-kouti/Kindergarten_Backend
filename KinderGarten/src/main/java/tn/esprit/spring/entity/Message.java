@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +23,7 @@ public class Message implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String message;
-
+	private int to_user;
 	private String fromLogin;
 	@Temporal(TemporalType.DATE)
 	private Date date_msg;
@@ -67,6 +68,14 @@ public class Message implements Serializable {
 
 	public void setFromLogin(String fromLogin) {
 		this.fromLogin = fromLogin;
+	}
+
+	public int getTo_user() {
+		return to_user;
+	}
+
+	public void setTo_user(int to_user) {
+		this.to_user = to_user;
 	}
 
 }
