@@ -3,39 +3,54 @@ package tn.esprit.spring.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties("")
 public class Complaint_kinder implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@EmbeddedId
-	private PK_SAT pk_sat;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
 	@ManyToOne
-	@JoinColumn(name = "id_parent", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "id_parent", referencedColumnName = "id")
 	private Parent parent;
 	@ManyToOne
-	@JoinColumn(name = "id_kindergarten", referencedColumnName = "id", insertable = false, updatable = false)
+	@JoinColumn(name = "id_kindergarten", referencedColumnName = "id")
 	private KinderGarten garten;
 	private String msg;
 	@Temporal(TemporalType.DATE)
 	private Date date_comp;
 	private boolean stat;
+	
+	@Enumerated(EnumType.STRING)
+	private ComplaintCategory complaintCategory;
 
-	public PK_SAT getPk_sat() {
-		return pk_sat;
+	
+
+	public int getId() {
+		return id;
 	}
 
-	public void setPk_sat(PK_SAT pk_sat) {
-		this.pk_sat = pk_sat;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public Parent getParent() {
@@ -78,4 +93,13 @@ public class Complaint_kinder implements Serializable {
 		this.stat = stat;
 	}
 
+	public ComplaintCategory getComplaintCategory() {
+		return complaintCategory;
+	}
+
+	public void setComplaintCategory(ComplaintCategory complaintCategory) {
+		this.complaintCategory = complaintCategory;
+	}
+	
+	
 }

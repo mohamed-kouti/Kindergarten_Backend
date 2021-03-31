@@ -13,6 +13,15 @@ public class PK_POST implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private int id_user;
 	private int id_post;
+	
+	public PK_POST() {}
+	
+
+	public PK_POST(int id_user, int id_post) {
+		super();
+		this.id_user = id_user;
+		this.id_post = id_post;
+	}
 
 	public int getId_user() {
 		return id_user;

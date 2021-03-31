@@ -3,11 +3,16 @@ package tn.esprit.spring.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@DiscriminatorValue("1")
+@JsonIgnoreProperties(value = {"appointments","kinder","complaint_posts","kindergarten"})
 public class KinderGarten_owner extends User implements Serializable {
 
 	/**
