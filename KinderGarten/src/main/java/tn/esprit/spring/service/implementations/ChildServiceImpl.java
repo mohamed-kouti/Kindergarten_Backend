@@ -60,7 +60,7 @@ public class ChildServiceImpl implements IChildService {
 		if(classe.getKindergarten().getDatefinInscrit().before(d)) {
 			System.out.println("impossible d inscrire");
 			String to =s.getEmail();
-			emailService.sendSimpleEmail(to,"response to your registration in our kindergarten",
+			emailService.sendSimpleEmail(to,"Response to your registration in our kindergarten",
 			"we are sorry Your child's registration for the daycare "
 			+"was refused on the grounds that our daycare has closed registrations");
 		}
@@ -86,6 +86,9 @@ public class ChildServiceImpl implements IChildService {
 				child.setDateInscrit(Date.valueOf(LocalDate.now()));
 				childRepo.save(child);
 				classeRepo.save(classe);
+				String to2 =s.getEmail();
+				emailService.sendSimpleEmail(to2,"Response to your registration in our kindergarten","your child's registration request is accepted");
+						
 				}
 			} 
 		//if classroom saturated
