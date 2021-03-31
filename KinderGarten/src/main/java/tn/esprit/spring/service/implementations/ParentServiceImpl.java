@@ -36,6 +36,10 @@ public Parent addParent(Parent p) {
 public Parent updateParent(Parent p) {
 	return parentRepo.save(p);
 }
+@Override
+public Long nbreParent() {
+	return (long) parentRepo.findAll().size();
+}
 
 
 }

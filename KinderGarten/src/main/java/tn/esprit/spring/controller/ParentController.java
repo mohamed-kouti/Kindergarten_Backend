@@ -1,6 +1,7 @@
 package tn.esprit.spring.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,12 +45,18 @@ public class ParentController {
 		return parentService.addParent(p);
 	}
 	
-	//http://localhost:8081/kindergarten/servlet/kindergarten/parent/update-parent
+	//http://localhost:8081/kindergarten/servlet/parent/update-parent
 	@PutMapping("/update-parent")
 	@ResponseBody
 	public Parent updateParent(@RequestBody Parent p)
 	{
 		return parentService.updateParent(p);
+	}
+	//http://localhost:8081/kindergarten/servlet/parent/nbreParent
+	@GetMapping("/nbreParent")
+	@ResponseBody
+	public Long getNbreParent(){
+		return parentService.nbreParent();
 	}
 	
 

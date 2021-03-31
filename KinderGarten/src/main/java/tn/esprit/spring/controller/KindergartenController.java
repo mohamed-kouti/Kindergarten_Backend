@@ -90,104 +90,7 @@ public class KindergartenController {
 	  return p;
   }
 	
-		//crud entite Classroom
-		
-		//http://localhost:8081/kindergarten/servlet/kindergarten/retrieve-all-classe
-		@GetMapping("/retrieve-all-classe")
-		@ResponseBody
-		public List<Classroom> getAllclasse()
-		{
-			List<Classroom> list = classeService.getAllClass();
-			return list;
-		}
-		
-		//http://localhost:8081/kindergarten/servlet/kindergarten/add-classe
-		@PostMapping("/add-classe")
-		@ResponseBody
-		public Classroom addClasse(@RequestBody Classroom classe)
-		{
-			Classroom c = classeService.addClassroom(classe);
-			return c ;
-		}
-		//http://localhost:8081/kindergarten/servlet/kindergarten/update-classe
-		@PutMapping("/update-classe")
-		@ResponseBody
-		public Classroom updateClasse(@RequestBody Classroom classe)
-		{
-		Classroom c = classeService.addOrUpdateClass(classe);
-		return  c ;
-	    }
-		
-		//http://localhost:8081/kindergarten/servlet/kindergarten/remove-classe/{classe-id}
-				@DeleteMapping("/remove-classe/{classe-id}")
-				@ResponseBody
-				public void removeClasse(@PathVariable("classe-id") int id) 
-				{
-					classeService.deleteClassById(id);
-				}
-				
 	
-	  
-	  // method for entity classroom
-	  
-	//http://localhost:8081/kindergarten/servlet/kindergarten/classroom/sature
-	  @GetMapping("/classroom/sature")
-	  public List<Classroom> dispalyClassroomSaturated() {
-			return classeService.dispalyClassroomSaturated();
-		}
-        
-
-		//http://localhost:8081/kindergarten/servlet/kindergarten/classroom/Nsature
-		@GetMapping("/classroom/Nsature")
-		public List<Classroom> displayDaycareNonSaturated() {
-			return classeService.displayClassroomNonSaturated();
-		}
-		
-		  // crud entity Child
-		
-		//http://localhost:8081/kindergarten/servlet/kindergarten/child/add-child
-		@PostMapping("/child/add-child")
-		public Child addChild(@RequestBody Child c){
-			return childService.addChild(c);
-		}
-		
-		//http://localhost:8081/kindergarten/servlet/kindergarten/child/update-child
-		@PutMapping("/child/update-child")
-		@ResponseBody
-		public Child updateChild(@RequestBody Child c)
-		{
-			return childService.updateChild(c);
-		}
-		
-
-		//http://localhost:8081/kindergarten/servlet/kindergarten/child/getAll
-		@GetMapping("/child/getAll")
-		public List<Child> getAllChild(){
-			return childService.getAllChildren();
-		}
-		
-		//http://localhost:8081/kindergarten/servlet/kindergarten/child/getBy/{idChild}
-		@GetMapping("/child/getBy/{idChild}")
-		public Child getChildById(@PathVariable("idChild") int id){
-			return childService.getChild(id);
-		}
-		//http://localhost:8081/kindergarten/servlet/kindergarten/child/del/{idChild}
-		@DeleteMapping("/child/del/{idChild}")
-		public void deleteChild(@PathVariable("idChild") int id) {
-			childService.deleteChild(id);
-		}
-	
-		//http://localhost:8081/kindergarten/servlet/kindergarten/child/classroom/aff/{idChild}/{idClasse}
-		@PutMapping("/child/classroom/aff/{idChild}/{idClasse}")
-		public Child affectChildToClass(@PathVariable("idChild") int idChild, @PathVariable("idClasse") int idClasse){
-			return childService.affectChildtoClass(idChild, idClasse);
-		}
-		
-		//http://localhost:8081/kindergarten/servlet/kindergarten/child/classroom/delete/{idChild}/{idClasse}
-		@PutMapping("/child/classroom/delete/{idChild}/{idClasse}")
-		public Child deleteChildFromClasse(@PathVariable("idChild") int idChild,@PathVariable("idClasse") int idClasse){
-			return childService.deleteChildFromClasse(idChild, idClasse);
-		}
 	    //http://localhost:8081/kindergarten/servlet/kindergarten/kinderG/retrieve-kinderG-ById/{id}
 		@GetMapping("/kinderG/retrieve-kinderG-ById/{id}")
 		public KinderGarten getKinderGById(@PathVariable("id") int id) {
@@ -199,18 +102,7 @@ public class KindergartenController {
 		public List<String> displaybestEventsByViews(){
 			return kindergartenService.displayBestKinderGartensByViews();
 			}
-		//http://localhost:8081/kindergarten/servlet/kindergarten/classroom/affectToKinderG/{idclasse}/{idkinder}
-		@PutMapping("/classroom/affectToKinderG/{idclasse}/{idkinder}")  
-		 private String affectClassTokKinderG(@PathVariable("idclasse")int idclasse,@PathVariable("idkinder")int idkinder)   
-		  {  
-			return classeService.affecterClassesToKinderG(idclasse, idkinder);
-		  }
-		
-		//http://localhost:8081/kindergarten/servlet/kindergarten/classroom/static/revenue/{year}
-		@GetMapping("classroom/static/revenue/{year}")
-		public Double classesRevenuePerYear(@PathVariable("year") String year){
-			return classeService.RevenuePerYear(year);
-		}
+	
 		//http://localhost:8081/kindergarten/servlet/kindergarten/kinderG/getListClasses/{id}
 		@GetMapping("/kinderG/getListClasses/{id}")
 		public List<Classroom> getListClasses(@PathVariable("id") int id){
@@ -221,11 +113,7 @@ public class KindergartenController {
 		public List<KinderGarten> chercherParzone(@PathVariable("long")Double longi,@PathVariable("lati") Double lat,@PathVariable("rayon")Double rayon){
 			return kindergartenService.chercherParZone(longi, lat, rayon);
 		}
-		//http://localhost:8081/kindergarten/servlet/kindergarten/Classrrom/displayByDate
-		@GetMapping("/Classrrom/displayByDate")
-		public List<Classroom> displayClassroomByDate(){
-			return classeService.displayClassroomByDate();
-		}
+		
 		/*//http://localhost:8081/kindergarten/servlet/kindergarten/Classroom/displayClassroomByKinder
 		@GetMapping("/Classroom/displayClassroomByKinder/{k}")
 		public List<Classroom> displayClassroomByKinder(KinderGarten k){

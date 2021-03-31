@@ -11,4 +11,5 @@ public interface IParentService {
 	public List<Child> getMyChild(Parent parent);
 	public Parent addParent(Parent p);
 	public Parent updateParent(Parent p);
+	public Long nbreParent();
 }
