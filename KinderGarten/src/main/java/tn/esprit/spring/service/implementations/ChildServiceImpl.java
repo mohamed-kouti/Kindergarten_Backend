@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Classroom;
+import tn.esprit.spring.entity.Parent;
 import tn.esprit.spring.repository.IChildRepository;
 import tn.esprit.spring.repository.IClassroomRepository;
 import tn.esprit.spring.repository.IKindergartenRepository;
@@ -21,6 +22,8 @@ public class ChildServiceImpl implements IChildService {
 	IClassroomRepository classeRepo;
 	@Autowired
 	IKindergartenRepository kinderRepo;
+	@Autowired
+	EmailServiceImpl emailService;
 
 	@Override
 	public Child addChild(Child c) {
@@ -51,10 +54,15 @@ public class ChildServiceImpl implements IChildService {
 	public Child affectChildtoClass(int idChild, int idClasse) {
 		Classroom classe = classeRepo.findById(idClasse).get();
 		Child child = childRepo.findById(idChild).get();
+		Parent s = child.getParent();     //ligne1 pour mail
 		Classroom c = child.getClassroom(); 
 		Date d= Date.valueOf(LocalDate.now());
 		if(classe.getKindergarten().getDatefinInscrit().before(d)) {
 			System.out.println("impossible d inscrire");
+			String to =s.getEmail();
+			emailService.sendSimpleEmail(to,"response to your registration in our kindergarten",
+			"we are sorry Your child's registration for the daycare "
+			+"was refused on the grounds that our daycare has closed registrations");
 		}
 		// test si le child est déjà affecte à une classroom
 		// si child affecte à une class et le nv classe est non saturé  
@@ -81,7 +89,7 @@ public class ChildServiceImpl implements IChildService {
 				}
 			} 
 		//if classroom saturated
-		System.out.println("classrrom saturated");
+		//System.out.println("classrrom saturated");
 		return child;
 		
 		
