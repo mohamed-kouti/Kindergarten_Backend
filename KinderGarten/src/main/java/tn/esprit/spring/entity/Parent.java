@@ -17,6 +17,7 @@ public class Parent extends User implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private boolean delegate;
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
 	private List<Child> childs;
 	@JsonIgnore

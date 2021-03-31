@@ -1,6 +1,7 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -31,31 +33,127 @@ public class KinderGarten implements Serializable {
 	private int phone;
 	private float price;
 	private String description;
-	private String logo;
 	private String place;
+	@Lob
+	private byte[] logo;
+	private Double revenue;
+	private Double longi;
+	private Double latitude;
+	
+
+	
+	public Double getLongi() {
+		return longi;
+	}
+	public void setLongi(Double longi) {
+		this.longi = longi;
+	}
+	public Double getLatitude() {
+		return latitude;
+	}
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+	public Double getRevenue() {
+		return revenue;
+	}
+	public void setRevenue(Double revenue) {
+		this.revenue = revenue;
+	}
+
 	private int nbr_emp;
 	@Temporal(TemporalType.DATE)
 	private Date date_creation;
+	
+	private int views;
+	
+	@Temporal(TemporalType.DATE)
+	private Date datefinInscrit; 
+	
 	@OneToOne
 	private KinderGarten_owner kinder;
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kindergarten")
 	private List<Event> events;
 	@JsonIgnore
 	@OneToMany(mappedBy = "garten")
 	private List<Satisfaction> satisfactions;
+	@JsonIgnore
 	@OneToMany(mappedBy = "garten")
 	private List<Complaint_kinder> complaint_kinders;
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kindergarten")
 	private List<Classroom> classrooms;
+	
+	
 
+	public KinderGarten() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public KinderGarten(String name, int phone, float price, String description, String place, byte[] logo,
+			Double revenue, Double longi, Double latitude, int nbr_emp, Date date_creation, int views,
+			Date datefinInscrit, KinderGarten_owner kinder, List<Event> events, List<Satisfaction> satisfactions,
+			List<Complaint_kinder> complaint_kinders, List<Classroom> classrooms) {
+		super();
+		this.name = name;
+		this.phone = phone;
+		this.price = price;
+		this.description = description;
+		this.place = place;
+		this.logo = logo;
+		this.revenue = revenue;
+		this.longi = longi;
+		this.latitude = latitude;
+		this.nbr_emp = nbr_emp;
+		this.date_creation = date_creation;
+		this.views = views;
+		this.datefinInscrit = datefinInscrit;
+		this.kinder = kinder;
+		this.events = events;
+		this.satisfactions = satisfactions;
+		this.complaint_kinders = complaint_kinders;
+		this.classrooms = classrooms;
+	}
+	public KinderGarten(int id, String name, int phone, float price, String description, String place, byte[] logo,
+			Double revenue, Double longi, Double latitude,int nbr_emp, Date date_creation, int views,
+			Date datefinInscrit, KinderGarten_owner kinder, List<Event> events, List<Satisfaction> satisfactions,
+			List<Complaint_kinder> complaint_kinders, List<Classroom> classrooms) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.phone = phone;
+		this.price = price;
+		this.description = description;
+		this.place = place;
+		this.logo = logo;
+		this.revenue = revenue;
+		this.longi = longi;
+		this.latitude = latitude;
+		this.nbr_emp = nbr_emp;
+		this.date_creation = date_creation;
+		this.views = views;
+		this.datefinInscrit = datefinInscrit;
+		this.kinder = kinder;
+		this.events = events;
+		this.satisfactions = satisfactions;
+		this.complaint_kinders = complaint_kinders;
+		this.classrooms = classrooms;
+	}
 	public int getId() {
 		return id;
 	}
-
-	public void setId(int id) {
+    public void setId(int id) {
 		this.id = id;
 	}
-
+	
+	public Date getDatefinInscrit() {
+		return datefinInscrit;
+	}
+	public void setDatefinInscrit(Date datefinInscrit) {
+		this.datefinInscrit = datefinInscrit;
+	}
 	public String getName() {
 		return name;
 	}
@@ -88,11 +186,13 @@ public class KinderGarten implements Serializable {
 		this.description = description;
 	}
 
-	public String getLogo() {
+	
+
+	public byte[] getLogo() {
 		return logo;
 	}
 
-	public void setLogo(String logo) {
+	public void setLogo(byte[] logo) {
 		this.logo = logo;
 	}
 
@@ -119,7 +219,14 @@ public class KinderGarten implements Serializable {
 	public void setDate_creation(Date date_creation) {
 		this.date_creation = date_creation;
 	}
+	
 
+	public int getViews() {
+		return views;
+	}
+	public void setViews(int views) {
+		this.views = views;
+	}
 	public KinderGarten_owner getKinder() {
 		return kinder;
 	}
@@ -158,6 +265,15 @@ public class KinderGarten implements Serializable {
 
 	public void setClassrooms(List<Classroom> classrooms) {
 		this.classrooms = classrooms;
+	}
+
+	@Override
+	public String toString() {
+		return "KinderGarten [id=" + id + ", name=" + name + ", phone=" + phone + ", price=" + price + ", description="
+				+ description + ", place=" + place + ", logo=" + Arrays.toString(logo) + ", revenue=" + revenue
+				+ ", nbr_emp=" + nbr_emp + ", date_creation=" + date_creation + ", views=" + views + ", datefinInscrit="
+				+ datefinInscrit + ", kinder=" + kinder + ", events=" + events + ", satisfactions=" + satisfactions
+				+ ", complaint_kinders=" + complaint_kinders + ", classrooms=" + classrooms + "]";
 	}
 
 }
