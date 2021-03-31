@@ -16,4 +16,6 @@ public interface IUserService {
 
 	Set<String> findAllByName();
 
+	User getUserById(int id);
+
 }

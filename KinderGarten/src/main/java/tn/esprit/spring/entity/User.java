@@ -44,6 +44,9 @@ public class User implements Serializable {
 	private List<Message> messages;
 	@OneToMany(mappedBy = "user")
 	private List<Complaint_post> complaint_posts;
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	private List<Post> posts; 
 
 	public int getId() {
 		return id;

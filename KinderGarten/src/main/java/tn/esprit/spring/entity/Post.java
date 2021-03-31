@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -33,6 +34,8 @@ public class Post implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
 	private List<Comment> comments;
 
+	@ManyToOne
+	User user;
 	@OneToMany(mappedBy = "post")
 	private List<Complaint_post> complaint_posts;
 
@@ -98,6 +101,14 @@ public class Post implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

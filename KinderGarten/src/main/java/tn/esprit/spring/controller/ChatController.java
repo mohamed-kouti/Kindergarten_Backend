@@ -29,6 +29,7 @@ import tn.esprit.spring.service.interfaces.ICommentService;
 import tn.esprit.spring.service.interfaces.IMessageService;
 import tn.esprit.spring.service.interfaces.IPostService;
 import tn.esprit.spring.service.interfaces.ISatisfactionService;
+import tn.esprit.spring.service.interfaces.IUserService;
 
 @RestController
 @RequestMapping(path = "/chat")
@@ -41,15 +42,16 @@ public class ChatController {
 	@Autowired
 	IMessageService messageser;
 	@Autowired
-	IUserRepository userServiceInterface;
-	@Autowired
 	SimpMessagingTemplate simpMessagingTemplate;
 	@Autowired
 	ISatisfactionService satser;
+	@Autowired
+	IUserService userser;
 
-	@PostMapping("/add-post")
+	@PostMapping("/add-post/{}id")
 	@ResponseBody
-	public void addPost(@RequestBody Post p) {
+	public void addPost(@RequestBody Post p, @PathVariable("id") int id) {
+		p.setUser(userser.getUserById(id));
 		postser.addPost(p);
 	}
 
@@ -65,9 +67,10 @@ public class ChatController {
 		postser.deletePost(id);
 	}
 
-	@PostMapping("/add-comment")
+	@PostMapping("/add-comment/{id}")
 	@ResponseBody
-	public void addComment(@RequestBody Comment c) {
+	public void addComment(@RequestBody Comment c, @PathVariable("id") int id) {
+		c.setPost(postser.getPostbyId(id));
 		commentser.addComment(c);
 	}
 
@@ -121,8 +124,8 @@ public class ChatController {
 
 	@MessageMapping("/chat/{to}")
 	public void sendMessage(@DestinationVariable String to, Message message) {
-		User destination = userServiceInterface.findByFname(to);
-		User sender = userServiceInterface.findByFname(message.getFromLogin());
+		User destination = userser.findByUserName(to);
+		User sender = userser.findByUserName(message.getFromLogin());
 
 		simpMessagingTemplate.convertAndSend("/topic/messages/" + to, message);
 		message.setUser(sender);
@@ -134,8 +137,8 @@ public class ChatController {
 	public void send(@PathVariable("msg") String msg, @PathVariable("from") String from,
 			@PathVariable("to") String to) {
 		Message ms = new Message();
-		User destination = userServiceInterface.findByFname(to);
-		User sender = userServiceInterface.findByFname(from);
+		User destination = userser.findByUserName(to);
+		User sender = userser.findByUserName(from);
 		ms.setFromLogin(from);
 		ms.setTo_user(destination.getId());
 		ms.setMessage(msg);
@@ -159,12 +162,11 @@ public class ChatController {
 		satser.add_Satisfaction(s);
 
 	}
+
 	@GetMapping("/allsat")
 	@ResponseBody
-	public List<Satisfaction> getAllSat(){
+	public List<Satisfaction> getAllSat() {
 		return satser.getAllSatisfaction();
 	}
-	
-	
-	
+
 }
