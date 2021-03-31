@@ -32,18 +32,21 @@ public class AdminController {
 	@PostMapping("/addparent")
 	@ResponseBody
 	public void addParent(@RequestBody Parent p) {
+		p.setActif(false);
 		userser.addPrent(p);
 	}
 
 	@PostMapping("/addadmin")
 	@ResponseBody
 	public void addAdmin(@RequestBody Admin a) {
+		a.setActif(true);
 		userser.addAdmin(a);
 	}
 
 	@PostMapping("/addkdowner")
 	@ResponseBody
 	public void addKdowner(@RequestBody KinderGarten_owner k) {
+		k.setActif(false);
 		userser.addKindergarten(k);
 	}
 	
@@ -94,19 +97,13 @@ public class AdminController {
 	@ResponseBody
 	public void actifUser(@PathVariable("id") int id) {
 		userser.ActifUser(id);
+		
 	}
 	
-	@GetMapping("/sendmail")
-	public String sendSimpleEmail() {
-		SimpleMailMessage message = new SimpleMailMessage();
-        
-        message.setTo("mohamed.kouti@esprit.tn");
-        message.setSubject("Test Simple Email");
-        message.setText("Hello, Im testing Simple Email from akram");
- 
-        // Send Message!
-        this.emailSender.send(message);
-		return "Email Sent";
+	@PostMapping("/login/{mail}/{pass}")
+	@ResponseBody
+	public User Login(@PathVariable("mail")String mail,@PathVariable("pass")String pass) {
+		return userser.getUserByLogin(mail, pass);
 	}
 	
 }

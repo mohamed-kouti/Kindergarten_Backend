@@ -24,6 +24,8 @@ public interface IUserService {
 	public void updateAdmin(Admin a);
 	void BlockUser(int id);
 	void ActifUser(int id);
+	User getUserByLogin(String mail, String pass);
+	User getUserById(int id);
 	
 	
 }

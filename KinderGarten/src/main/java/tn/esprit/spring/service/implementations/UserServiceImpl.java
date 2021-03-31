@@ -3,6 +3,8 @@ package tn.esprit.spring.service.implementations;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,28 +20,30 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	IUserRepository userrep;
+	@Autowired
+	public JavaMailSender emailSender;
+
 	@Override
 	public void addPrent(Parent p) {
-		BCryptPasswordEncoder pe =new BCryptPasswordEncoder();
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		String ep = pe.encode(p.getPassword());
 		p.setPassword(ep);
 		userrep.save(p);
-		
+
 	}
 
 	@Override
 	public void addKindergarten(KinderGarten_owner k) {
-		BCryptPasswordEncoder pe =new BCryptPasswordEncoder();
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		String ep = pe.encode(k.getPassword());
 		k.setPassword(ep);
 		userrep.save(k);
-		
-		
+
 	}
 
 	@Override
 	public void addAdmin(Admin a) {
-		BCryptPasswordEncoder pe =new BCryptPasswordEncoder();
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
 		String ep = pe.encode(a.getPassword());
 		a.setPassword(ep);
 		userrep.save(a);
@@ -48,24 +52,29 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void deleteUser(int id) {
 		userrep.deleteById(id);
-		
+
 	}
 
-	
 	@Override
 	public void updateParent(Parent p) {
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+		String ep = pe.encode(p.getPassword());
+		p.setPassword(ep);
 		userrep.save(p);
 	}
 
 	@Override
 	public void updateKgowner(KinderGarten_owner k) {
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+		String ep = pe.encode(k.getPassword());
+		k.setPassword(ep);
 		userrep.save(k);
 	}
 
 	@Override
 	public List<User> getAllParents() {
 		return (List<User>) userrep.getAllParent();
-		
+
 	}
 
 	@Override
@@ -75,29 +84,55 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public void updateAdmin(Admin a) {
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+		String ep = pe.encode(a.getPassword());
+		a.setPassword(ep);
 		userrep.save(a);
-		
+
 	}
-	
+
 	@Override
 	public void BlockUser(int id) {
 		userrep.blockUser(id);
-		
+		SimpleMailMessage message = new SimpleMailMessage();
+
+		message.setTo(this.getUserById(id).getEmail());
+		message.setSubject("ALERT USER");
+		message.setText("Hello " + this.getUserById(id).getFname()
+				+ ", your account is blocked.\n Contact us for more information.");
+
+		// Send Message!
+		this.emailSender.send(message);
+
 	}
-	
-	
+
 	@Override
 	public void ActifUser(int id) {
 		userrep.actifUser(id);
-		
+		SimpleMailMessage message = new SimpleMailMessage();
+
+		message.setTo(this.getUserById(id).getEmail());
+		message.setSubject("ACTIVATION USER");
+		message.setText("Hello " + this.getUserById(id).getFname() + ", your account is Activated.");
+
+		// Send Message!
+		this.emailSender.send(message);
+
 	}
 
-	
-	
-	
-	
-	
+	@Override
+	public User getUserByLogin(String mail, String pass) {
+		User u = userrep.findByEmail(mail).get();
+		BCryptPasswordEncoder bp = new BCryptPasswordEncoder();
+		if (bp.matches(pass, u.getPassword())) {
+			return u;
+		}
+		return null;
+	}
 
-	
-	
+	@Override
+	public User getUserById(int id) {
+		return userrep.findById(id).get();
+	}
+
 }
