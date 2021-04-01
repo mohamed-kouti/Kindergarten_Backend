@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +29,7 @@ import tn.esprit.spring.entity.Participation;
 import tn.esprit.spring.entity.Type;
 import tn.esprit.spring.service.implementations.EventServiceImpl;
 import tn.esprit.spring.service.implementations.ParticipationServiceImpl;
-
+@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 @RestController
 @RequestMapping(path = "/event")
 public class EvenementController {

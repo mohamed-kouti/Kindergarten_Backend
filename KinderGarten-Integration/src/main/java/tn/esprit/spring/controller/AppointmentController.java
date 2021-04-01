@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,7 @@ import tn.esprit.spring.entity.Appointment;
 import tn.esprit.spring.entity.PK_APP;
 import tn.esprit.spring.repository.IAppointmentRepository;
 import tn.esprit.spring.service.implementations.AppointmentServiceImpl;
-
+@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 @RestController
 @RequestMapping("/appointment")
 public class AppointmentController {

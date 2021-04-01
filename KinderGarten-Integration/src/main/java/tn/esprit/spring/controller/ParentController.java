@@ -1,6 +1,7 @@
 package tn.esprit.spring.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,7 +16,7 @@ import tn.esprit.spring.repository.IChildRepository;
 import tn.esprit.spring.repository.IParentRepository;
 import tn.esprit.spring.repository.IUserRepository;
 import tn.esprit.spring.service.implementations.ParentServiceImpl;
-
+@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 @RestController
 @RequestMapping("/parent")
 public class ParentController {

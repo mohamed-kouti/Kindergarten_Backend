@@ -29,7 +29,7 @@ public class AuthenticatedUser extends org.springframework.security.core.userdet
 	}
 
 	private static Collection<? extends GrantedAuthority> getAuthorities(User user) {
-
+		
 		Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_" + role.toUpperCase());
 		return authorities;
 	}

@@ -1,6 +1,7 @@
 package tn.esprit.spring.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.stripe.exception.StripeException;
 
 import tn.esprit.spring.service.interfaces.IPaymentService;
-
+@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 @RestController
 @RequestMapping(path = "/event")
 public class PaymentController {

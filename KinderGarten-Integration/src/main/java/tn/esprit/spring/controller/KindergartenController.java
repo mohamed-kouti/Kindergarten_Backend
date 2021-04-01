@@ -7,6 +7,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +23,7 @@ import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.service.implementations.ChildServiceImpl;
 import tn.esprit.spring.service.implementations.ClassroomServiceImpl;
 import tn.esprit.spring.service.implementations.KindergartenServiceImpl;
-
+@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 @RestController
 @RequestMapping(path = "/kindergarten")
 public class KindergartenController {

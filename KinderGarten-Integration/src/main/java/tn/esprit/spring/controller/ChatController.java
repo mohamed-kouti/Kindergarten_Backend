@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +32,7 @@ import tn.esprit.spring.service.interfaces.IMessageService;
 import tn.esprit.spring.service.interfaces.IPostService;
 import tn.esprit.spring.service.interfaces.ISatisfactionService;
 import tn.esprit.spring.service.interfaces.IUserService;
-
+@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 @RestController
 @RequestMapping(path = "/chat")
 public class ChatController {
