@@ -51,50 +51,50 @@ public class AdminController {
 		k.setActif(false);
 		userser.addKindergarten(k);
 	}
-	@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
+	@Secured({"ROLE_ADMIN"})
 	@DeleteMapping("/deleteuser/{id}")
 	@ResponseBody
 	public void deleteUser(@PathVariable("id") int id) {
 		userser.deleteUser(id);
 	}
 	
-	@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
+	@Secured({ "ROLE_PARENT", "ROLE_ADMIN"})
 	@PutMapping("/updateparent")
 	@ResponseBody
 	public void updateParent(@RequestBody Parent p) {
 		userser.updateParent(p);
 	}
-	@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
+	@Secured({"ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 	@PutMapping("/updatekgonwer")
 	@ResponseBody
 	public void updateKgowner(@RequestBody KinderGarten_owner k) {
 		userser.updateKgowner(k);
 	}
-	@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/allparent")
 	@ResponseBody
 	public List<User> getAll() {
 		return userser.getAllParents();
 	}
-	@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
+	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/alladmin")
 	@ResponseBody
 	public List<User> getAllAdmin() {
 		return userser.getAllAdmins();
 	}
-	@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
+	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/updateadmin")
 	@ResponseBody
 	public void updateAdmin(@RequestBody Admin a) {
 		userser.updateAdmin(a);
 	}
-	@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
+	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/blockuser/{id}")
 	@ResponseBody
 	public void blockUser(@PathVariable("id") int id) {
 		userser.BlockUser(id);
 	}
-	@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
+	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/actifuser/{id}")
 	@ResponseBody
 	public void actifUser(@PathVariable("id") int id) {
