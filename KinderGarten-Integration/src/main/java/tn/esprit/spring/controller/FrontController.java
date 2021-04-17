@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import tn.esprit.spring.entity.User;
 
 import tn.esprit.spring.service.interfaces.IUserService;
-@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
+//@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 @Controller
-
+@CrossOrigin
 public class FrontController {
 
 	@Autowired
@@ -44,6 +44,7 @@ public class FrontController {
 
 	}
 
+	
 	@GetMapping("/fetchAllUsers")
 	@ResponseBody
 	public Set<String> fetchAll() {

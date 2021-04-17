@@ -100,11 +100,15 @@ public class AdminController {
 	public void actifUser(@PathVariable("id") int id) {
 		userser.ActifUser(id);
 	}
-	@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
+	
 	@PostMapping("/login/{mail}/{pass}")
 	@ResponseBody
 	public User Login(@PathVariable("mail")String mail,@PathVariable("pass")String pass) {
 		return userser.getUserByLogin(mail, pass);
+	}
+	@PostMapping("/getrole/{mail}")
+	public String getRole(@PathVariable("mail") String mail) {
+		return userser.getRole(mail);
 	}
 	
 }

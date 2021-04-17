@@ -42,4 +42,6 @@ public interface IUserService {
 
 	User getUserByLogin(String mail, String pass);
 
+	String getRole(String mail);
+
 }

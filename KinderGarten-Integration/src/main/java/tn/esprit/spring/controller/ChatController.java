@@ -2,6 +2,7 @@ package tn.esprit.spring.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -10,6 +11,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +37,7 @@ import tn.esprit.spring.service.interfaces.IUserService;
 @Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 @RestController
 @RequestMapping(path = "/chat")
+@CrossOrigin("*")
 public class ChatController {
 
 	@Autowired
@@ -50,16 +53,17 @@ public class ChatController {
 	@Autowired
 	IUserService userser;
 
-	@PostMapping("/add-post/{}id")
+	@PostMapping("/add-post/{id}")
 	@ResponseBody
 	public void addPost(@RequestBody Post p, @PathVariable("id") int id) {
 		p.setUser(userser.getUserById(id));
 		postser.addPost(p);
 	}
 
-	@PutMapping("/update-post")
+	@PutMapping("/update-post/{id}")
 	@ResponseBody
-	public void updatePost(@RequestBody Post p) {
+	public void updatePost(@RequestBody Post p,@PathVariable("id")int id) {
+		p.setUser(userser.getUserById(id));
 		postser.updatePost(p);
 	}
 
@@ -76,9 +80,10 @@ public class ChatController {
 		commentser.addComment(c);
 	}
 
-	@PutMapping("/update-comment")
+	@PutMapping("/update-comment/{id}")
 	@ResponseBody
-	public void updateComment(@RequestBody Comment c) {
+	public void updateComment(@RequestBody Comment c,@PathVariable("id")int id) {
+		c.setPost(postser.getPostbyId(id));
 		commentser.updateComment(c);
 	}
 
@@ -88,23 +93,7 @@ public class ChatController {
 		commentser.deleteComment(id);
 	}
 
-	@PostMapping("/add-message")
-	@ResponseBody
-	public void addMessage(@RequestBody Message m) {
-		messageser.addMessage(m);
-	}
 
-	@PutMapping("/update-message")
-	@ResponseBody
-	public void updateMessage(@RequestBody Message m) {
-		messageser.updateMessage(m);
-	}
-
-	@DeleteMapping("/delete-message/{messageid}")
-	@ResponseBody
-	public void deleteMessage(@PathVariable("messageid") int id) {
-		messageser.deleteMessage(id);
-	}
 
 	@GetMapping("/all-message")
 	@ResponseBody
@@ -136,7 +125,7 @@ public class ChatController {
 	}
 
 	@GetMapping("/send/{msg}/{from}/{to}")
-	public void send(@PathVariable("msg") String msg, @PathVariable("from") String from,
+	public String send(@PathVariable("msg") String msg, @PathVariable("from") String from,
 			@PathVariable("to") String to) {
 		Message ms = new Message();
 		User destination = userser.findByUserName(to);
@@ -147,6 +136,7 @@ public class ChatController {
 		ms.setUser(sender);
 		messageser.addMessage(ms);
 		simpMessagingTemplate.convertAndSend("/topic/messages/" + to, ms);
+		return "Sended";
 	}
 
 	@GetMapping("/getmsgbyid/{id}")
@@ -170,5 +160,15 @@ public class ChatController {
 	public List<Satisfaction> getAllSat() {
 		return satser.getAllSatisfaction();
 	}
-
+	
+	@PutMapping("/like/{id}")
+	@ResponseBody
+	public void likePost(@PathVariable("id")int id) {
+		postser.updateLike(id);
+	}
+	@PutMapping("/dislike/{id}")
+	@ResponseBody
+	public void dislikePost(@PathVariable("id")int id) {
+		postser.updateDislike(id);
+	}
 }

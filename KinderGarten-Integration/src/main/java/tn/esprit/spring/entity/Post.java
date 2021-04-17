@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Post implements Serializable {
 
@@ -31,6 +33,7 @@ public class Post implements Serializable {
 	private Date date_post;
 	private int nbr_like;
 	private int nbr_dislike;
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
 	private List<Comment> comments;
 

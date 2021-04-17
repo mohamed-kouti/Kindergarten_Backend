@@ -39,4 +39,5 @@ public interface IUserRepository extends CrudRepository<User, Integer> {
 	void actifUser(@Param("id") int id);
 
 	
+	
 }

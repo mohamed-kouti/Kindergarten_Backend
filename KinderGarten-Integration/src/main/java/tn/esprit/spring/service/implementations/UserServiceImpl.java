@@ -160,4 +160,9 @@ public class UserServiceImpl implements IUserService {
 		}
 		return null;
 	}
+	
+	@Override
+	public String getRole (String mail) {
+		return userrep.getRole(mail);
+	}
 }

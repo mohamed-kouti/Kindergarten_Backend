@@ -16,4 +16,8 @@ public interface IPostService {
 
 	Post getPostbyId(int id);
 
+	void updateLike(int id);
+
+	void updateDislike(int id);
+
 }

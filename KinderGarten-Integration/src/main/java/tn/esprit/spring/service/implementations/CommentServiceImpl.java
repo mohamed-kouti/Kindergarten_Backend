@@ -37,6 +37,16 @@ public class CommentServiceImpl implements ICommentService {
 
 	@Override
 	public void updateComment(Comment c) {
+		String ch = c.getComment();
+		List<String> words = messagerep.getAllWord();
+		for (int i = 0; i < words.size(); i++) {
+			// System.out.println(words.get(i));
+			if (ch.toUpperCase().contains(words.get(i).toUpperCase())) {
+				ch = ch.toUpperCase().replaceAll(words.get(i).toUpperCase(), "****");
+			}
+		}
+		c.setComment(ch);
+		c.setDate_com(java.sql.Date.valueOf(LocalDate.now()));
 		commentrep.save(c);
 
 	}

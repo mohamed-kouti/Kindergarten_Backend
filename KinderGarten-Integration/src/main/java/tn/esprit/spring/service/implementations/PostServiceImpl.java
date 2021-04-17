@@ -41,6 +41,19 @@ public class PostServiceImpl implements IPostService {
 
 	@Override
 	public void updatePost(Post p) {
+		String ch = p.getContent();
+		List<String> words = messagerep.getAllWord();
+		for (int i = 0; i < words.size(); i++) {
+			// System.out.println(words.get(i));
+			if (ch.toUpperCase().contains(words.get(i).toUpperCase())) {
+
+				ch = ch.toUpperCase().replaceAll(words.get(i).toUpperCase(), "****");
+
+			}
+
+		}
+		p.setContent(ch);
+		p.setDate_post(java.sql.Date.valueOf(LocalDate.now()));
 		postrep.save(p);
 
 	}
@@ -60,5 +73,14 @@ public class PostServiceImpl implements IPostService {
 	@Override
 	public Post getPostbyId(int id) {
 		return postrep.findById(id).get();
+	}
+	@Override
+	public void updateLike(int id) {
+		postrep.updateLike(id);
+	}
+	
+	@Override
+	public void updateDislike(int id) {
+		postrep.updatedDislike(id);
 	}
 }
