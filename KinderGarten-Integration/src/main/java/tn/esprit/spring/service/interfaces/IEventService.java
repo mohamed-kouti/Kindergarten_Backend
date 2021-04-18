@@ -47,5 +47,8 @@ public interface IEventService {
 	public List<String> displayEventsByCollAmount() ;
 	public void findEventById(int id) ;
 	public Event findbyId(int id);
+	List<String> getEventTwoDatesBeetween(Date date1, Date date2);
+	//20-initialize jackpot
+		void reintializeJackPotAfterDateEvent(int idevent);
 
 }

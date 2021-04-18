@@ -1,6 +1,9 @@
 package tn.esprit.spring.controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -204,5 +207,16 @@ public class EvenementController {
 	public List<Participation> getParticipations() {
 		return participationServiceImpl.participationsList();
 	}
-
+	
+	//19-Event betweeen 2 dates
+		@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
+		@GetMapping("/event/getEventsBetweenTwoDates/{date1}/{date2}")
+		public List<String> getEventBetweenTwoDates(@PathVariable("date1")String date1,@PathVariable("date2")String date2) throws java.text.ParseException {
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = new Date();
+			Date date1Converted = dateFormat.parse(date1);
+			Date date2Converted = dateFormat.parse(date2);
+			
+	return eventServiceImpl.getEventTwoDatesBeetween(date1Converted,date2Converted);
+		}
 }

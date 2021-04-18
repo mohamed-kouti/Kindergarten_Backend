@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Donnation;
@@ -28,6 +29,7 @@ import tn.esprit.spring.service.interfaces.IEventService;
 @Service
 public class EventServiceImpl implements IEventService {
 
+	private static final long interval_milliSeconds = 60*60*1000;
 	@Autowired
 	private IEventRepository eventrepository;
 
@@ -402,5 +404,53 @@ public class EventServiceImpl implements IEventService {
 	@Override
 	public Event findbyId(int id) {
 		return eventrepository.findById(id).get();
+	}
+	
+	public String ResultEvent(List<Event> events,int i) {
+		return "Event "+i+""+"Titre : "+events.get(i).getTitle()+
+				""+"--Description : "+events.get(i).getDescription()+
+				""+"--Place : "+events.get(i).getPlace()+
+				""+"--Photo : "+events.get(i).getPhoto()+
+				""+"--Price : "+events.get(i).getPrice()+
+				""+"--Collested Amount : "+events.get(i).getCollAmount()+
+				""+"--Number Places : "+events.get(i).getNbr_places()+
+				""+"--Number Participants : "+events.get(i).getNbr_participants()+
+				""+"--Type : "+events.get(i).getType();
+	}
+	
+	@Override
+	public List<String> getEventTwoDatesBeetween(Date date1, Date date2) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		List<Event>events = (List<Event>) eventrepository.findAll();
+		List<String>results = new ArrayList<>();
+		
+		if(date1.after(date2)) {
+			return null;
+		}
+		for(int i = 0 ; i<events.size();i++) {
+			if((events.get(i).getDate_begin().after(date1) &&( events.get(i).getDate_begin().before(date2)))) {
+				results.add(ResultEvent(events,i));
+			}
+			
+		}
+		if(results.isEmpty()) {
+			 results.add("Event Not Found between two dates we are sorry :( :( ");
+			 return results;
+		}
+		return results;
+	}
+	@Scheduled(fixedRate=interval_milliSeconds)
+	@Override
+	public void reintializeJackPotAfterDateEvent(int idevent) {
+		
+		Jackpot jack = jackpotRepository.findJackpotEvent(idevent);
+		
+		Event event = eventrepository.findById(idevent).get();
+		Date now = new Date();
+		if(now.getTime() - event.getDate_begin().getTime() >=1) {
+			jack.setSomme(0);
+			jackpotRepository.save(jack);
+		}
 	}
 }
