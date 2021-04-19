@@ -19,6 +19,8 @@ public interface IClassroomService {
 	   public List<Classroom> dispalyClassroomSaturated();
 		
        public List<Classroom> displayClassroomNonSaturated();
+       //public String affecterClassesToKinderG(int idclasse, int idkinderG);
+       //public Classroom affecterClassesToKinderG(int idclasse, int idkinderG);
        public String affecterClassesToKinderG(int idclasse, int idkinderG);
        
        public Classroom addClassroom(Classroom classes);
@@ -26,6 +28,7 @@ public interface IClassroomService {
        public Double RevenuePerYear(String year);
        
        public List<Classroom> displayClassroomByDate();
+       public Classroom updateClassroom(int id, Classroom c);
     	//public List<Classroom> findClassroomByKinderG(KinderGarten k);
        
        //public Classroom getClasseByChildAge(Child c);

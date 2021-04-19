@@ -3,8 +3,6 @@ package tn.esprit.spring.entity;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-
-import javax.annotation.Nullable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -49,7 +47,7 @@ public class KinderGarten implements Serializable {
 	private Date datefinInscrit; 
 	
 	
-	
+	@JsonIgnore
 	@OneToOne
 	private KinderGarten_owner kinder;
 	
@@ -59,6 +57,7 @@ public class KinderGarten implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "garten")
 	private List<Complaint_kinder> complaint_kinders;
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kindergarten")
 	private List<Classroom> classrooms;
 

@@ -65,7 +65,7 @@ public class ClassroomServiceImpl implements IClassroomService {
 	}
 
     // Affect classes to a kindergarten
-	@Override
+    @Override
 	public String affecterClassesToKinderG(int idclasse, int idkinderG) {
 		// TODO Auto-generated method stub
 		Classroom c = classeRepo.findById(idclasse).get();
@@ -73,14 +73,17 @@ public class ClassroomServiceImpl implements IClassroomService {
 		c.setKindergarten(kinder);
 		classeRepo.save(c);
 		kinderRepo.save(kinder);
+		
 		return "Classroom affected succesfully to kindergarten";
 		
-		}
+		
+	}
+
 
 
 	@Override
 	public Classroom addClassroom(Classroom classes) {
-	  Double assurance=50.0;
+	  //Double assurance=50.0;
 		//KinderGarten k = new KinderGarten();
 		//Double i=k.getAssurance();
 		if(classes.getDateEnd().before(classes.getDatebegin())) {
@@ -90,17 +93,45 @@ public class ClassroomServiceImpl implements IClassroomService {
 			long p = Math.round((classes.getDateEnd().getTime() - classes.getDatebegin().getTime()) / (double) 86400000);
 			classes.setPeriode(p);
 			if(p <= 31) 
-			{ classes.setPrice_T(classes.getPrice_M()+assurance);}
+			{ classes.setPrice_T(classes.getPrice_M());}
 			else if( p>31 && p<=63)
-			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.1)+assurance);} //600-600*0.1
+			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.1));} //600-600*0.1
 			else if( p>63 && p<=94) 
-			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.2)+assurance);}
+			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.2));}
 			else if( p>94 && p<120)
-			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.3)+assurance);}
+			{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.3));}
 			classeRepo.save(classes);
 			}
 			return classes;
 		}
+	
+	@Override
+	public Classroom updateClassroom(int id, Classroom c) {
+		// TODO Auto-generated method stub
+		
+		Classroom d =classeRepo.findById(id).get();
+		d.setNbr_max(c.getNbr_max());
+		d.setDatebegin(c.getDatebegin());
+		d.setDateEnd(c.getDateEnd());
+		d.setPrice_M(c.getPrice_M());
+		d.setNbInscrit(c.getNbInscrit());
+		// set period
+		long p = Math
+				.round((c.getDateEnd().getTime() - c.getDatebegin().getTime()) / (double) 86400000);
+		d.setPeriode(p);
+		if(p <= 31) 
+		{ c.setPrice_T(c.getPrice_M());}
+		else if( p>31 && p<=63)
+		{ c.setPrice_T(c.getPrice_M() - (c.getPrice_M() * 0.1));} //600-600*0.1
+		else if( p>63 && p<=94) 
+		{ c.setPrice_T(c.getPrice_M() - (c.getPrice_M() * 0.2));}
+		else if( p>94 && p<120)
+		{ c.setPrice_T(c.getPrice_M() - (c.getPrice_M() * 0.3));}
+		
+		classeRepo.save(c);
+		return d;
+	}
+	
 
 
 	@Override
@@ -124,6 +155,10 @@ public class ClassroomServiceImpl implements IClassroomService {
 	public List<Classroom> findClassroomByKinderG(KinderGarten k) {
 		return classeRepo.findClassroomByKinder(k);
 	}*/
+
+
+
+
 	
 
 

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import tn.esprit.spring.entity.Child;
 import tn.esprit.spring.entity.Classroom;
 import tn.esprit.spring.entity.KinderGarten;
 import tn.esprit.spring.service.implementations.ChildServiceImpl;

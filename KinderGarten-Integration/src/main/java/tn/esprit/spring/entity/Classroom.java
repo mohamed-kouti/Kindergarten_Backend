@@ -35,6 +35,7 @@ public class Classroom implements Serializable {
 	private Date datebegin;
 	@Temporal(TemporalType.DATE)
 	private Date dateEnd;
+	
 	@Transient
 	private long periode;
 	

@@ -28,12 +28,15 @@ public class ParentController {
 	IUserRepository userRepo;
 	@Autowired
 	IParentRepository parentRepo;
-
+     
+	//parent add your child
 	//http://localhost:8081/kindergarten/servlet/parent/addChildToParent/{idParent}
 	@PostMapping("/addChildToParent/{idParent}")
 	public Parent addChildToParent(@RequestBody Child c,@PathVariable("idParent") int idParent) {
 		Parent p = parentRepo.findById(idParent).get();
-		if(p==null) { throw new RuntimeException("you are not a parent"); }
+		if(p==null) 
+		//{ throw new RuntimeException("you are not a parent"); }
+		System.out.println("you are not a parent");
 		c.setParent(p);
 		p.getChilds().add(c);
 		return parentRepo.save(p);

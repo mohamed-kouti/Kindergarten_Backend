@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import tn.esprit.spring.entity.Classroom;
 import tn.esprit.spring.service.implementations.ChildServiceImpl;
 import tn.esprit.spring.service.implementations.ClassroomServiceImpl;
@@ -34,7 +33,7 @@ public class ClassroomController {
 	
 	//crud entite Classroom
 	
-			//http://localhost:8081/kindergarten/servlet/kindergarten/retrieve-all-classe
+			//http://localhost:8081/kindergarten/servlet/classroom/retrieve-all-classe
 			@GetMapping("/retrieve-all-classe")
 			@ResponseBody
 			public List<Classroom> getAllclasse()
@@ -43,7 +42,7 @@ public class ClassroomController {
 				return list;
 			}
 			
-			//http://localhost:8081/kindergarten/servlet/kindergarten/add-classe
+			//http://localhost:8081/kindergarten/servlet/classroom/add-classe
 			@PostMapping("/add-classe")
 			@ResponseBody
 			public Classroom addClasse(@RequestBody Classroom classe)
@@ -51,7 +50,13 @@ public class ClassroomController {
 				Classroom c = classeService.addClassroom(classe);
 				return c ;
 			}
-			//http://localhost:8081/kindergarten/servlet/kindergarten/update-classe
+			//http://localhost:8081/kindergarten/servlet/classroom/update/{id}
+			@PutMapping("/update/{id}")
+			public Classroom updateClasse(@PathVariable int id, @RequestBody Classroom c) {
+				return classeService.updateClassroom(id, c);
+			}
+			
+			//http://localhost:8081/kindergarten/servlet/classroom/update-classe
 			@PutMapping("/update-classe")
 			@ResponseBody
 			public Classroom updateClasse(@RequestBody Classroom classe)
@@ -60,7 +65,7 @@ public class ClassroomController {
 			return  c ;
 		    }
 			
-			//http://localhost:8081/kindergarten/servlet/kindergarten/remove-classe/{classe-id}
+			//http://localhost:8081/kindergarten/servlet/classroom/remove-classe/{classe-id}
 					@DeleteMapping("/remove-classe/{classe-id}")
 					@ResponseBody
 					public void removeClasse(@PathVariable("classe-id") int id) 
@@ -70,31 +75,33 @@ public class ClassroomController {
 					
 			// method for entity classroom
 					  
-			//http://localhost:8081/kindergarten/servlet/kindergarten/classroom/sature
+			//http://localhost:8081/kindergarten/servlet/classroom/classroom/sature
 			 @GetMapping("/classroom/sature")
 		     public List<Classroom> dispalyClassroomSaturated() {
 				return classeService.dispalyClassroomSaturated();
 						}
-		   //http://localhost:8081/kindergarten/servlet/kindergarten/classroom/Nsature
+		   //http://localhost:8081/kindergarten/servlet/classroom/classroom/Nsature
 			@GetMapping("/classroom/Nsature")
 			public List<Classroom> displayDaycareNonSaturated() {
 				return classeService.displayClassroomNonSaturated();
 						}
 						
-			//http://localhost:8081/kindergarten/servlet/kindergarten/classroom/affectToKinderG/{idclasse}/{idkinder}
-			@PutMapping("/classroom/affectToKinderG/{idclasse}/{idkinder}")  
-			 private String affectClassTokKinderG(@PathVariable("idclasse")int idclasse,@PathVariable("idkinder")int idkinder)   
+			//http://localhost:8081/kindergarten/servlet/classroom/affectToKinderG/{idclasse}/{idkinder}
+			@PutMapping("/affectToKinderG/{idclasse}/{idkinder}")  
+			 public String affectClassTokKinderG(@PathVariable("idclasse")int idclasse,@PathVariable("idkinder")int idkinder)   
 			  {  
-				return classeService.affecterClassesToKinderG(idclasse, idkinder);
+				
+	         return classeService.affecterClassesToKinderG(idclasse, idkinder);
 			  }
+		
 			
-			//http://localhost:8081/kindergarten/servlet/kindergarten/classroom/static/revenue/{year}
-			@GetMapping("classroom/static/revenue/{year}")
+			//http://localhost:8081/kindergarten/servlet/classroom/static/revenue/{year}
+			@GetMapping("/static/revenue/{year}")
 			public Double classesRevenuePerYear(@PathVariable("year") String year){
 				return classeService.RevenuePerYear(year);
 			}
 			
-			//http://localhost:8081/kindergarten/servlet/kindergarten/Classrrom/displayByDate
+			//http://localhost:8081/kindergarten/servlet/classroom/Classrrom/displayByDate
 			@GetMapping("/Classrrom/displayByDate")
 			public List<Classroom> displayClassroomByDate(){
 				return classeService.displayClassroomByDate();

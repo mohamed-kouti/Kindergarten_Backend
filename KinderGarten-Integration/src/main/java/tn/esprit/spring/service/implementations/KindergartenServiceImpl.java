@@ -81,7 +81,7 @@ public class KindergartenServiceImpl implements IKindergartenService {
 
 
 		
-		// affiche les 4 les plus visités
+		// affiche les 3 les plus visités
 				@Override
 				public List<String> displayBestKinderGartensByViews() {
 					
@@ -104,7 +104,7 @@ public class KindergartenServiceImpl implements IKindergartenService {
 					for(int i = 0 ; i<3 ; i++) {
 						int max = sortedList.get(sortedList.size()-1);
 						int ind = listId.get(listViews.indexOf(max));
-						s = (i+1)+"--kindergarten: "+kindergartenRepo.findById(ind).get().getName()+"=with"+max+" views";
+						s ="--kindergarten: "+kindergartenRepo.findById(ind).get().getName()+"=with  " +max+" views";
 						list.add(s);
 						sortedList.remove(sortedList.size()-1);
 						listViews.set(listViews.indexOf(max), -1);
@@ -141,7 +141,13 @@ public class KindergartenServiceImpl implements IKindergartenService {
 							list.add(list2.get(i));
 						}
 					}
-					///36.8989212/10.1852049/1
+					//  long/lat/r
+					//coord bd Ariana  long:10.182733  lat: 36.900635 //   long:10.804493  lat2 :36.460875
+					
+					//test 1 Ariana 10.1852049/36.8989212/1     
+					
+					//test 2 A GHANA  10.181863/36.806459/1   // long2:10.182039  lat2: 36.806021 
+					//
 					return list;
 				}
 				
