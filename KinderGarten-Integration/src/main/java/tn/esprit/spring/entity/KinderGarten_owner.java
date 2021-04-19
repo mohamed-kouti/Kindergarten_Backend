@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class KinderGarten_owner extends User implements Serializable {
 
@@ -17,6 +19,7 @@ public class KinderGarten_owner extends User implements Serializable {
 	
 	@OneToOne(mappedBy = "kinder")
 	private KinderGarten kindergarten;
+	@JsonIgnore
 	@OneToMany(mappedBy = "garten_owner")
 	private List<Appointment> appointments;
 

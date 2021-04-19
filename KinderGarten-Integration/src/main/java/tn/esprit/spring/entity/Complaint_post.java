@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class Complaint_post implements Serializable {
@@ -24,9 +26,11 @@ public class Complaint_post implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_user", referencedColumnName = "id")
 	private User user;
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "id_post", referencedColumnName = "id")
 	private Post post;

@@ -23,9 +23,10 @@ public class Parent extends User implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "parent")
 	private List<Satisfaction> satisfactions;
-	@OneToMany(mappedBy = "parent")
 	@JsonIgnore
+	@OneToMany(mappedBy = "parent")
 	private List<Complaint_kinder> complaint_kinders;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "parent")
 	private List<Appointment> appointments;

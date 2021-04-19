@@ -50,7 +50,9 @@ public class User implements Serializable {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	private List<Message> messages;
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
+	
 	private List<Complaint_post> complaint_posts;
 	@JsonIgnore
 	@OneToMany(cascade= CascadeType.ALL, mappedBy= "user")
