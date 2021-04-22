@@ -44,4 +44,8 @@ public interface IUserService {
 
 	String getRole(String mail);
 
+	List<User> getAllKdowners();
+
+	List<User> getAllDisabled();
+
 }

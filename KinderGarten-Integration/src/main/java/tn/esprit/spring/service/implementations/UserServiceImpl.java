@@ -111,10 +111,22 @@ public class UserServiceImpl implements IUserService {
 		return (List<User>) userrep.getAllParent();
 
 	}
+	
+	
+	@Override
+	public List<User> getAllDisabled() {
+		return (List<User>) userrep.getAllInactive();
+
+	}
 
 	@Override
 	public List<User> getAllAdmins() {
 		return (List<User>) userrep.getAllAdmin();
+	}
+	
+	@Override
+	public List<User> getAllKdowners() {
+		return (List<User>) userrep.getAllkdowner();
 	}
 
 	@Override

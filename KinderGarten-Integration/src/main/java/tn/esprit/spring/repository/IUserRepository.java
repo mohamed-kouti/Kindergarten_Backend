@@ -25,8 +25,13 @@ public interface IUserRepository extends CrudRepository<User, Integer> {
 	@Query(value = "select * from user u where u.dtype='Parent' ", nativeQuery = true)
 	List<User> getAllParent();
 
+	@Query(value = "select * from user u where u.actif='0' ", nativeQuery = true)
+	List<User> getAllInactive();
+	
 	@Query(value = "select * from user u where u.dtype='Admin' ", nativeQuery = true)
 	List<User> getAllAdmin();
+	@Query(value = "select * from user u where u.dtype='KinderGarten_owner' ", nativeQuery = true)
+	List<User> getAllkdowner();
 
 	@Transactional
 	@Modifying

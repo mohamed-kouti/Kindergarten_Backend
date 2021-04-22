@@ -81,6 +81,21 @@ public class AdminController {
 	public List<User> getAllAdmin() {
 		return userser.getAllAdmins();
 	}
+	
+	@Secured({"ROLE_ADMIN"})
+	@GetMapping("/allkdowner")
+	@ResponseBody
+	public List<User> getAllKdowner() {
+		return userser.getAllKdowners();
+	}
+	
+	@Secured({"ROLE_ADMIN"})
+	@GetMapping("/alldisabled")
+	@ResponseBody
+	public List<User> getAllDisabled() {
+		return userser.getAllDisabled();
+	}
+	
 	@Secured({"ROLE_ADMIN"})
 	@PutMapping("/updateadmin")
 	@ResponseBody
