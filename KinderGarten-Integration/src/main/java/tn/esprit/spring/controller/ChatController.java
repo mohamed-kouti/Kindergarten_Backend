@@ -107,10 +107,10 @@ public class ChatController {
 		return postser.getAllPost();
 	}
 
-	@GetMapping("/all-comment")
+	@GetMapping("/all-comment/{id}")
 	@ResponseBody
-	public List<Comment> getAllComment() {
-		return commentser.getAllComment();
+	public List<Comment> getAllComment(@PathVariable("id") int id) {
+		return commentser.getAllComment(id);
 	}
 
 	@MessageMapping("/chat/{to}")

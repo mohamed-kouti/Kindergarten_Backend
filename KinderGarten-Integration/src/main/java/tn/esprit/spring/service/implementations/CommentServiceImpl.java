@@ -58,9 +58,9 @@ public class CommentServiceImpl implements ICommentService {
 	}
 
 	@Override
-	public List<Comment> getAllComment() {
+	public List<Comment> getAllComment(int id) {
 
-		return (List<Comment>) commentrep.findAll();
+		return (List<Comment>) commentrep.getComments(id);
 	}
 
 }

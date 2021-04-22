@@ -12,6 +12,6 @@ public interface ICommentService {
 
 	public void deleteComment(int id);
 
-	public List<Comment> getAllComment();
+	public List<Comment> getAllComment(int id);
 
 }
