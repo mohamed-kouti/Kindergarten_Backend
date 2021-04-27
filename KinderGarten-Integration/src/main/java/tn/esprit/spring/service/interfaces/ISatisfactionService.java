@@ -9,4 +9,6 @@ public interface ISatisfactionService {
 	public void add_Satisfaction (Satisfaction s);
 
 	List<Satisfaction> getAllSatisfaction();
+
+	void sendSat();
 }

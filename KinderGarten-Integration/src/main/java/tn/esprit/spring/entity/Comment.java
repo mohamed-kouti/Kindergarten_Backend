@@ -24,6 +24,8 @@ public class Comment implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date date_com;
 	private String comment;
+	private String username;
+	private String photo;
 	@ManyToOne
 	private Post post;
 
@@ -57,6 +59,22 @@ public class Comment implements Serializable {
 
 	public void setPost(Post post) {
 		this.post = post;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 }

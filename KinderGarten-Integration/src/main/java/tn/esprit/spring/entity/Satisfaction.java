@@ -2,8 +2,12 @@ package tn.esprit.spring.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Embedded;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -17,7 +21,11 @@ public class Satisfaction implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Embedded
 	private PK_SAT pk_sat;
 
 	@ManyToOne
@@ -77,6 +85,14 @@ public class Satisfaction implements Serializable {
 
 	public void setCes(int ces) {
 		this.ces = ces;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }

@@ -50,5 +50,6 @@ public class FrontController {
 	public Set<String> fetchAll() {
 		return userser.findAllByName();
 	}
+	
 
 }
