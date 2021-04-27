@@ -22,7 +22,10 @@ public interface IUserRepository extends CrudRepository<User, Integer> {
 
 	User findByFname(String name);
 	
-	@Query(value = "select * from user u where u.dtype='Parent' ", nativeQuery = true)
+	@Query(value = "select count(*) from user " ,nativeQuery = true)
+	int getnbrUser();
+	
+	@Query(value = "select * from user u where u.dtype='Parent' and u.actif='1' ", nativeQuery = true)
 	List<User> getAllParent();
 
 	@Query(value = "select * from user u where u.actif='0' ", nativeQuery = true)
@@ -30,7 +33,7 @@ public interface IUserRepository extends CrudRepository<User, Integer> {
 	
 	@Query(value = "select * from user u where u.dtype='Admin' ", nativeQuery = true)
 	List<User> getAllAdmin();
-	@Query(value = "select * from user u where u.dtype='KinderGarten_owner' ", nativeQuery = true)
+	@Query(value = "select * from user u where u.dtype='KinderGarten_owner' and u.actif='1' ", nativeQuery = true)
 	List<User> getAllkdowner();
 
 	@Transactional

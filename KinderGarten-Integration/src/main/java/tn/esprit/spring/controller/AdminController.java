@@ -68,7 +68,7 @@ public class AdminController {
 	@ResponseBody
 	public void updateKgowner(@RequestBody KinderGarten_owner k) {
 		userser.updateKgowner(k);
-	}
+	} 
 	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/allparent")
 	@ResponseBody
@@ -123,6 +123,11 @@ public class AdminController {
 	@PostMapping("/getrole/{mail}")
 	public String getRole(@PathVariable("mail") String mail) {
 		return userser.getRole(mail);
+	}
+	@Secured({"ROLE_ADMIN"})
+	@GetMapping("/nbruser")
+	public int nbrUser() {
+		return userser.getnbrUser();
 	}
 	
 }

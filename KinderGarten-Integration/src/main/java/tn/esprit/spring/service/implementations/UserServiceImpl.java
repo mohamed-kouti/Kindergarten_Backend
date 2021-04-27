@@ -177,4 +177,9 @@ public class UserServiceImpl implements IUserService {
 	public String getRole (String mail) {
 		return userrep.getRole(mail);
 	}
+	
+	@Override
+	public int getnbrUser() {
+		return userrep.getnbrUser();
+	}
 }

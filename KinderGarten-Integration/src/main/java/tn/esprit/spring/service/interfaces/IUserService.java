@@ -48,4 +48,6 @@ public interface IUserService {
 
 	List<User> getAllDisabled();
 
+	int getnbrUser();
+
 }
