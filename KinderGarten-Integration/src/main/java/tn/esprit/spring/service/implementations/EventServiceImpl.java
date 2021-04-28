@@ -57,12 +57,12 @@ public class EventServiceImpl implements IEventService {
 	// 2-GET EVENT BY ID
 	@Override
 	public Event getEventById(int id) {
-		int countView;
+		
 		Event e = eventrepository.findById(id).get();
 		if (e == null)
 			return null;
 		e.setViews(e.getViews() + 1);
-		countView = eventrepository.updateViewsCountEvent(e.getViews() - 1, e.getId());
+	    int countView = eventrepository.updateViewsCountEvent(e.getViews() - 1, e.getId());
 		countView++;
 
 		return e;
@@ -84,15 +84,20 @@ public class EventServiceImpl implements IEventService {
 
 	@Override
 	public Event AddEvent(Event event) {
+		Jackpot j = new Jackpot();
+		j.setSomme(0);
+		event.setJackpot(j);
+		jackpotRepository.save(j);
 		return eventrepository.save(event);
-	}
+			}
 
 	// 5-creating put mapping that updates the event detail
 	@Override
 	public int updateEvent(Event e, int id) {
 
-		return eventrepository.updateEvent(e.getTitle(), e.getDate_begin(), e.getHour(), e.getDate_end(),
-				e.getDescription(), e.getPlace(), e.getPhoto(), e.getPrice(), e.getNbr_places(), e.getType(),
+		return eventrepository.updateEvent(e.getTitle(), e.getDate_begin(), e.getDate_end(),
+				e.getDescription(), e.getPlace(),e.getPhoto(), e.getPrice(),e.getCollAmount(),e.getNbr_participants(), 
+				e.getNbr_places(),e.isEarlyParticipants(),e.getDiscountPercentage(),e.getNbrTicketEarlyParticipants(),e.getType(),
 				e.getId());
 	}
 
@@ -410,7 +415,6 @@ public class EventServiceImpl implements IEventService {
 		return "Event "+i+""+"Titre : "+events.get(i).getTitle()+
 				""+"--Description : "+events.get(i).getDescription()+
 				""+"--Place : "+events.get(i).getPlace()+
-				""+"--Photo : "+events.get(i).getPhoto()+
 				""+"--Price : "+events.get(i).getPrice()+
 				""+"--Collested Amount : "+events.get(i).getCollAmount()+
 				""+"--Number Places : "+events.get(i).getNbr_places()+

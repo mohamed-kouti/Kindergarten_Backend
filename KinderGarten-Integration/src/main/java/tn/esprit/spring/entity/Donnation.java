@@ -20,14 +20,14 @@ public class Donnation implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	@ManyToOne
-	@JsonIgnore
-	private Event event;
-	@ManyToOne
-	@JsonIgnore
-	private User user;
 	private String contributionDate;
 	private float amount;
+	@JsonIgnore
+	@ManyToOne
+	private Event event;
+	@JsonIgnore
+	@ManyToOne
+	private User user;
 	public Donnation() {
 		super();
 	}

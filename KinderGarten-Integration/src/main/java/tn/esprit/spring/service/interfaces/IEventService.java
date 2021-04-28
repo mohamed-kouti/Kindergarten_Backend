@@ -14,11 +14,11 @@ public interface IEventService {
 	public List<Event> getAllEvents();
 	// 2-GET EVENT BY ID
 	public Event getEventById(int id);
-	// 3-creating post mapping that post the event detail in the database
+	// 3-creating post mapping that post the event detail 
 	public void addEvent(Event e);
 	// 4-SAVE EVENT SIMPLE
 	public Event AddEvent(Event event);
-	// 5-creating put mapping that updates the event detail grace à ikram lokza zedet haja teeefha id :)
+	// 5-creating put mapping that updates the event detail 
 	public int updateEvent(Event e , int id);
 	// 6- affecter event à un user
 	public String addParticipation(int iduser,int idevent);
@@ -49,6 +49,7 @@ public interface IEventService {
 	public Event findbyId(int id);
 	List<String> getEventTwoDatesBeetween(Date date1, Date date2);
 	//20-initialize jackpot
-		void reintializeJackPotAfterDateEvent(int idevent);
+	public 	void reintializeJackPotAfterDateEvent(int idevent);
+	//public Void GetJackpotByEvnt (int idevent);
 
 }

@@ -35,11 +35,14 @@ public interface IEventRepository extends CrudRepository<Event, Integer> {
 	
 	@Modifying
 	@Transactional
-	@Query("UPDATE Event e SET e.title = :title,e.date_begin = :date_begin,e.hour = :hour,e.date_end = :date_end,e.description = :description,"
-			+ "e.place = :place,e.photo = :photo,e.Price = :Price,e.Nbr_places = :Nbr_places,e.type = :type  WHERE e.id = :id")
-	public int updateEvent(@Param("title")String title,@Param("date_begin") Date date_begin,@Param("hour") Date hour,@Param("date_end") Date date_end,
-			@Param("description")String description,@Param("place") String place,@Param("photo") byte[] photo,@Param ("Price") float Price, 
-			@Param ("Nbr_places") int Nbr_places,@Param ("type") Type type,@Param("id")int id	 );
+	@Query("UPDATE Event e SET e.title = :title,e.date_begin = :date_begin,e.date_end = :date_end,e.description = :description,"
+			+ "e.place = :place,e.photo = :photo,e.Price = :Price,e.collAmount = :collAmount,e.nbr_participants = :nbr_participants,"
+			+ "e.Nbr_places = :Nbr_places,e.earlyParticipants = :earlyParticipants,e.discountPercentage = :discountPercentage,e.nbrTicketEarlyParticipants = :nbrTicketEarlyParticipants,e.type = :type"
+			+ "  WHERE e.id = :id")
+	public int updateEvent(@Param("title")String title,@Param("date_begin") Date date_begin,@Param("date_end") Date date_end,
+			@Param("description")String description,@Param("place") String place,@Param("photo") String photo,@Param ("Price") float Price,@Param ("collAmount") float collAmount,
+			@Param ("nbr_participants") int nbr_participants,@Param ("Nbr_places") int Nbr_places,@Param ("earlyParticipants") boolean earlyParticipants,@Param ("discountPercentage") float discountPercentage,
+			@Param ("nbrTicketEarlyParticipants") int nbrTicketEarlyParticipants,@Param ("type") Type type,@Param("id")int id	 );
 	
 	
 	@Query("SELECT e.jackpot FROM Event e where e.jackpot =:jackpot")

@@ -29,7 +29,7 @@ public class DonnationController {
 
 	// 1-creating put mapping that updates the event detail
 	@PostMapping("/donation-event/{eventid}/{uid}/{amount}")
-	private ResponseEntity<String> DonnationOfEvent(@PathVariable("eventid") int eventid, @PathVariable("uid") int uid,
+	public  ResponseEntity<String> DonnationOfEvent(@PathVariable("eventid") int eventid, @PathVariable("uid") int uid,
 			@PathVariable("amount") float amount) {
 		String result = donnationService.Donnation(eventid, uid, amount);
 		return new ResponseEntity<String>(result, HttpStatus.OK);

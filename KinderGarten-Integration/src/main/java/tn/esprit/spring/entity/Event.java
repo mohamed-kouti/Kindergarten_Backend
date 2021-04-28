@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -42,37 +43,28 @@ public class Event implements Serializable {
 	private String title;
 	@Temporal(TemporalType.DATE)
 	private Date date_begin;
-	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(style = "hh:mm")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm")
-	private Date hour;
 	@Temporal(TemporalType.DATE)
 	private Date date_end;
 	@Column(name = "description")
 	private String description;
-	// adresse ou se deroulera l'evenement
 	@Column(name = "place")
 	private String place;
 	@Column(name = "photo")
-	@Lob
-	private byte[] photo;
-	// prix du ticket
+	private String photo;
 	@Column(name = "Price")
 	private float Price;
 	@Column(name = "collAmount")
 	private float collAmount;
-	// nombre des participants
 	@Column(name = "nbr_participants")
 	private int nbr_participants;
-	// nombre des places disponibles
 	@Column(name = "Nbr_places")
 	private int Nbr_places;
 	private boolean earlyParticipants;
 	private int nbrTicketEarlyParticipants;
-	// liste des types d'évenements organisés par JE
 	@Enumerated(EnumType.STRING)
 	private Type type;
 	private int views;
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
 	private Set<Participation> participations;
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -87,19 +79,17 @@ public class Event implements Serializable {
 	}
 
 	
-	public Event(int id, String title, Date date_begin, Date hour, Date date_end, String description, String place,
-			byte[] photo, float price, float collAmount, int nbr_participants, int nbr_places,
+	public Event(int id, String title, Date date_begin, Date date_end, String description, String place,
+			String photo, float price, float collAmount, int nbr_participants, int nbr_places,
 			boolean earlyParticipants, int nbrTicketEarlyParticipants, Type type, int views,
 			Set<Participation> participations, Jackpot jackpot,float discountPercentage, List<Donnation> donnation) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.date_begin = date_begin;
-		this.hour = hour;
 		this.date_end = date_end;
 		this.description = description;
 		this.place = place;
-		this.photo = photo;
 		Price = price;
 		this.collAmount = collAmount;
 		this.nbr_participants = nbr_participants;
@@ -115,14 +105,13 @@ public class Event implements Serializable {
 	}
 
 
-	public Event(String title, Date date_begin, Date hour, Date date_end, String description, String place,
-			byte[] photo, float price, float collAmount, int nbr_participants, int nbr_places,
+	public Event(String title, Date date_begin, Date date_end, String description, String place,
+			String photo, float price, float collAmount, int nbr_participants, int nbr_places,
 			boolean earlyParticipants, int nbrTicketEarlyParticipants, Type type, int views,
 			Set<Participation> participations, Jackpot jackpot, float discountPercentage, List<Donnation> donnation) {
 		super();
 		this.title = title;
 		this.date_begin = date_begin;
-		this.hour = hour;
 		this.date_end = date_end;
 		this.description = description;
 		this.place = place;
@@ -166,14 +155,6 @@ public class Event implements Serializable {
 		this.date_begin = date_begin;
 	}
 
-	public Date getHour() {
-		return hour;
-	}
-
-	public void setHour(Date hour) {
-		this.hour = hour;
-	}
-
 	public Date getDate_end() {
 		return date_end;
 	}
@@ -198,11 +179,11 @@ public class Event implements Serializable {
 		this.place = place;
 	}
 
-	public byte[] getPhoto() {
+	public String getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(byte[] photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 
@@ -302,12 +283,11 @@ public class Event implements Serializable {
 		this.donnation = donnation;
 	}
 
-
+	@JsonIgnore
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", title=" + title + ", date_begin=" + date_begin + ", hour=" + hour + ", date_end="
-				+ date_end + ", description=" + description + ", place=" + place + ", photo=" + Arrays.toString(photo)
-				+ ", Price=" + Price + ", collAmount=" + collAmount + ", nbr_participants=" + nbr_participants
+		return "Event [id=" + id + ", title=" + title + ", date_begin=" + date_begin + ", date_end="
+				+ date_end + ", description=" + description + ", place=" + place + ", Photo="+photo + ", Price=" + Price + ", collAmount=" + collAmount + ", nbr_participants=" + nbr_participants
 				+ ", Nbr_places=" + Nbr_places + ", earlyParticipants=" + earlyParticipants
 				+ ", nbrTicketEarlyParticipants=" + nbrTicketEarlyParticipants + ", type=" + type + ", views=" + views
 				+ ", participations=" + participations + ", jackpot=" + jackpot +", discountPercentage=" + discountPercentage + ", donnation=" + donnation + "]";

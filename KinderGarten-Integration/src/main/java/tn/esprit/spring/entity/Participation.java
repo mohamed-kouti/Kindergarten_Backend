@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "participation")
 public class Participation implements Serializable{
@@ -23,10 +25,12 @@ public class Participation implements Serializable{
 	
 	private String participationDate;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "idUser", referencedColumnName = "id", insertable = false, updatable = false)
 	private User user;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "idEvent", referencedColumnName = "id", insertable = false, updatable = false)
 	private Event event;
@@ -85,6 +89,7 @@ public class Participation implements Serializable{
 		this.event = event;
 	}
 
+	@JsonIgnore
 	@Override
 	public String toString() {
 		return "Participation [price=" + price + ", participationDate=" + participationDate + ", user=" + user

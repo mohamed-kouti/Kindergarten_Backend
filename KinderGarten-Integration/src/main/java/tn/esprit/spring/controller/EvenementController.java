@@ -32,7 +32,7 @@ import tn.esprit.spring.entity.Participation;
 import tn.esprit.spring.entity.Type;
 import tn.esprit.spring.service.implementations.EventServiceImpl;
 import tn.esprit.spring.service.implementations.ParticipationServiceImpl;
-@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
+//@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 @RestController
 @RequestMapping(path = "/event")
 public class EvenementController {
@@ -43,15 +43,17 @@ public class EvenementController {
 	@Autowired
 	private ParticipationServiceImpl participationServiceImpl;
 
-	/********************* ADMIN/PARENT/KINDERGARTEN-OWNER **************************/
-
+	/********************* ADMIN   /  KINDERGARTEN-OWNER **************************/
+	
 	// 1-GET ALL EVENTS
+	@Secured({"ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 	@GetMapping("/get-all-events")
 	public List<Event> getAllEvents() {
 		return eventServiceImpl.getAllEvents();
 	}
 
 	// 2-GET EVENT BY ID
+	@Secured({"ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 	@GetMapping(value = "/detail-event/{eventid}")
 	@ResponseBody
 	public Event getEvent(@PathVariable("eventid") int eventid) {
@@ -61,7 +63,7 @@ public class EvenementController {
 	/********************* ADMIN **************************/
 
 	// creating post mapping that post the event detail in the database
-	ObjectMapper objectMapper = new ObjectMapper();
+	/*ObjectMapper objectMapper = new ObjectMapper();
 
 	// 3-creating post mapping that post the event detail in the database
 	@PostMapping(value = "/add-event", consumes = { MediaType.APPLICATION_JSON_VALUE,
@@ -85,17 +87,17 @@ public class EvenementController {
 		}
 		eventServiceImpl.addEvent(ev);
 		return ev;
-	}
-
+	}*/
 	// 4-SAVE EVENT SIMPLE
+	@Secured({"ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 	@PostMapping(value = "/save-event")
 	public Event saveEvent(@RequestBody Event ev) {
 		eventServiceImpl.AddEvent(ev);
 		return ev;
 	}
 
-	// 5-creating put mapping that updates the event detail grace à ikram lokza
-	// zedet haja teeefha id :)
+	// 5-creating put mapping that updates the event detail 
+	@Secured({"ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 	@PutMapping("/update-event/{id}")
 	public ResponseEntity<String> updateEvent(@RequestBody Event events, @PathVariable("id") int id) {
 
@@ -104,6 +106,7 @@ public class EvenementController {
 	}
 
 	// 6- affecter event à un user
+	@Secured({"ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 	@PutMapping("/affecter-event/{iduser}/{idevent}")
 	public String participateToEvent(@PathVariable("iduser") int iduser, @PathVariable("idevent") int idevent) {
 		String result = eventServiceImpl.addParticipation(iduser, idevent);
@@ -111,6 +114,7 @@ public class EvenementController {
 	}
 
 	// 7-Returner event by id
+	@Secured({"ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 	@GetMapping("/retrieve-Event-ById/{id}")
 	public Event getEventById(@PathVariable("id") int id) {
 		Event ev = eventServiceImpl.getEventById(id);
@@ -120,6 +124,7 @@ public class EvenementController {
 	/********************* ADMIN/PARENT/KINDERGARTEN-OWNER **************************/
 
 	// 8-retourner evenement par nom
+	@Secured({"ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 	@GetMapping("/retrieve-Event-ByName/{name}")
 	public Event getEventByName(@PathVariable String name) {
 		Event ev = eventServiceImpl.findEventByName(name);
@@ -128,6 +133,7 @@ public class EvenementController {
 	}
 
 	// 9-retourner evenement par type
+	@Secured({ "ROLE_PARENT", "ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 	@GetMapping("/retrieve-Event-ByType/{type}")
 	public List<Event> getEventByType(@PathVariable Type type) {
 		List<Event> ev = eventServiceImpl.filterEvent(type);
@@ -135,6 +141,7 @@ public class EvenementController {
 	}
 
 	// 10-retourner un Map des evenments les plus visités
+	@Secured({"ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 	@GetMapping("/bestEventsByViews")
 	public Map<Integer, Integer> bestEventsByViews() {
 		return eventServiceImpl.getEventsByViews();
@@ -159,6 +166,7 @@ public class EvenementController {
 	/********************* ADMIN/PARENT/KINDERGARTEN-OWNER **************************/
 
 	// 13-UP COMING EVENTS
+	@Secured({"ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 	@GetMapping("/upcomingEvent")
 	public List<Event> upcomingEvents() {
 		List<Event> upevents = eventServiceImpl.upcomeEvents();
@@ -168,6 +176,7 @@ public class EvenementController {
 
 	/********************* ADMIN **************************/
 	// 14-PASSED EVENTS
+	@Secured({"ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 	@GetMapping(value = "/passedEvents")
 	public List<Event> passedEvents() {
 		List<Event> e = eventServiceImpl.passedEvents();
@@ -175,6 +184,7 @@ public class EvenementController {
 	}
 
 	// 15-DELETE EVENT && REFUND CONSUMER
+	@Secured({"ROLE_ADMIN","ROLE_KINDERGARTEN_OWNER" })
 	@DeleteMapping("/delete-event/{event-id}")
 	@ResponseBody
 	public ResponseEntity<String> deleteEvent(@PathVariable("event-id") int eventID) {
