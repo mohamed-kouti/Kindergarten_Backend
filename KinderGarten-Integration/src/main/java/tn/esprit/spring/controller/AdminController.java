@@ -124,10 +124,15 @@ public class AdminController {
 	public String getRole(@PathVariable("mail") String mail) {
 		return userser.getRole(mail);
 	}
+	
 	@Secured({"ROLE_ADMIN"})
 	@GetMapping("/nbruser")
 	public int nbrUser() {
 		return userser.getnbrUser();
 	}
 	
+	@PostMapping("/resetpwd/{mail}/{pwd}")
+	public void resetPwd(@PathVariable("mail") String mail,@PathVariable("pwd")String pwd) {
+		userser.ResetPwd(mail, pwd);
+	}
 }

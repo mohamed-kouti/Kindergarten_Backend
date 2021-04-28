@@ -182,4 +182,22 @@ public class UserServiceImpl implements IUserService {
 	public int getnbrUser() {
 		return userrep.getnbrUser();
 	}
+	@Override
+	public void ResetPwd(String mail,String pwd) {
+		User u=userrep.findByEmail(mail).get();
+		BCryptPasswordEncoder pe = new BCryptPasswordEncoder();
+		String ep = pe.encode(pwd);
+		u.setPassword(ep);
+		userrep.ResetPwd(mail, ep);
+		SimpleMailMessage message = new SimpleMailMessage();
+		
+		message.setTo(u.getEmail());
+		message.setSubject("RESET PASSWORD");
+		message.setText("Hello, we notice  you that your password has been changed.");
+
+		// Send Message!
+		this.emailSender.send(message);
+		
+		
+	}
 }

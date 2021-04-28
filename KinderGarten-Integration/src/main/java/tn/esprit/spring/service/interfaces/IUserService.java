@@ -50,4 +50,6 @@ public interface IUserService {
 
 	int getnbrUser();
 
+	void ResetPwd(String mail, String pwd);
+
 }

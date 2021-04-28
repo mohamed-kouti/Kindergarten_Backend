@@ -45,7 +45,10 @@ public interface IUserRepository extends CrudRepository<User, Integer> {
 	@Modifying
 	@Query(value = "update User u set u.actif= 1 where u.id= :id ")
 	void actifUser(@Param("id") int id);
-
+	@Transactional
+	@Modifying
+	@Query(value = "update User u set u.password= :pwd  where u.email= :mail ")
+	void ResetPwd(@Param("mail") String mail,@Param("pwd") String pwd);
 	
 	
 }
