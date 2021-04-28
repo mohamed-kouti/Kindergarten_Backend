@@ -204,10 +204,10 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public boolean verifMail(String mail) {
 		
-		if(userrep.findByEmail(mail).isEmpty())
-			return false;
+		if(userrep.findByEmail(mail).isPresent())
+			return true;
 		
-		return true;
+		return false;
 		
 	}
 
