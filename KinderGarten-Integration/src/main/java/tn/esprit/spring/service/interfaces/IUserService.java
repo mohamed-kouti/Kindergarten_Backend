@@ -52,4 +52,6 @@ public interface IUserService {
 
 	void ResetPwd(String mail, String pwd);
 
+	boolean verifMail(String mail);
+
 }

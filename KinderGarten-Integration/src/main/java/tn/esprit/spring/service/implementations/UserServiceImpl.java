@@ -200,4 +200,15 @@ public class UserServiceImpl implements IUserService {
 		
 		
 	}
+	
+	@Override
+	public boolean verifMail(String mail) {
+		
+		if(userrep.findByEmail(mail).isEmpty())
+			return false;
+		
+		return true;
+		
+	}
+
 }

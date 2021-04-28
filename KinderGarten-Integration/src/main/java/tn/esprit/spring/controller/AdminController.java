@@ -135,4 +135,12 @@ public class AdminController {
 	public void resetPwd(@PathVariable("mail") String mail,@PathVariable("pwd")String pwd) {
 		userser.ResetPwd(mail, pwd);
 	}
+	@PostMapping("/verifmail/{mail}")
+	public boolean VerifMail(@PathVariable("mail")String mail) {
+		return userser.verifMail(mail);
+	}
+	@GetMapping("/getuser/{id}")
+	public User getUser(@PathVariable("id")int id) {
+		return userser.getUserById(id);
+	}
 }
