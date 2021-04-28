@@ -65,6 +65,13 @@ public class KindergartenController {
 	return  kindergart ;
     }
 	
+	//http://localhost:8081/kindergarten/servlet/kindergarten/update/{id}
+	@PutMapping("/update/{id}")
+	public KinderGarten updatekinderg(@PathVariable int id, @RequestBody KinderGarten k) {
+		kindergartenService.updateKindergById(id,k);
+		return k;
+	}
+	
 	//http://localhost:8081/kindergarten/servlet/kindergarten/remove-kindergarten/{user-id}
 		@DeleteMapping("/remove-kindergarten/{kinder-id}")
 		@ResponseBody
@@ -88,9 +95,14 @@ public class KindergartenController {
     public List<KinderGarten> getKinderGartenByPlace(@PathVariable String place){
 	  List<KinderGarten> p = kindergartenService.getKinderGartenByPlace(place);
 	  return p;
-  }
-	
-	
+  }      
+         //http://localhost:8081/kindergarten/servlet/kindergarten/kinderG/retrieveById/{id}
+	     @GetMapping("/kinderG/retrieveById/{id}")
+         public KinderGarten getKindergartenById(@PathVariable("id") int id){
+        	 KinderGarten k= kindergartenService.getkindergartenById(id);
+        	 return k;
+         }
+   	
 	    //http://localhost:8081/kindergarten/servlet/kindergarten/kinderG/retrieve-kinderG-ById/{id}
 		@GetMapping("/kinderG/retrieve-kinderG-ById/{id}")
 		public KinderGarten getKinderGById(@PathVariable("id") int id) {

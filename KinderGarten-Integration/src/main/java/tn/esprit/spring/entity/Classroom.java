@@ -27,7 +27,7 @@ public class Classroom implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int idclasse;
 	private String name;
 	private int nbr_max;
 	private int nbInscrit;
@@ -45,6 +45,7 @@ public class Classroom implements Serializable {
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "classroom" ,fetch= FetchType.EAGER)
 	private List<Child> childs;
+	
 	
 	@ManyToOne
 	private KinderGarten kindergarten;
@@ -69,10 +70,10 @@ public class Classroom implements Serializable {
 		this.kindergarten = kindergarten;
 	}
 
-	public Classroom(int id, String name, int nbr_max, int nbInscrit, Date datebegin, Date dateEnd, long periode,
+	public Classroom(int idclasse, String name, int nbr_max, int nbInscrit, Date datebegin, Date dateEnd, long periode,
 			Double price_T, Double price_M, List<Child> childs, KinderGarten kindergarten) {
 		super();
-		this.id = id;
+		this.idclasse = idclasse;
 		this.name = name;
 		this.nbr_max = nbr_max;
 		this.nbInscrit = nbInscrit;
@@ -85,15 +86,15 @@ public class Classroom implements Serializable {
 		this.kindergarten = kindergarten;
 	}
 
-	public int getId() {
-		return id;
+
+
+	public int getIdclasse() {
+		return idclasse;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setIdclasse(int idclasse) {
+		this.idclasse = idclasse;
 	}
-
-
 
 	public int getNbInscrit() {
 		return nbInscrit;
@@ -178,7 +179,7 @@ public class Classroom implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Classroom [id=" + id + ", name=" + name + ", nbr_max=" + nbr_max + ", nbInscrit=" + nbInscrit
+		return "Classroom [id=" + idclasse+ ", name=" + name + ", nbr_max=" + nbr_max + ", nbInscrit=" + nbInscrit
 				+ ", datebegin=" + datebegin + ", dateEnd=" + dateEnd + ", periode=" + periode + ", price_T=" + price_T
 				+ ", price_M=" + price_M + ", childs=" + childs + ", kindergarten=" + kindergarten + "]";
 	}

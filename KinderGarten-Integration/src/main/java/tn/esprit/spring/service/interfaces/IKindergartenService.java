@@ -27,6 +27,10 @@ public interface IKindergartenService {
     public List<Classroom> getClassesByKinderg(int id);
     public List<KinderGarten> chercherParZone(Double longi, Double lat,Double rayon);
     
+    // changes for asp
+    public KinderGarten updateKindergById(int id,KinderGarten kinder);
+    public KinderGarten getkindergartenById(int id);
+    
     
 	
 		

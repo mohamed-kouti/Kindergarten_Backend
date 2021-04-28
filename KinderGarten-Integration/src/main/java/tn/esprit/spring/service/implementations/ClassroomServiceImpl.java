@@ -63,6 +63,7 @@ public class ClassroomServiceImpl implements IClassroomService {
 	public List<Classroom> displayClassroomNonSaturated() {
 		return classeRepo.displayClassroomNonSaturated();
 	}
+	
 
     // Affect classes to a kindergarten
     @Override
@@ -75,7 +76,6 @@ public class ClassroomServiceImpl implements IClassroomService {
 		kinderRepo.save(kinder);
 		
 		return "Classroom affected succesfully to kindergarten";
-		
 		
 	}
 
@@ -103,7 +103,10 @@ public class ClassroomServiceImpl implements IClassroomService {
 			classeRepo.save(classes);
 			}
 			return classes;
-		}
+		} 
+	// asp
+  
+	
 	
 	@Override
 	public Classroom updateClassroom(int id, Classroom c) {
@@ -155,6 +158,53 @@ public class ClassroomServiceImpl implements IClassroomService {
 	public List<Classroom> findClassroomByKinderG(KinderGarten k) {
 		return classeRepo.findClassroomByKinder(k);
 	}*/
+
+
+	@Override
+	public Classroom getClasseById(int id) {
+		// TODO Auto-generated method stub
+		Classroom c = classeRepo.findById(id).get();
+		if(c==null) {return null;}
+		return c;
+	}
+
+
+	@Override
+	public List<Classroom> dispalayUnaffectedClass() {
+		// TODO Auto-generated method stub
+		return classeRepo.dispalayUnaffectedClasses();
+	}
+
+
+	/*@Override
+	public Classroom addClassroom(Classroom classes)
+	{
+		// TODO Auto-generated method stub
+		//KinderGarten kinder= kinderRepo.findById(idkinderG).get();
+		//classes.setKindergarten(kinder);
+		 , int idkinderG  
+				
+				if(classes.getDateEnd().before(classes.getDatebegin())) {
+					System.out.println("can't add classroom because datebegin is after the date end");
+				} 
+				else {
+					long p = Math.round((classes.getDateEnd().getTime() - classes.getDatebegin().getTime()) / (double) 86400000);
+					classes.setPeriode(p);
+					if(p <= 31) 
+					{ classes.setPrice_T(classes.getPrice_M());}
+					else if( p>31 && p<=63)
+					{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.1));} //600-600*0.1
+					else if( p>63 && p<=94) 
+					{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.2));}
+					else if( p>94 && p<120)
+					{ classes.setPrice_T(classes.getPrice_M() - (classes.getPrice_M() * 0.3));}
+					classeRepo.save(classes);
+					//kinderRepo.save(kinder);
+					}
+					return classes;
+		
+	}
+*/
 
 
 

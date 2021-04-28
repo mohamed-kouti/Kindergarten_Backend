@@ -49,7 +49,7 @@ public class KindergartenServiceImpl implements IKindergartenService {
 		return k;
 	}
 
-
+    
 	@Override
 	public List<KinderGarten> getKinderGartenByName(String k) {
 		return kindergartenRepo.getKindergartenByName(k);
@@ -78,6 +78,16 @@ public class KindergartenServiceImpl implements IKindergartenService {
 			return e ;  
 
 		}
+
+		@Override
+		public KinderGarten getkindergartenById(int id) {
+			// TODO Auto-generated method stub
+			KinderGarten k = kindergartenRepo.findById(id).get();
+			if(k==null) return null;
+			
+			return k;
+		}
+
 
 
 		
@@ -168,6 +178,26 @@ public class KindergartenServiceImpl implements IKindergartenService {
 				private static Double toRad(Double value) {
 					 return value * Math.PI / 180;
 					 }
+
+                // changes asp
+				@Override
+				public KinderGarten updateKindergById(int id,KinderGarten kinder) {
+					KinderGarten k = kindergartenRepo.findById(id).get();
+					k.setDescription(kinder.getDescription());
+					k.setName(kinder.getName());
+					k.setPhone(kinder.getPhone());
+					k.setDate_creation(kinder.getDate_creation());
+					k.setDatefinInscrit(kinder.getDatefinInscrit());
+					k.setLongi(kinder.getLongi());
+					k.setLatitude(kinder.getLatitude());
+					k.setPlace(kinder.getPlace());
+					k.setPrice(kinder.getPrice());
+					k.setNbr_emp(kinder.getNbr_emp());
+					k.setLogo(kinder.getLogo());
+					kindergartenRepo.save(kinder);
+					return k;
+				}
+
 
 
 				

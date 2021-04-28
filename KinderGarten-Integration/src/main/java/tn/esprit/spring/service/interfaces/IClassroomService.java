@@ -23,12 +23,17 @@ public interface IClassroomService {
        //public Classroom affecterClassesToKinderG(int idclasse, int idkinderG);
        public String affecterClassesToKinderG(int idclasse, int idkinderG);
        
-       public Classroom addClassroom(Classroom classes);
-       
+       public Classroom addClassroom(Classroom classes) ;
+       //,int idkinderG
        public Double RevenuePerYear(String year);
        
        public List<Classroom> displayClassroomByDate();
        public Classroom updateClassroom(int id, Classroom c);
+       public Classroom getClasseById(int id);
+       
+       public List<Classroom> dispalayUnaffectedClass();
+       
+       
     	//public List<Classroom> findClassroomByKinderG(KinderGarten k);
        
        //public Classroom getClasseByChildAge(Child c);

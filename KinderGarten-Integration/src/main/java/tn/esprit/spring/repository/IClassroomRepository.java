@@ -22,6 +22,9 @@ public interface IClassroomRepository extends CrudRepository<Classroom, Integer>
 	@Query("SELECT c FROM Classroom c ORDER BY c.datebegin ASC")
 	List<Classroom> displayClassroomByDate();
 	
+	//changes for asp
+	@Query("SELECT c FROM  Classroom c WHERE c.kindergarten=NULL")
+	public List<Classroom> dispalayUnaffectedClasses();
 /*
 	@Query("SELECT c FROM Classroom c WHERE c.kindergarten= :kinder")
 	public List<Classroom> findClassroomByKinder(@Param("kinder")int kinder);*/

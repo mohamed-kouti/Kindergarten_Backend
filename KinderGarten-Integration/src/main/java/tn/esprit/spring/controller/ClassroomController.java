@@ -50,6 +50,13 @@ public class ClassroomController {
 				Classroom c = classeService.addClassroom(classe);
 				return c ;
 			}
+			
+			//http://localhost:8081/kindergarten/servlet/classroom/retrieveById/{id}
+		     @GetMapping("/retrieveById/{id}")
+	         public Classroom getKindergartenById(@PathVariable("id") int id){
+	             Classroom k= classeService.getClasseById(id);	        	
+	             return k;
+	         }
 			//http://localhost:8081/kindergarten/servlet/classroom/update/{id}
 			@PutMapping("/update/{id}")
 			public Classroom updateClasse(@PathVariable int id, @RequestBody Classroom c) {
@@ -106,6 +113,12 @@ public class ClassroomController {
 			public List<Classroom> displayClassroomByDate(){
 				return classeService.displayClassroomByDate();
 			}
+			//http://localhost:8081/kindergarten/servlet/classroom/Classrrom/unaffectedClasses
+			@GetMapping("/Classrrom/unaffectedClasses")
+			public List<Classroom> displayUnaffectedClasses(){
+				return classeService.dispalayUnaffectedClass();
+			}
+			
 			
 		
 		
